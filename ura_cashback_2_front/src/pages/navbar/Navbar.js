@@ -2,7 +2,7 @@ import React from 'react';
 import {Nav, NavItem, NavLink} from 'reactstrap';
 import '../order/order.scss';
 
-function Navbar(props) {
+function Navbar() {
     // const [dropdownOpen, setDropdownOpen] = useState(false);
 
     // const toggle = () => setDropdownOpen(!dropdownOpen);
@@ -10,6 +10,7 @@ function Navbar(props) {
     return (
         <>
             <Nav tabs>
+
                 {/*<Dropdown nav isOpen={dropdownOpen} toggle={toggle}>*/}
                 {/*    <DropdownToggle nav caret>Dropdown</DropdownToggle>*/}
                 {/*    <DropdownMenu>*/}
@@ -20,7 +21,7 @@ function Navbar(props) {
                 {/*        <DropdownItem>Another Action</DropdownItem>*/}
                 {/*    </DropdownMenu>*/}
                 {/*</Dropdown>*/}
-                <h1 className="h1-navbar" style={{margin: "0 10% 0 2%"}}>Javohir dev</h1>
+                <h1 className="h1-navbar" style={{margin: "0 10% 0 2%"}}>Davohir dev</h1>
                 <NavItem>
                     <NavLink href="/Country">Country</NavLink>
                 </NavItem>
