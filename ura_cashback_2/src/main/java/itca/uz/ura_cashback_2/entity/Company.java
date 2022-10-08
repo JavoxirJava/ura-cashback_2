@@ -25,4 +25,6 @@ public class Company extends AbsEntity { //Ozod Samandar
 
     @OneToOne
     private Attachment attachment;
+
+    private boolean active;
 }
