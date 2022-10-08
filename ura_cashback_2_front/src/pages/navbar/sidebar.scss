@@ -1,0 +1,98 @@
+.sidebar {
+  .offcanvas.offcanvas-start.show {
+    transition: 0.3s !important;
+    width: 3.7% !important;
+    background: #1D2359;
+
+    &:hover {
+      cursor: pointer; //alias
+      width: 17% !important;
+      transition: 0.3s !important;
+    }
+  }
+}
+
+.sidebar-overflow {
+  overflow: hidden;
+  height: 540px;
+
+  a {
+    text-decoration: none !important;
+  }
+
+  img {
+    margin-left: 5% !important;
+    margin-right: 10% !important;
+
+    &:hover {
+      color: #928f8f;
+      //background-color: #928f8f;
+      cursor: alias;
+    }
+  }
+
+  h5 {
+    color: white;
+    overflow: hidden;
+    right: 0;
+    bottom: 0;
+    height: 6%;
+
+    &:hover {
+      transition: 0.4s;
+      color: #928f8f;
+      cursor: alias;
+    }
+  }
+}
+
+@media all and (min-width: 1600px) {
+  .sidebar {
+    .offcanvas.offcanvas-start.show {
+      img {
+        transition: 1s !important;
+        margin-left: 20% !important;
+        margin-right: 25% !important;
+      }
+
+      &:hover {
+        cursor: pointer; //alias
+        width: 13.5% !important;
+
+        .sidebar-overflow {
+          img {
+            transition: 1s;
+            margin-left: 10% !important;
+            margin-right: 10% !important;
+          }
+        }
+      }
+    }
+  }
+  .sidebar-overflow {
+    img {
+      margin-left: 20% !important;
+      margin-right: 25% !important;
+
+      &:hover {
+        color: #928f8f;
+        cursor: alias;
+      }
+    }
+
+    h5 {
+      color: white;
+      overflow: hidden;
+      right: 0;
+      bottom: 0;
+      height: 6%;
+
+      &:hover {
+        transition: 0.4s;
+        color: #928f8f;
+        cursor: alias;
+      }
+    }
+  }
+}
+
