@@ -1,11 +1,11 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
 import reportWebVitals from './reportWebVitals';
-import App from "./App";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'react-toastify/dist/ReactToastify.css';
 import {BrowserRouter} from "react-router-dom";
 import {ToastContainer} from "react-toastify";
+import App from "./routes/App";
 
 const container = document.getElementById('root');
 const root = createRoot(container);
