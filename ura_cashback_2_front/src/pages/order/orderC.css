@@ -1,0 +1,29 @@
+.ordertext{
+    position: absolute;
+    width: 92px;
+    height: 36px;
+    left: 110px;
+    top: 120px;
+
+    font-size: 35px;
+    line-height: 36px;
+    /* identical to box height, or 150% */
+
+    text-align: center;
+    letter-spacing: 0.1px;
+
+    color: #171725;
+
+}
+.box{
+    height: 54px;
+    width: 1453px;
+    border-radius: 15px;
+
+}
+.dumaloq{
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background: #FF974A;
+}
