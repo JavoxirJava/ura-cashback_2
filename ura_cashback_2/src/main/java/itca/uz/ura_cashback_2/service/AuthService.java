@@ -1,6 +1,7 @@
 package itca.uz.ura_cashback_2.service;
 
 
+import itca.uz.ura_cashback_2.entity.Company;
 import itca.uz.ura_cashback_2.entity.User;
 import itca.uz.ura_cashback_2.entity.enums.RoleName;
 import itca.uz.ura_cashback_2.payload.ApiResponse;
@@ -18,10 +19,7 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.ResourceAccessException;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.UUID;
-
+import java.util.*;
 
 
 @Service
@@ -49,6 +47,11 @@ public class AuthService implements UserDetailsService {
                 user.setPhoneNumber(authDto.getPhoneNumber());
                 user.setEmail(authDto.getEmail());
                 user.setPassword(authDto.getPassword());
+                user.setSalary(authDto.getSalary());
+                user.setCompany(authDto.getCompanyId().size() > 1
+                        ? companyRepository.findAllById(authDto.getCompanyId())
+                        : Collections.singletonList(companyRepository.findById(authDto.getCompanyId().get(0)).orElseThrow(() -> new ResourceAccessException("getCompany"))));
+                user.setCompany(companyRepository.findAllById(authDto.getCompanyId()));
                 user.setRoles(Collections.singleton(roleRepository.findRoleByRoleName(RoleName.ROLE_USER)));
                 authRepository.save(user);
                 return new ApiResponse("User saved", true);
