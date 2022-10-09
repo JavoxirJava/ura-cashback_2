@@ -15,6 +15,7 @@ class Order extends Component {
     }
 
     render() {
+
         const {orders, showModal, deleteModal, currentItem, dispatch} = this.props;
 
         const openModal = (item) => {
@@ -73,29 +74,13 @@ class Order extends Component {
                             orders.map((item, i) =>
                                 <tbody key={i}>
                                 <tr>
-                                    <td>
-                                        <p> Accepted
-                                        </p>
-                                    </td>
-
-                                    <td>
-                                        <p>{item.cash_price}</p>
-                                    </td>
-                                    <td>
-                                        <p>{item.cashback}</p>
-                                    </td>
-                                    <td>
-                                        <p>{item.comment}</p>
-                                    </td>
-                                    <td>
-
-                                    </td>
-                                    <td><Button color="warning" outline onClick={() => openModal(item)}>Edit</Button>
-                                    </td>
-                                    <td><Button color="danger" outline
-                                                onClick={() => openDeleteModal(item)}>Delete</Button></td>
+                                    <td>Accepted</td>
+                                    <td>{item.cash_price}</td>
+                                    <td>{item.cashback}</td>
+                                    <td>{item.comment}</td>
+                                    <td><Button color="warning" outline onClick={() => openModal(item)}>Edit</Button></td>
+                                    <td><Button color="danger" outline onClick={() => openDeleteModal(item)}>Delete</Button></td>
                                 </tr>
-
                                 </tbody>
                             )
                             : " Malumot mavjud emas"

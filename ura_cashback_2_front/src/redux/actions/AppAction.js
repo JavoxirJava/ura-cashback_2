@@ -71,7 +71,7 @@ export const saveCompany = (payload) => (dispatch) => {
         } else {
             toast.error("You cannot save company!")
         }
-    }).catch(err => {
+    }).catch(() => {
         toast.error("Error saving company!");
     })
 }
@@ -87,16 +87,16 @@ export const activeCompany = (payload) => (dispatch) => {
             types.REQUEST_ERROR
         ],
         data: payload.id
-    }).then(res => {
+    }).then(() => {
         dispatch(getCompany())
         toast.success("Company active successfully!");
-    }).catch(err => {
-        toast.error("Error active county!");
+    }).catch(() => {
+        toast.error("Error active company!");
     })
 }
 export const getOrder = () => (dispatch) => {
     dispatch({
-        api: api.getOrder(),
+        api: api.getOrders,
         types: [
             types.REQUEST_START,
             types.GET_ORDER_LIST,
@@ -120,7 +120,7 @@ export const saveOrder = (payload) => (dispatch) => {
         } else {
             toast.error("You cannot save company!")
         }
-    }).catch(err => {
+    }).catch(() => {
         toast.error("Error saving company!");
     })
 }
@@ -150,10 +150,10 @@ export const delOrder = (payload) => (dispatch) => {
             types.REQUEST_ERROR
         ],
         data: payload.id
-    }).then(res => {
+    }).then(() => {
         dispatch(getOrder())
         toast.success("County deleted successfully!");
-    }).catch(err => {
+    }).catch(() => {
         toast.error("Error delete order!");
     })
 }
@@ -176,7 +176,7 @@ export const addAttachmentAction = (payload) => (dispatch) => {
         });
         toast.success("Attachment saved successfully!");
         // dispatch(getValyutaies());
-    }).catch(err => {
+    }).catch(() => {
         toast.error("Error saving attachment!");
     })
 }
