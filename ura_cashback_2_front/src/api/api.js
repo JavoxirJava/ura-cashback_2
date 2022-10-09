@@ -5,6 +5,6 @@ export const api = {
     attachment: '/attachment',
     getAttachment: 'http://localhost/api/attachment/getFile/',
     users: "/api/auth",
-    userList: "/register/list",
+    userList: "/auth/list",
     role: "/role"
 }

@@ -25,6 +25,7 @@ const reducers = {
         state.orders = payload.payload
     },
     [types.GET_USER_LIST](state, payload) {
+        console.log(payload.payload);
         state.user = payload.payload
     },
     [types.REQUEST_SUCCESS](state) {

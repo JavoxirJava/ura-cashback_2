@@ -1,6 +1,7 @@
 package itca.uz.ura_cashback_2.service;
 
 
+
 import itca.uz.ura_cashback_2.entity.User;
 import itca.uz.ura_cashback_2.entity.enums.RoleName;
 import itca.uz.ura_cashback_2.payload.ApiResponse;
@@ -20,8 +21,9 @@ import org.springframework.web.client.ResourceAccessException;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.UUID;
-
+import java.util.stream.Collectors;
 
 
 @Service
@@ -91,6 +93,11 @@ public class AuthService implements UserDetailsService {
 //                user.getRoles().stream().map(Role::getRoleName).collect(Collectors.toList())
 //        );
 //    }
+
+
+    public List<User> getUser(){
+        return authRepository.findAll();
+    }
 
 
 

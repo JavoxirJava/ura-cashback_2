@@ -15,6 +15,7 @@ function App() {
         <Routes>
             <Route path='/order' element={<Order/>}/>
             <Route path='/*' element={<NotFount/>}/>
+            <Route path='/authAdmin' element={<AuthAdmin/>}/>
         </Routes>
       </Provider>
   );

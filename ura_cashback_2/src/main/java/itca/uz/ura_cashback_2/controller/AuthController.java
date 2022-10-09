@@ -5,10 +5,8 @@ import itca.uz.ura_cashback_2.payload.ApiResponse;
 import itca.uz.ura_cashback_2.payload.AuthDto;
 import itca.uz.ura_cashback_2.payload.ReqLogin;
 import itca.uz.ura_cashback_2.repository.AuthRepository;
-import itca.uz.ura_cashback_2.security.CurrentUser;
 import itca.uz.ura_cashback_2.security.JwtTokenProvider;
 import itca.uz.ura_cashback_2.service.AuthService;
-import itca.uz.ura_cashback_2.utils.AppConstant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
@@ -21,7 +19,8 @@ import org.springframework.web.client.ResourceAccessException;
 import java.util.UUID;
 
 @RestController
-@RequestMapping(path = "api/auth")
+@RequestMapping(path = "/api/auth")
+@CrossOrigin
 
 public class AuthController {
 
@@ -54,11 +53,16 @@ public class AuthController {
     }
 
 
-    @GetMapping
-    public HttpEntity<?> getUserPage(@RequestParam(value = "page",defaultValue = AppConstant.DEFAULT_PAGE) int page,
-                                     @RequestParam(value = "size",defaultValue = AppConstant.DEFAULT_SIZE) int size,
-                                     @CurrentUser User user) throws Exception {
-        return ResponseEntity.ok(authService.getUserList(page,size,user));
+//    @GetMapping("/list")
+//    public HttpEntity<?> getUserPage(@RequestParam(value = "page",defaultValue = AppConstant.DEFAULT_PAGE) int page,
+//                                     @RequestParam(value = "size",defaultValue = AppConstant.DEFAULT_SIZE) int size,
+//                                     @CurrentUser User user) throws Exception {
+//        return ResponseEntity.ok(authService.getUserList(page,size,user));
+//    }
+
+    @GetMapping("/list")
+    public HttpEntity<?> getUser(){
+        return ResponseEntity.ok(authService.getUser());
     }
 
     @PostMapping("/login")
