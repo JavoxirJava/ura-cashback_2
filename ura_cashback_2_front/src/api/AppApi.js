@@ -50,8 +50,8 @@ export const addCompany = (data) => {
 export const editCompany = (data) => {
     return HttpClient.doPut(api.company + "/" + data.id, data);
 }
-export const activeCompany = (data) => {
-    return HttpClient.doDelete(api.company + "/active/" + data);
+export const activeCompany12 = (data) => {
+    return HttpClient.doPut(api.company + "/active/" + data);
 }
 //*****************************************************************=> Attachment
 export const addAttachment = (data) => {

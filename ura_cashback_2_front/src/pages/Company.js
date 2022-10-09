@@ -2,11 +2,12 @@ import React, {Component} from 'react';
 import {connect} from "react-redux";
 import {
     activeCompany,
-    addAttachmentAction, editCompanyEnabled,
+    addAttachmentAction,
     getCompany,
     saveCompany,
 } from "../redux/actions/AppAction";
 import {Button, Col, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader, Row, Table} from "reactstrap";
+import {api} from "../api/api";
 import './style.scss';
 class Company extends Component {
 
@@ -15,7 +16,7 @@ class Company extends Component {
     }
 
     render() {
-        const {company, dispatch, showModal, deleteShowModal, currentCompany, attachmentId} = this.props;
+        const {company, dispatch, showModal, currentCompany, attachmentId, active} = this.props;
 
         const openModal = (item) => {
             dispatch({
@@ -33,18 +34,16 @@ class Company extends Component {
             this.props.dispatch(addAttachmentAction(obj));
         }
 
-        const deleteModal = (item) => {
+        const changeActive = () => {
             dispatch({
                 type: 'updateState',
                 payload: {
-                    deleteShowModal: !deleteShowModal,
-                    currentCompany: item
+                    active: !active
                 }
             })
         }
-
-        const changeActive = (item) => {
-            this.props.dispatch(editCompanyEnabled(item.id));
+        const changeActiveCompany = (item) => {
+            this.props.dispatch(activeCompany(item));
         }
 
         const addCompany = () => {
@@ -54,39 +53,31 @@ class Company extends Component {
             let percentage = document.getElementById("percentage").value;
             let obj;
             if (currentCompany) {
-                obj = {id: currentCompany.id, name, bio, description, attachmentId: attachmentId.payload, percentage, }
+                obj = {id: currentCompany.id, name, bio, description, percentage, attachmentId: attachmentId.payload , active}
             } else {
-                obj = {name, bio, description, attachmentId: attachmentId.payload, percentage}
+                obj = {name, bio, description, percentage, attachmentId: attachmentId.payload, active}
             }
-            console.log(obj)
             this.props.dispatch(saveCompany(obj));
         }
 
-        const deleteCompany = () => {
-            this.props.dispatch(activeCompany(currentCompany));
-        }
 
-        console.log(company)
+
         return (
             <div>
                 <div>
                     <h2 className="text-center">Company List</h2>
-                    <Button className="btn btn-primary" onClick={openModal}>Add</Button>
+                    <Button className="btn btn-primary" onClick={openModal}>Add Country</Button>
                     <Table>
                         <thead>
                         <tr>
                             <th>#</th>
+                            <th>Attachment</th>
                             <th>Name</th>
                             <th>Bio</th>
                             <th>Description</th>
-                            <th>Category</th>
-                            <th>Valyuta</th>
-                            <th>Contact</th>
                             <th>Percentage</th>
-                            <th>WorkTime</th>
-                            {/*<th>User</th>*/}
-                            {/*<th>Order</th>*/}
-                            <th colSpan='3'>Action</th>
+                            <th>Active</th>
+                            <th colSpan='1'>Action</th>
                         </tr>
                         </thead>
                         {company.length !== null ?
@@ -94,21 +85,21 @@ class Company extends Component {
                                 <tbody key={i}>
                                 <tr>
                                     <td>{i + 1}</td>
+                                    <td><img className="company-img" src={api.getAttachment + item.attachment.id}
+                                             alt="not"/></td>
                                     <td>{item.name}</td>
                                     <td>{item.bio}</td>
                                     <td>{item.description}</td>
                                     <td>{item.percentage}</td>
-                                    <td>
-                                        <Row>
-                                            <Label check for="active">
-                                                <Input type="checkbox" className='mb-2' id="active" checked={item.enabled}
-                                                       onChange={() => changeActive(item)}/>
-                                                {item.enabled ? "Active" : "Inactive"}
-                                            </Label>
-                                        </Row>
-                                    </td>
+                                    <td><Row>
+                                        <Label check for="active">
+                                            <div className="form-check form-switch">
+                                                <Input type="checkbox"
+                                                       onChange={() => {changeActive();changeActiveCompany(item.id)}}/>
+                                            </div>
+                                        </Label>
+                                    </Row></td>
                                     <td><Button color="warning" outline onClick={() => openModal(item)}>Edit</Button></td>
-                                    <td><Button color="danger" outline onClick={() => deleteModal(item)}>Delete</Button></td>
                                 </tr>
                                 </tbody>
                             )
@@ -142,19 +133,20 @@ class Company extends Component {
                                        required accept="image/*"/>
                             </Col>
                         </Row>
+
                     </ModalBody>
                     <ModalFooter>
                         <Button color='light' onClick={openModal}>Cancel</Button>
                         <Button color='primary' onClick={addCompany}>Save</Button>
                     </ModalFooter>
                 </Modal>
-                <Modal isOpen={deleteShowModal}>
-                    <ModalHeader>{currentCompany.name} delete company</ModalHeader>
-                    <ModalFooter>
-                        <Button color='light' onClick={() => deleteModal("")}>Cancel</Button>
-                        <Button color='primary' onClick={() => {deleteCompany();deleteModal("")}}>Delete</Button>
-                    </ModalFooter>
-                </Modal>
+                {/*<Modal isOpen={deleteShowModal}>*/}
+                {/*    <ModalHeader>{currentCompany.name} delete company</ModalHeader>*/}
+                {/*    <ModalFooter>*/}
+                {/*        <Button color='light' onClick={() => deleteModal("")}>Cancel</Button>*/}
+                {/*        <Button color='primary' onClick={() => {deleteCompany();deleteModal("")}}>Delete</Button>*/}
+                {/*    </ModalFooter>*/}
+                {/*</Modal>*/}
             </div>
         );
     }
@@ -164,7 +156,7 @@ Company.propTypes = {};
 
 export default connect(
     ({
-         app: {company, showModal, deleteShowModal, currentCompany, attachmentId}
+         app: {company, showModal, deleteShowModal, currentCompany, attachmentId, active}
      }) =>
-        ({company, showModal, deleteShowModal, currentCompany, attachmentId})
+        ({company, showModal, deleteShowModal, currentCompany, attachmentId, active})
 )(Company);

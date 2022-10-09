@@ -1,12 +1,7 @@
-// import data from "bootstrap/js/src/dom/data";
 import * as api from "../../api/AppApi";
-import {addAttachment, getRoles} from "../../api/AppApi";
-import {
-    addAttachment,
-    getRoles,
-} from "../../api/AppApi";
 import * as types from "../actionTypes/AppActionTypes";
 import {toast} from "react-toastify";
+import {addAttachment} from "../../api/AppApi";
 
 export const getUser = () => (dispatch) => {
     dispatch({
@@ -39,23 +34,9 @@ export const saveUser = (payload) => (dispatch) => {
     })
 }
 
-export const removeUser = (payload) => (dispatch) => {
-    dispatch({
-        api: api.deleteUser,
-        types: [
-            types.REQUEST_START,
-            types.REQUEST_SUCCESS,
-            types.REQUEST_ERROR
-        ],
-        data: payload.id
-    }).then(res => {
-        dispatch(getUser())
-        toast.success(res);
-    })
-}
 export const getRole = () => (dispatch) => {
     dispatch({
-        api: getRoles,
+        api: getRole,
         types: [
             types.REQUEST_START,
             types.GET_ROLE_LIST,
@@ -76,7 +57,7 @@ export const getCompany = () => (dispatch) => {
 }
 export const saveCompany = (payload) => (dispatch) => {
     dispatch({
-        api: api.addCompany,
+        api: payload.id ? api.editCompany : api.addCompany,
         types: [
             types.REQUEST_START,
             types.REQUEST_SUCCESS,
@@ -95,25 +76,11 @@ export const saveCompany = (payload) => (dispatch) => {
     })
 }
 
-export const editCompanyEnabled = (payload) => (dispatch) => {
-    dispatch({
-        api: api.editCompany(payload),
-        types: [
-            types.REQUEST_START,
-            types.REQUEST_SUCCESS,
-            types.REQUEST_ERROR
-        ],
-    }).then(res => {
-        dispatch(getCompany())
-        toast.success(res);
-    });
-}
-
 
 export const activeCompany = (payload) => (dispatch) => {
 
     dispatch({
-        api: api.activeCompany(payload),
+        api: api.activeCompany12(payload),
         types: [
             types.REQUEST_START,
             types.REQUEST_SUCCESS,
