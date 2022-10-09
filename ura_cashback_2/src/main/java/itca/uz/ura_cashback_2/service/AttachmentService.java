@@ -17,10 +17,15 @@ import java.util.UUID;
 
 @Service
 public class AttachmentService {
-    @Autowired
+    final
     AttachmentRepository attachmentRepository;
-    @Autowired
+    final
     AttachmentContentRepository attachmentContentRepository;
+
+    public AttachmentService(AttachmentRepository attachmentRepository, AttachmentContentRepository attachmentContentRepository) {
+        this.attachmentRepository = attachmentRepository;
+        this.attachmentContentRepository = attachmentContentRepository;
+    }
 
 
     public UUID upload(MultipartHttpServletRequest request) throws IOException {

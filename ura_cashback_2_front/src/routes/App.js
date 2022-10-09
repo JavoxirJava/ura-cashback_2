@@ -6,6 +6,7 @@ import Navbar from "../pages/navbar/Navbar";
 import Sidebar from "../pages/navbar/Sidebar";
 import AuthAdmin from "../pages/AuthAdmin";
 import Order from "../pages/order/Order";
+import Company from "../pages/Company";
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path='/*' element={<NotFount/>}/>
           <Route path='/authAdmin' element={<AuthAdmin/>}/>
             <Route path='/order' element={<Order/>}/>
+            <Route path='/company' element={<Company/>}/>
             <Route path='/*' element={<NotFount/>}/>
         </Routes>
       </Provider>
