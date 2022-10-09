@@ -18,7 +18,7 @@ import java.util.Set;
 @NoArgsConstructor
 @Data
 @Entity(name = "users")
-public class User extends AbsEntity implements UserDetails { //Sahzod, Shahribonu, Sherzod aka
+public class User extends AbsEntity implements UserDetails { //Shahzod aka, Shahribonu, Sherzod aka
     @Column(nullable = false)
     private String firstName;
 
