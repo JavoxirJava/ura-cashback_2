@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="ura-cashback_2@localhost" uuid="15f01bf3-1951-48d8-85bf-6bd723ed44ff">
+    <data-source source="LOCAL" name="app_ura_cashback_2@localhost" uuid="d57bf5e5-12f9-4a5c-b1db-630d2c0210a1">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
-      <jdbc-url>jdbc:postgresql://localhost:5432/ura-cashback_2</jdbc-url>
+      <jdbc-url>jdbc:postgresql://localhost:5432/app_ura_cashback_2</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
   </component>

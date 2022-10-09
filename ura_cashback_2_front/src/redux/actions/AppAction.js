@@ -1,24 +1,5 @@
-// import data from "bootstrap/js/src/dom/data";
 import * as api from "../../api/AppApi";
-import {
-    addAttachment,
-    addCountry,
-    addValyuta,
-    deleteProductCategories,
-    getCountries,
-    getProductCategories,
-    getProductes,
-    getRoles,
-    getValyutaies,
-    saveProductCategories,
-    addProduct,
-    getCategories,
-    addCategory,
-    getUserCompanyList,
-    getLevels,
-    addLevel,
-    getLevelUsers, addLevelUser
-} from "../../api/AppApi";
+import {addAttachment, getRoles} from "../../api/AppApi";
 import * as types from "../actionTypes/AppActionTypes";
 import {toast} from "react-toastify";
 
@@ -88,7 +69,7 @@ export const getOrder = () => (dispatch) => {
         ]
     });
 }
-
+//company
 export const getCompany = () => (dispatch) => {
     dispatch({
         api: api.getCompanies,
@@ -122,7 +103,7 @@ export const saveCompany = (payload) => (dispatch) => {
 
 export const editCompanyEnabled = (payload) => (dispatch) => {
     dispatch({
-        api: api.editEnabledCompany(payload),
+        api: api.editCompany(payload),
         types: [
             types.REQUEST_START,
             types.REQUEST_SUCCESS,
@@ -135,10 +116,10 @@ export const editCompanyEnabled = (payload) => (dispatch) => {
 }
 
 
-export const removeCompany = (payload) => (dispatch) => {
+export const activeCompany = (payload) => (dispatch) => {
 
     dispatch({
-        api: api.deleteCompany,
+        api: api.activeCompany(payload),
         types: [
             types.REQUEST_START,
             types.REQUEST_SUCCESS,
@@ -147,11 +128,12 @@ export const removeCompany = (payload) => (dispatch) => {
         data: payload.id
     }).then(res => {
         dispatch(getCompany())
-        toast.success("County deleted successfully!");
+        toast.success("Company active successfully!");
     }).catch(err => {
-        toast.error("Error delete county!");
+        toast.error("Error active county!");
     })
 }
+//finish
 export const addAttachmentAction = (payload) => (dispatch) => {
     dispatch({
         api: addAttachment,
