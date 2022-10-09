@@ -15,6 +15,7 @@ class Order extends Component {
     }
 
     render() {
+
         const {orders, showModal, deleteModal, currentItem, dispatch} = this.props;
 
         const openModal = (item) => {
@@ -24,7 +25,8 @@ class Order extends Component {
                     showModal: !showModal,
                     currentItem: item
                 }
-            })
+            });
+            console.log(showModal)
         };
         const openDeleteModal = (item) => {
             dispatch({
@@ -73,29 +75,13 @@ class Order extends Component {
                             orders.map((item, i) =>
                                 <tbody key={i}>
                                 <tr>
-                                    <td>
-                                        <p> Accepted
-                                        </p>
-                                    </td>
-
-                                    <td>
-                                        <p>{item.cash_price}</p>
-                                    </td>
-                                    <td>
-                                        <p>{item.cashback}</p>
-                                    </td>
-                                    <td>
-                                        <p>{item.comment}</p>
-                                    </td>
-                                    <td>
-
-                                    </td>
-                                    <td><Button color="warning" outline onClick={() => openModal(item)}>Edit</Button>
-                                    </td>
-                                    <td><Button color="danger" outline
-                                                onClick={() => openDeleteModal(item)}>Delete</Button></td>
+                                    <td>Accepted</td>
+                                    <td>{item.cash_price}</td>
+                                    <td>{item.cashback}</td>
+                                    <td>{item.comment}</td>
+                                    <td><Button color="warning" outline onClick={() => openModal(item)}>Edit</Button></td>
+                                    <td><Button color="danger" outline onClick={() => openDeleteModal(item)}>Delete</Button></td>
                                 </tr>
-
                                 </tbody>
                             )
                             : " Malumot mavjud emas"
@@ -104,19 +90,19 @@ class Order extends Component {
                     <div>
                         <Button
                             color="primary"
-                            onClick={showModal}>
+                            onClick={openModal}>
                             Open
                         </Button>
-                        <Offcanvas isOpen={showModal}>
-                            <OffcanvasHeader>
-                                {currentItem ? "Edit order" : "Add order"}
+                        <Offcanvas isOpen={showModal} toggle={openModal} >
+                            <OffcanvasHeader toggle={openModal}>
+                                {currentItem.id ? "Edit order" : "Add order"}
                             </OffcanvasHeader>
                             <OffcanvasBody>
                                 <strong>
                                     This is the Offcanvas body.
                                 </strong>
                             </OffcanvasBody>
-                            <Button color="success" onClick={showModal}/>
+                            <Button color="success" onClick={openModal}>yop</Button>
                         </Offcanvas>
                     </div>
                 </div>

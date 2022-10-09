@@ -13,7 +13,7 @@ import java.util.UUID;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/api/order/")
+@RequestMapping("/api/order")
 public class OrderController {
     @Autowired
     OrderService orderService;

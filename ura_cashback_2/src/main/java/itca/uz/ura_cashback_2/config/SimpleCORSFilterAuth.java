@@ -44,4 +44,4 @@ public class SimpleCORSFilterAuth extends CorsFilter {
 
     }
 }
-}
+
