@@ -21,7 +21,7 @@ public class Company extends AbsEntity { //Ozod Samandar
 
     private String description;
 
-    private Double percentage;
+        private Double percentage;
 
     @OneToOne
     private Attachment attachment;
