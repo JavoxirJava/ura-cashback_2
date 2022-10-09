@@ -1,6 +1,6 @@
 package itca.uz.ura_cashback_2.service;
 
-import itca.uz.ura_cashback_2.entity.Company;
+
 import itca.uz.ura_cashback_2.entity.User;
 import itca.uz.ura_cashback_2.entity.enums.RoleName;
 import itca.uz.ura_cashback_2.payload.ApiResponse;
@@ -20,8 +20,8 @@ import org.springframework.web.client.ResourceAccessException;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 import java.util.UUID;
+
 
 
 @Service
@@ -41,7 +41,7 @@ public class AuthService implements UserDetailsService {
         this.roleRepository = roleRepository;
     }
 
-    public ApiResponse registerClient(User user, AuthDto authDto){
+    public ApiResponse addOrEditRegisterClient(User user, AuthDto authDto){
         if (!authRepository.existsByPhoneNumberEqualsIgnoreCaseAndEmailEqualsIgnoreCase(authDto.getPhoneNumber(), authDto.getEmail())){
             if (authDto.getPassword().equals(authDto.getPrePassword())){
                 user.setFirstName(authDto.getFirstName());
@@ -59,15 +59,13 @@ public class AuthService implements UserDetailsService {
     }
 
 
-
-    public User getOneUser(UUID id){
-        return authRepository.findById(id).orElseThrow(() -> new UsernameNotFoundException("getUser"));
-    }
-
-    public ApiResponse deleteCompany(UUID id){
+    public ApiResponse deleteClient(UUID id){
         authRepository.deleteById(id);
-        return new ApiResponse("User deleted", true);
+        return new ApiResponse("Successfully delete client",true);
     }
+
+
+
 
     public ResPageable getUserList(int page, int size, User user) throws Exception {
         Page<User> allUser = authRepository.findAll(CommonUtils.getPageable(page, size));
@@ -80,16 +78,28 @@ public class AuthService implements UserDetailsService {
         );
     }
 
-    public List<Company> getUserCompany(UUID id) {
-        return companyRepository.findByUserEquals(getOneUser(id));
-    }
+//    public AuthDto getUser(User user){
+//        return new AuthDto(
+//                user.getId(),
+//                user.getFirstName(),
+//                user.getLastName(),
+//                user.getPhoneNumber(),
+//                user.getEmail(),
+//                user.getSalary(),
+//                user.getPassword(),
+//                user.getCompany().stream().map(Company::getName).collect(Collectors.toList()),
+//                user.getRoles().stream().map(Role::getRoleName).collect(Collectors.toList())
+//        );
+//    }
+
+
 
     @Override
     public UserDetails loadUserByUsername(String phoneNumber) throws UsernameNotFoundException {
         return authRepository.findByPhoneNumberEquals(phoneNumber).orElseThrow(() -> new UsernameNotFoundException("getUser"));
     }
 
-    public UserDetails getUserById(UUID id) {
+    public User getUserByToken(UUID id) {
         return authRepository.findById(id).orElseThrow(() -> new ResourceAccessException("getUser"));
     }
 }

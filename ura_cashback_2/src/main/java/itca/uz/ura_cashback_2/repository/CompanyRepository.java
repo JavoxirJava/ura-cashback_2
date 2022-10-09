@@ -11,5 +11,4 @@ public interface CompanyRepository extends JpaRepository<Company, UUID> {
     boolean existsCompanyByNameEqualsIgnoreCase(String name);
     boolean existsCompanyByAttachmentIdEquals(UUID attachment_id);
 
-    List<Company> findByUserEquals(User oneUser);
 }
