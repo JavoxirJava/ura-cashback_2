@@ -26,7 +26,7 @@ class Order extends Component {
                 }
 
             })
-        console.log(showModal)
+            console.log(showModal)
         };
         const openDeleteModal = (item) => {
             dispatch({
@@ -38,7 +38,7 @@ class Order extends Component {
             })
         };
 
-        const saveOrders = (e) => {
+        const saveOrders = () => {
             let obj;
             let id = currentItem.id ? currentItem.id : null;
             let comment = document.getElementById("comment").value;
@@ -52,16 +52,16 @@ class Order extends Component {
             }
             this.props.dispatch(saveOrder(obj))
         }
-        const deleteOrders = (e) => {
+        const deleteOrders = () => {
             this.props.dispatch(deleteOrder(currentItem))
         }
 
 
         return (
             <div>
-                <div className="container" style={{textAlign: "center"}}>
+                <div className="ms-5 me-5">
 
-                    <Table responsive="sm" style={{marginTop: "120px"}}>
+                    <Table style={{marginTop: "120px"}}>
                         <thead>
                         <tr>
                             <th>Status</th>
@@ -71,38 +71,22 @@ class Order extends Component {
                             <th colSpan={2}>Action</th>
                         </tr>
                         </thead>
-                        {orders.length != null ?
+                        {orders.length != null &&
                             orders.map((item, i) =>
                                 <tbody key={i}>
                                 <tr>
-                                    <td>
-                                        <p> Accepted
-                                        </p>
-                                    </td>
-
-                                    <td>
-                                        <p>{item.cash_price}</p>
-                                    </td>
-                                    <td>
-                                        <p>{item.cashback}</p>
-                                    </td>
-                                    <td>
-                                        <p>{item.comment}</p>
-                                    </td>
-                                    <td>
-
-                                    </td>
-                                    <td><Button color="warning" outline onClick={() => openModal(item)}>Edit</Button>
-                                    </td>
-                                    <td><Button color="danger" outline
-                                                onClick={() => openDeleteModal(item)}>Delete</Button></td>
+                                    <td>Accepted</td>
+                                    <td>{item.cash_price}</td>
+                                    <td>{item.cashback}</td>
+                                    <td>{item.comment}</td>
+                                    <td><Button color="warning" outline onClick={() => openModal(item)}>Edit</Button></td>
+                                    <td><Button color="danger" outline onClick={() => openDeleteModal(item)}>Delete</Button></td>
                                 </tr>
-
                                 </tbody>
                             )
-                            : " Malumot mavjud emas"
                         }
                     </Table>
+
                     <div>
                         <Button
                             color="primary"
@@ -111,13 +95,15 @@ class Order extends Component {
                         </Button>
                         <Offcanvas isOpen={showModal}>
                             <OffcanvasHeader toggle={openModal}>
-                                {"Add order"}
+                                {currentItem ? "Edit Order" : "Add order"}
                             </OffcanvasHeader>
                             <OffcanvasBody>
                                 <strong>
                                     <FormGroup>
                                         <Label for="examplePassword">Comment</Label>
-                                        <Input type="text" name="comment" id="comment" placeholder="Please enter comment" required={true} defaultValue={currentItem.id ? currentItem.comment : ""}/>
+                                        <Input type="text" name="comment" id="comment"
+                                               placeholder="Please enter comment" required={true}
+                                               defaultValue={currentItem ? currentItem.comment : ""}/>
                                     </FormGroup>
                                 </strong>
                             </OffcanvasBody>
