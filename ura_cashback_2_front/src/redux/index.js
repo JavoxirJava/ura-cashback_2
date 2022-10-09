@@ -4,7 +4,6 @@ import thunkMiddleware from "redux-thunk";
 import {applyMiddleware, compose, createStore} from "redux";
 import {rootReducer} from "./reducers/rootReducer";
 import apiMiddleware from "./ApiMiddleware";
-import App from "../routes/App";
 
 
 const history = createBrowserHistory();

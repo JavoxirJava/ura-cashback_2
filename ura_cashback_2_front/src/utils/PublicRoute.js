@@ -1,10 +1,10 @@
 import React from 'react';
 import {Route} from 'react-router-dom';
 // import {ORDER,NEW_USER_FOR_ORDER,ATTACHMENT, URL_ORDER,REGISTER_AGENT} from "./constants";
-import {useDispatch} from "react-redux";
+// import {useDispatch} from "react-redux";
 
 const PublicRoute = ({component: Component, ...rest}) => {
-    const dispatch = useDispatch()
+    // const dispatch = useDispatch()
     //
     // window.onhashchange = null;
     // if (window.location.pathname!=='/inPerson' && window.location.pathname!=='/online'){
