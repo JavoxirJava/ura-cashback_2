@@ -25,7 +25,8 @@ class Order extends Component {
                     showModal: !showModal,
                     currentItem: item
                 }
-            })
+            });
+            console.log(showModal)
         };
         const openDeleteModal = (item) => {
             dispatch({
@@ -89,19 +90,19 @@ class Order extends Component {
                     <div>
                         <Button
                             color="primary"
-                            onClick={showModal}>
+                            onClick={openModal}>
                             Open
                         </Button>
-                        <Offcanvas isOpen={showModal}>
-                            <OffcanvasHeader>
-                                {currentItem ? "Edit order" : "Add order"}
+                        <Offcanvas isOpen={showModal} toggle={openModal} keyboard={true}>
+                            <OffcanvasHeader toggle={openModal}>
+                                {currentItem.id ? "Edit order" : "Add order"}
                             </OffcanvasHeader>
                             <OffcanvasBody>
                                 <strong>
                                     This is the Offcanvas body.
                                 </strong>
                             </OffcanvasBody>
-                            <Button color="success" onClick={showModal}/>
+                            <Button color="success" onClick={openModal}>yop</Button>
                         </Offcanvas>
                     </div>
                 </div>
