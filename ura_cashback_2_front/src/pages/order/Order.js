@@ -93,7 +93,7 @@ class Order extends Component {
                             onClick={openModal}>
                             Open
                         </Button>
-                        <Offcanvas isOpen={showModal} toggle={openModal} keyboard={true}>
+                        <Offcanvas isOpen={showModal} toggle={openModal} >
                             <OffcanvasHeader toggle={openModal}>
                                 {currentItem.id ? "Edit order" : "Add order"}
                             </OffcanvasHeader>
