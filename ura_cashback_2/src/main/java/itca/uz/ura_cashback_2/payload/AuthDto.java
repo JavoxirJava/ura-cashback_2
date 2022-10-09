@@ -2,6 +2,7 @@ package itca.uz.ura_cashback_2.payload;
 
 import itca.uz.ura_cashback_2.entity.Company;
 import itca.uz.ura_cashback_2.entity.Role;
+import itca.uz.ura_cashback_2.entity.enums.RoleName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -33,4 +34,17 @@ public class AuthDto {
     private List<Company> company;
 
     private List<Role> roles;
+
+    public AuthDto(UUID id, String firstName, String lastName, String phoneNumber, String email, Double salary, String password, List<Company> company, List<Role> roles) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.phoneNumber = phoneNumber;
+        this.email = email;
+        this.salary = salary;
+        this.password = password;
+        this.company = company;
+        this.roles = roles;
+    }
+
 }

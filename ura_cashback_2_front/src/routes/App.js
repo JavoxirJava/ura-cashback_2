@@ -4,6 +4,7 @@ import {Route, Routes} from "react-router-dom";
 import NotFount from "../pages/notFaunt/NotFount";
 import Navbar from "../pages/navbar/Navbar";
 import Sidebar from "../pages/navbar/Sidebar";
+import AuthAdmin from "../pages/AuthAdmin";
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
           <Sidebar/>
         <Routes>
           <Route path='/*' element={<NotFount/>}/>
+          <Route path='/authAdmin' element={<AuthAdmin/>}/>
         </Routes>
       </Provider>
   );
