@@ -1,11 +1,7 @@
-// import data from "bootstrap/js/src/dom/data";
 import * as api from "../../api/AppApi";
-import {
-    addAttachment,
-    getRoles,
-} from "../../api/AppApi";
 import * as types from "../actionTypes/AppActionTypes";
 import {toast} from "react-toastify";
+import {addAttachment} from "../../api/AppApi";
 
 export const getUser = () => (dispatch) => {
     dispatch({
@@ -38,23 +34,9 @@ export const saveUser = (payload) => (dispatch) => {
     })
 }
 
-export const removeUser = (payload) => (dispatch) => {
-    dispatch({
-        api: api.deleteUser,
-        types: [
-            types.REQUEST_START,
-            types.REQUEST_SUCCESS,
-            types.REQUEST_ERROR
-        ],
-        data: payload.id
-    }).then(res => {
-        dispatch(getUser())
-        toast.success(res);
-    })
-}
 export const getRole = () => (dispatch) => {
     dispatch({
-        api: getRoles,
+        api: getRole,
         types: [
             types.REQUEST_START,
             types.GET_ROLE_LIST,
@@ -62,7 +44,7 @@ export const getRole = () => (dispatch) => {
         ]
     })
 }
-
+//company
 export const getCompany = () => (dispatch) => {
     dispatch({
         api: api.getCompanies,
@@ -75,7 +57,7 @@ export const getCompany = () => (dispatch) => {
 }
 export const saveCompany = (payload) => (dispatch) => {
     dispatch({
-        api: api.addCompany,
+        api: payload.id ? api.editCompany : api.addCompany,
         types: [
             types.REQUEST_START,
             types.REQUEST_SUCCESS,
@@ -94,25 +76,11 @@ export const saveCompany = (payload) => (dispatch) => {
     })
 }
 
-export const editCompanyEnabled = (payload) => (dispatch) => {
-    dispatch({
-        api: api.editEnabledCompany(payload),
-        types: [
-            types.REQUEST_START,
-            types.REQUEST_SUCCESS,
-            types.REQUEST_ERROR
-        ],
-    }).then(res => {
-        dispatch(getCompany())
-        toast.success(res);
-    });
-}
 
-
-export const removeCompany = (payload) => (dispatch) => {
+export const activeCompany = (payload) => (dispatch) => {
 
     dispatch({
-        api: api.deleteCompany,
+        api: api.activeCompany12(payload),
         types: [
             types.REQUEST_START,
             types.REQUEST_SUCCESS,
@@ -121,9 +89,9 @@ export const removeCompany = (payload) => (dispatch) => {
         data: payload.id
     }).then(res => {
         dispatch(getCompany())
-        toast.success("County deleted successfully!");
+        toast.success("Company active successfully!");
     }).catch(err => {
-        toast.error("Error delete county!");
+        toast.error("Error active county!");
     })
 }
 export const getOrder = () => (dispatch) => {
@@ -189,6 +157,7 @@ export const delOrder = (payload) => (dispatch) => {
         toast.error("Error delete order!");
     })
 }
+//finish
 export const addAttachmentAction = (payload) => (dispatch) => {
     dispatch({
         api: addAttachment,
@@ -206,6 +175,7 @@ export const addAttachmentAction = (payload) => (dispatch) => {
             }
         });
         toast.success("Attachment saved successfully!");
+        // dispatch(getValyutaies());
     }).catch(err => {
         toast.error("Error saving attachment!");
     })

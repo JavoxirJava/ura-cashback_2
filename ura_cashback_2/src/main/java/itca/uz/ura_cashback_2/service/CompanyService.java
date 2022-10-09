@@ -28,14 +28,15 @@ public class CompanyService {
     }
 
     public ApiResponse addCompany(CompanyDto companyDto, Company company){
-        if (companyRepository.existsCompanyByNameEqualsIgnoreCase(companyDto.getName())){
-            if (companyRepository.existsCompanyByAttachmentIdEquals(companyDto.getAttachmentId())){
+        if (!companyRepository.existsCompanyByNameEqualsIgnoreCase(companyDto.getName())){
+            if (!companyRepository.existsCompanyByAttachmentIdEquals(companyDto.getAttachmentId())){
                 company.setName(companyDto.getName());
                 company.setBio(companyDto.getBio());
                 company.setDescription(companyDto.getDescription());
                 company.setPercentage(companyDto.getPercentage());
                 company.setAttachment(attachmentRepository.findById(companyDto.getAttachmentId())
                         .orElseThrow(()-> new ResourceAccessException("GetAttachment")));
+                company.setActive(companyDto.isActive());
                 companyRepository.save(company);
                 return new ApiResponse("Successfully saved company", true);
             }
@@ -53,7 +54,8 @@ public class CompanyService {
                     company.getBio(),
                     company.getDescription(),
                     company.getPercentage(),
-                    company.getAttachment());
+                    company.getAttachment(),
+                    company.isActive());
         }
         return new CompanyDto();
     }
