@@ -4,6 +4,7 @@ import {Route, Routes} from "react-router-dom";
 import NotFount from "../pages/notFaunt/NotFount";
 import Navbar from "../pages/navbar/Navbar";
 import Sidebar from "../pages/navbar/Sidebar";
+import Order from "../pages/order/Order";
 
 function App() {
   return (
@@ -11,7 +12,8 @@ function App() {
         <Navbar/>
           <Sidebar/>
         <Routes>
-          <Route path='/*' element={<NotFount/>}/>
+            <Route path='/order' element={<Order/>}/>
+            <Route path='/*' element={<NotFount/>}/>
         </Routes>
       </Provider>
   );
