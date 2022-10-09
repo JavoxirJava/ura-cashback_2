@@ -13,21 +13,6 @@ class Order extends Component {
 
            <div>
                 <h1 className="order">Order</h1>
-               <div className="orderList">
-                   <div className="order1">fef</div>
-                   <div className="order2"></div>
-                   <div className="order3"></div>
-                   <div className="order4"></div>
-                   <div className="order5"></div>
-                   <div className="order6"></div>
-                   <div className="order7"></div>
-                   <div className="order8"></div>
-                   <div className="order9"></div>
-                   <div className="order10"></div>
-                   <div className="order11"></div>
-                   <div className="order12"></div>
-                   <div className="order13"></div>
-               </div>
             </div>
         );
     }

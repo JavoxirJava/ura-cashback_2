@@ -2,22 +2,7 @@
 import * as api from "../../api/AppApi";
 import {
     addAttachment,
-    addCountry,
-    addValyuta,
-    deleteProductCategories,
-    getCountries,
-    getProductCategories,
-    getProductes,
     getRoles,
-    getValyutaies,
-    saveProductCategories,
-    addProduct,
-    getCategories,
-    addCategory,
-    getUserCompanyList,
-    getLevels,
-    addLevel,
-    getLevelUsers, addLevelUser
 } from "../../api/AppApi";
 import * as types from "../actionTypes/AppActionTypes";
 import {toast} from "react-toastify";
@@ -221,7 +206,6 @@ export const addAttachmentAction = (payload) => (dispatch) => {
             }
         });
         toast.success("Attachment saved successfully!");
-        // dispatch(getValyutaies());
     }).catch(err => {
         toast.error("Error saving attachment!");
     })
