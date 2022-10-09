@@ -4,6 +4,7 @@ import itca.uz.ura_cashback_2.entity.Order;
 import itca.uz.ura_cashback_2.payload.ApiResponse;
 import itca.uz.ura_cashback_2.payload.OrderDto;
 import itca.uz.ura_cashback_2.service.OrderService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,14 +13,11 @@ import java.util.UUID;
 
 @RestController
 @CrossOrigin
-@RequestMapping("/api/order/")
+@RequestMapping("/api/order")
 public class OrderController {
+    @Autowired
+    OrderService orderService;
 
-    final OrderService orderService;
-
-    public OrderController(OrderService orderService) {
-        this.orderService = orderService;
-    }
 
     @GetMapping
     public HttpEntity<?> getOrderList() {

@@ -23,11 +23,11 @@ export const addUser = (data) => {
 export const editUser = (data) => {
     return HttpClient.doPut(api.users + "/" + data.id, data);
 }
-export const deleteUser = (data) => {
-    return HttpClient.doDelete(api.users + "/" + data);
+export const activeUser = (data) => {
+    return HttpClient.doPut(api.users + "/" + data);
 }
 //*****************************************************************=> Order
-export const getOrder = () => {
+export const getOrders = () => {
     return HttpClient.doGet(api.order);
 }
 export const addOrder = (data) => {
@@ -47,14 +47,11 @@ export const getCompanies = () => {
 export const addCompany = (data) => {
     return HttpClient.doPost(api.company, data);
 }
-export const editEnabledCompany = (data) => {
-    return HttpClient.doPut(api.company + "/enabled/" + data);
-}
 export const editCompany = (data) => {
     return HttpClient.doPut(api.company + "/" + data.id, data);
 }
-export const deleteCompany = (data) => {
-    return HttpClient.doDelete(api.company + "/" + data);
+export const activeCompany12 = (data) => {
+    return HttpClient.doPut(api.company + "/active/" + data);
 }
 //*****************************************************************=> Attachment
 export const addAttachment = (data) => {

@@ -31,20 +31,9 @@ public class AuthDto {
 
     private String prePassword;
 
-    private List<Company> company;
+    private List<UUID> companyId;
 
     private List<Role> roles;
 
-    public AuthDto(UUID id, String firstName, String lastName, String phoneNumber, String email, Double salary, String password, List<Company> company, List<Role> roles) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.phoneNumber = phoneNumber;
-        this.email = email;
-        this.salary = salary;
-        this.password = password;
-        this.company = company;
-        this.roles = roles;
-    }
 
 }

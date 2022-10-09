@@ -25,7 +25,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  {
     @Autowired
     JwtErrors jwtErrors;
 
-
     @Bean
     public PasswordEncoder passwordEncoder(){
         return new BCryptPasswordEncoder();
@@ -53,17 +52,17 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter  {
     @Override
     public void configure(HttpSecurity http) throws Exception {
         http
-                .exceptionHandling()
-                .authenticationEntryPoint(jwtErrors)
-                .and()
+//                .exceptionHandling()
+//                .authenticationEntryPoint(jwtErrors)
+//                .and()
                 .sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 .and()
                 .authorizeRequests()
-                .antMatchers("/api/**","/api/auth/**")
+                .antMatchers("/api/**","/api/auth/**", "/api/order/**")
                 .permitAll()
-//                .antMatchers("auth/**")
-//                .permitAll()
+                .antMatchers("api/**")
+                .permitAll()
                 .anyRequest()
                 .authenticated()
                 .and()

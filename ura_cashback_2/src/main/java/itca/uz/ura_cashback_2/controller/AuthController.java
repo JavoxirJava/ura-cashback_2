@@ -34,7 +34,7 @@ public class AuthController {
     AuthenticationManager authenticationManager;
 
     @PostMapping
-    public HttpEntity<?>  addAuth(@RequestBody AuthDto authDto){
+    public HttpEntity<?> addAuth(@RequestBody AuthDto authDto){
         ApiResponse apiResponse = authService.addOrEditRegisterClient(new User(), authDto);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }

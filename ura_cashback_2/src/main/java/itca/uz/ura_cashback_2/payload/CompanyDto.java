@@ -27,13 +27,14 @@ public class CompanyDto {
 
     private boolean active;
 
-    public CompanyDto(UUID id, String name, String bio, String description, Double percentage, Attachment attachment) {
+
+    public CompanyDto(UUID id, String name, String bio, String description, Double percentage, Attachment attachment, boolean active) {
         this.id = id;
         this.name = name;
         this.bio = bio;
         this.description = description;
         this.percentage = percentage;
         this.attachment = attachment;
+        this.active = active;
     }
-
 }
