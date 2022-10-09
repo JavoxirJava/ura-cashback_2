@@ -21,8 +21,8 @@ import org.springframework.web.client.ResourceAccessException;
 import java.util.UUID;
 
 @RestController
-@RequestMapping(path = "api/auth")
-
+@RequestMapping(path = "/api/auth")
+@CrossOrigin
 public class AuthController {
 
     @Autowired
@@ -35,7 +35,7 @@ public class AuthController {
     AuthenticationManager authenticationManager;
 
     @PostMapping
-    public HttpEntity<?>  addAuth(@RequestBody AuthDto authDto){
+    public HttpEntity<?> addAuth(@RequestBody AuthDto authDto){
         ApiResponse apiResponse = authService.addOrEditRegisterClient(new User(), authDto);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
