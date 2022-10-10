@@ -66,7 +66,7 @@ class Company extends Component {
             <div>
                 <div>
                     <h2 className="text-center">Company List</h2>
-                    <Button className="btn btn-primary" onClick={openModal}>Add Country</Button>
+                    <Button className="btn btn-primary" onClick={openModal}>Add Company</Button>
                     <Table>
                         <thead>
                         <tr>
