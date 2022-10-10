@@ -80,4 +80,9 @@ public class AuthController {
         return ResponseEntity.ok(new ReqLogin(user.getPhoneNumber(), user.getPassword()));
     }
 
+    @PutMapping("/active/{id}")
+    public HttpEntity<?> activeUser(@PathVariable UUID id){
+        return ResponseEntity.ok(authService.activeUser(id));
+    }
+
 }

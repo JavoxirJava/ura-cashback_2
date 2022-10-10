@@ -4,6 +4,7 @@ import {createReducer} from "../../utils/StoreUtils";
 
 const initState = {
     user: [],
+    activeUser: false,
     orders: [],
     roles: [],
     company: [],
@@ -26,7 +27,6 @@ const reducers = {
         state.orders = payload.payload
     },
     [types.GET_USER_LIST](state, payload) {
-        console.log(payload.payload);
         state.user = payload.payload
     },
     [types.REQUEST_SUCCESS](state) {

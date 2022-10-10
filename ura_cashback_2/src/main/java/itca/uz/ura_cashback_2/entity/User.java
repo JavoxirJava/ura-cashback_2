@@ -33,6 +33,8 @@ public class User extends AbsEntity implements UserDetails { //Shahzod aka, Shah
 
     private Double salary;
 
+    private boolean active;
+
     @Column(nullable = false)
     private String password;
 

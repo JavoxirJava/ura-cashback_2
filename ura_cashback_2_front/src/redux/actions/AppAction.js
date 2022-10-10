@@ -1,13 +1,14 @@
 import * as api from "../../api/AppApi";
 import {
-    addAttachment, addUser, deleteUser, editUser,
-    getRoles, getUsers,
+    activeUser,
+    addAttachment, addUser, editUser,
+    getUsers, removeUsers,
 } from "../../api/AppApi";
 import * as types from "../actionTypes/AppActionTypes";
 import {toast} from "react-toastify";
-import {addAttachment} from "../../api/AppApi";
 
 export const getUser = () => (dispatch) => {
+
     dispatch({
         api: getUsers,
         types: [
@@ -40,7 +41,7 @@ export const saveUser = (payload) => (dispatch) => {
 
 export const removeUser = (payload) => (dispatch) => {
     dispatch({
-        api: deleteUser,
+        api: removeUsers,
         types: [
             types.REQUEST_START,
             types.REQUEST_SUCCESS,
@@ -52,6 +53,21 @@ export const removeUser = (payload) => (dispatch) => {
         toast.success(res);
     })
 }
+export const isActiveUser = (payload) =>(dispatch)=>{
+    dispatch({
+        api: activeUser,
+        types: [
+            types.REQUEST_START,
+            types.REQUEST_SUCCESS,
+            types.REQUEST_ERROR
+        ],
+        data:payload
+    }).then(res=>{
+        dispatch(getUser())
+    })
+}
+
+
 export const getRole = () => (dispatch) => {
     dispatch({
         api: getRole,
