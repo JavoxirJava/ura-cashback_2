@@ -4,7 +4,7 @@ export const api = {
     company: '/company',
     attachment: '/attachment',
     getAttachment: 'http://localhost/api/attachment/getFile/',
-    users: "/api/auth",
-    userList: "/register/list",
+    users: "/auth",
+    userList: "/auth/list",
     role: "/role"
 }

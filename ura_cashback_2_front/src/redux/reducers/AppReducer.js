@@ -4,6 +4,7 @@ import {createReducer} from "../../utils/StoreUtils";
 
 const initState = {
     user: [],
+    activeUser: false,
     orders: [],
     roles: [],
     company: [],
