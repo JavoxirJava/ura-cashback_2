@@ -28,7 +28,7 @@ export const activeUser = (data) => {
 }
 //*****************************************************************=> Order
 export const getOrders = () => {
-    return HttpClient.doGet(api.order);
+    return HttpClient.doGet(api.order + "/list");
 }
 export const addOrder = (data) => {
     return HttpClient.doPost(api.order, data);

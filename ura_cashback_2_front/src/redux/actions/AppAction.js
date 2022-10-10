@@ -1,7 +1,7 @@
 import * as api from "../../api/AppApi";
 import * as types from "../actionTypes/AppActionTypes";
 import {toast} from "react-toastify";
-import {addAttachment} from "../../api/AppApi";
+import {addAttachment, addOrder, deleteOrder, editOrder, getOrders} from "../../api/AppApi";
 
 export const getUser = () => (dispatch) => {
     dispatch({
@@ -96,7 +96,7 @@ export const activeCompany = (payload) => (dispatch) => {
 }
 export const getOrder = () => (dispatch) => {
     dispatch({
-        api: api.getOrders,
+        api: getOrders,
         types: [
             types.REQUEST_START,
             types.GET_ORDER_LIST,
@@ -106,7 +106,7 @@ export const getOrder = () => (dispatch) => {
 }
 export const saveOrder = (payload) => (dispatch) => {
     dispatch({
-        api: api.addOrder,
+        api: addOrder,
         types: [
             types.REQUEST_START,
             types.REQUEST_SUCCESS,
@@ -125,9 +125,9 @@ export const saveOrder = (payload) => (dispatch) => {
     })
 }
 
-export const editOrder = (payload) => (dispatch) => {
+export const editOrders = (payload) => (dispatch) => {
     dispatch({
-        api: api.editOrder(payload),
+        api: editOrder(payload),
         types: [
             types.REQUEST_START,
             types.REQUEST_SUCCESS,
@@ -143,7 +143,7 @@ export const editOrder = (payload) => (dispatch) => {
 export const delOrder = (payload) => (dispatch) => {
 
     dispatch({
-        api: api.deleteOrder,
+        api: deleteOrder,
         types: [
             types.REQUEST_START,
             types.REQUEST_SUCCESS,
