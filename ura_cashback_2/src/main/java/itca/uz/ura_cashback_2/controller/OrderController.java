@@ -6,6 +6,7 @@ import itca.uz.ura_cashback_2.payload.OrderDto;
 import itca.uz.ura_cashback_2.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,20 +20,20 @@ public class OrderController {
     OrderService orderService;
 
 
-    @GetMapping
+    @GetMapping("/list")
     public HttpEntity<?> getOrderList() {
         return ResponseEntity.ok(orderService.getOrderList());
     }
 
     @PostMapping
     public HttpEntity<?> addOrder(@RequestBody OrderDto orderDto) {
-        ApiResponse apiResponse = orderService.addOrder(new Order(), orderDto);
-        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
+        ApiResponse apiResponse = orderService.addOrder(orderDto);
+        return ResponseEntity.status(apiResponse.isSuccess() ? HttpStatus.CREATED : HttpStatus.CONFLICT).body(apiResponse);
     }
 
     @PutMapping("/{id}")
     public HttpEntity<?> editOrder(@PathVariable UUID id, @RequestBody OrderDto orderDto) {
-        ApiResponse apiResponse = orderService.addOrder(orderService.getOneOrder(id), orderDto);
+        ApiResponse apiResponse = orderService.editOrder(id, orderDto);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
