@@ -112,7 +112,6 @@ export const saveCompany = (payload) => (dispatch) => {
 
 
 export const activeCompany = (payload) => (dispatch) => {
-
     dispatch({
         api: api.activeCompany12(payload),
         types: [
