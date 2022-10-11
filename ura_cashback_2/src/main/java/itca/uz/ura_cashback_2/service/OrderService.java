@@ -30,6 +30,16 @@ public class OrderService {
         this.companyRepository = companyRepository;
     }
 
+    public ApiResponse addOrder(Order order, OrderDto orderDto, UUID adminId) {
+        User getUserClient = getOneUser(orderDto.getClientId());
+        User getUserAdmin = getOneUser(adminId);
+//        getUserAdmin.getRoles().stream().map(role -> role.equals(RoleName.ROLE_ADMIN) )
+        if (getUserClient.getSalary() > orderDto.getCashback()) {
+
+        }
+        return null;
+    }
+
     public void addEditShort(OrderDto orderDto, Order order) {
         //            Double percentage = getOneCompany(orderDto.getId()).getPercentage();
         User oneUser = getOneUser(orderDto.getClientId());
