@@ -24,14 +24,21 @@ import java.util.UUID;
 
 public class AuthController {
 
-    @Autowired
+    final
     AuthService authService;
-    @Autowired
+    final
     AuthRepository authRepository;
-    @Autowired
+    final
     JwtTokenProvider jwtTokenProvider;
-    @Autowired
+    final
     AuthenticationManager authenticationManager;
+
+    public AuthController(AuthService authService, AuthRepository authRepository, JwtTokenProvider jwtTokenProvider, AuthenticationManager authenticationManager) {
+        this.authService = authService;
+        this.authRepository = authRepository;
+        this.jwtTokenProvider = jwtTokenProvider;
+        this.authenticationManager = authenticationManager;
+    }
 
     @PostMapping
     public HttpEntity<?> addAuth(@RequestBody AuthDto authDto){

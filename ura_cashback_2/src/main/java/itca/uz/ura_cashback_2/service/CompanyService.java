@@ -36,7 +36,6 @@ public class CompanyService {
                 company.setPercentage(companyDto.getPercentage());
                 company.setAttachment(attachmentRepository.findById(companyDto.getAttachmentId())
                         .orElseThrow(()-> new ResourceAccessException("GetAttachment")));
-                company.setActive(companyDto.isActive());
                 companyRepository.save(company);
                 return new ApiResponse("Successfully saved company", true);
             }
@@ -60,7 +59,7 @@ public class CompanyService {
         return new CompanyDto();
     }
 
-    public ResPageable getCompanyList(int page, int size, User user) throws Exception {
+    public ResPageable getCompanyPage(int page, int size, User user) throws Exception {
         Page<Company> allCompany = companyRepository.findAll(CommonUtils.getPageable(page, size));
         return new ResPageable(
                 page,
@@ -75,13 +74,13 @@ public class CompanyService {
     public ApiResponse changeActiveCom(UUID id, User user) {
         Optional<Company> byId = companyRepository.findById(id);
         if (byId.isPresent()) {
-            if (user.getRoles().size() > 2) {
+//            if (user.getRoles().size() > 2) {
                 Company company = byId.get();
                 company.setActive(!company.isActive());
                 companyRepository.save(company);
                 return new ApiResponse(company.isActive() ? "Company active" : "Company inactive", true);
-            }
-            return new ApiResponse("User role not equals", false);
+//            }
+//            return new ApiResponse("User role not equals", false);
         }
         return new ApiResponse("Company not found", false);
     }
