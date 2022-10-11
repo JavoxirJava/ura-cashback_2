@@ -1,8 +1,6 @@
 package itca.uz.ura_cashback_2.payload;
 
-import itca.uz.ura_cashback_2.entity.Company;
 import itca.uz.ura_cashback_2.entity.Role;
-import itca.uz.ura_cashback_2.entity.enums.RoleName;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -26,6 +24,8 @@ public class AuthDto {
     private String email;
 
     private Double salary;
+
+    private boolean active;
 
     private String password;
 

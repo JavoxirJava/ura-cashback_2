@@ -1,5 +1,6 @@
 import HttpClient from "../utils/HttpClient";
 import {api} from "./api";
+import data from "bootstrap/js/src/dom/data";
 //*****************************************************************=> Country
 export const getCountries = () => {
     return HttpClient.doGet(api.country);
@@ -23,8 +24,12 @@ export const addUser = (data) => {
 export const editUser = (data) => {
     return HttpClient.doPut(api.users + "/" + data.id, data);
 }
+export const removeUsers = (data) =>{
+    return HttpClient.doDelete(api.users + "/" + data);
+}
+
 export const activeUser = (data) => {
-    return HttpClient.doPut(api.users + "/" + data);
+    return HttpClient.doPut(api.users + "/active/" + data);
 }
 //*****************************************************************=> Order
 export const getOrders = () => {
