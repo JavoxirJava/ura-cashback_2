@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.ResourceAccessException;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -26,19 +27,34 @@ public class OrderService {
         this.companyRepository = companyRepository;
     }
 
-    public ApiResponse addOrder(Order order, OrderDto orderDto) {
+    public void addEditShort(OrderDto orderDto, Order order){
+        //            Double percentage = getOneCompany(orderDto.getId()).getPercentage();
+        User oneUser = getOneUser(orderDto.getClientId());
+
+        order.setClient(oneUser);
+        order.setComment(orderDto.getComment());
+        order.setCash_price(orderDto.getCash_price());
+//        order.setCashback(orderDto.getCash_price() * percentage / 100);
+        order.setCashback(orderDto.getCashback());
+        orderRepository.save(order);
+
+    }
+
+    public ApiResponse addOrder(OrderDto orderDto) {
         User oneUser = getOneUser(orderDto.getClientId());
         if (oneUser.getSalary() >= orderDto.getCashback()) {
-//            Double percentage = getOneCompany(orderDto.getId()).getPercentage();
-            order.setClient(oneUser);
-            order.setComment(orderDto.getComment());
-            order.setCash_price(orderDto.getCash_price());
-//        order.setCashback(orderDto.getCash_price() * percentage / 100);
-            order.setCashback(orderDto.getCashback());
-            orderRepository.save(order);
+            Order order = new Order();
+            addEditShort(orderDto, order);
             return new ApiResponse("successfully saved Order", true);
         }
         return new ApiResponse("Not exist in the your cashback", false);
+    }  public ApiResponse editOrder(UUID id, OrderDto orderDto) {
+        Optional<Order> orderById = orderRepository.findById(id);
+        if (orderById.isPresent()) {
+                addEditShort(orderDto, orderById.get());
+                return new ApiResponse("successfully edit order", true);
+        }
+        return new ApiResponse("order not found", false);
     }
 
     public Order getOneOrder(UUID id) {
