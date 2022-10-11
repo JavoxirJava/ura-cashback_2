@@ -12,7 +12,7 @@ import javax.persistence.ManyToOne;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity(name = "orders")
-public class Order extends AbsEntity {//Javohir ,Asliddin       yoo mayyo shottayam nagli chopgansiladaa Akbar qani
+public class Order extends AbsEntity {//Javohir ,Asliddin  yoo mayyo shottayam nagli chopgansiladaa Akbar qani
 
     private Double cashback;
 

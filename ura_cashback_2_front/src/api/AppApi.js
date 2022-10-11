@@ -1,6 +1,6 @@
 import HttpClient from "../utils/HttpClient";
 import {api} from "./api";
-import data from "bootstrap/js/src/dom/data";
+// import data from "bootstrap/js/src/dom/data";
 //*****************************************************************=> Country
 export const getCountries = () => {
     return HttpClient.doGet(api.country);

@@ -1,7 +1,7 @@
 package itca.uz.ura_cashback_2.controller;
 
-import itca.uz.ura_cashback_2.entity.Order;
 import itca.uz.ura_cashback_2.payload.ApiResponse;
+import itca.uz.ura_cashback_2.payload.LoginDto;
 import itca.uz.ura_cashback_2.payload.OrderDto;
 import itca.uz.ura_cashback_2.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +40,11 @@ public class OrderController {
     @DeleteMapping("/{id}")
     public HttpEntity<?> deleteOrder(@PathVariable UUID id) {
         return ResponseEntity.ok(orderService.deleteOrder(id));
+    }
+
+    @PutMapping("/login")
+    public HttpEntity<?> isLogin(LoginDto loginDto) {
+        return ResponseEntity.ok(orderService.login(loginDto));
     }
 
 }

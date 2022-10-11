@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import "./orderC.css"
 import {Button, FormGroup, Input, Label, Offcanvas, OffcanvasBody, OffcanvasHeader, Table} from "reactstrap";
-import {getOrder, saveOrder, delOrder} from "../../redux/actions/AppAction";
+import {getOrder, saveOrder} from "../../redux/actions/AppAction";
 import {connect} from "react-redux";
 
 class Order extends Component {
@@ -51,11 +51,11 @@ class Order extends Component {
             }
             this.props.dispatch(saveOrder(obj))
         }
-        const deleteOrders = (e) => {
-            this.props.dispatch(delOrder(currentItem))
-        const deleteOrders = () => {
-            this.props.dispatch(deleteOrder(currentItem))
-        }
+
+
+        // const deleteOrders = () => {
+        //     this.props.dispatch(delOrder(currentItem))
+        // }
 
 
         return (
@@ -80,8 +80,10 @@ class Order extends Component {
                                     <td>{item.cash_price}</td>
                                     <td>{item.cashback}</td>
                                     <td>{item.comment}</td>
-                                    <td><Button color="warning" outline onClick={() => openModal(item)}>Edit</Button></td>
-                                    <td><Button color="danger" outline onClick={() => openDeleteModal(item)}>Delete</Button></td>
+                                    <td><Button color="warning" outline
+                                                onClick={() => openModal(item)}>Edit</Button></td>
+                                    <td><Button color="danger" outline
+                                                onClick={() => openDeleteModal(item)}>Delete</Button></td>
                                 </tr>
                                 </tbody>
                             )
@@ -102,15 +104,18 @@ class Order extends Component {
                                 <strong>
                                     <FormGroup>
                                         <Label for="examplePassword">Comment</Label>
-                                        <Input type="text" name="comment" id="comment" placeholder="Please enter comment" required={true} />
+                                        <Input type="text" name="comment" id="comment"
+                                               placeholder="Please enter comment" required={true}/>
                                     </FormGroup>
                                     <FormGroup>
                                         <Label for="examplePassword">Comment</Label>
-                                        <Input type="number" name="cashback" id="cashback" placeholder="Please enter cash back" required={true} />
+                                        <Input type="number" name="cashback" id="cashback"
+                                               placeholder="Please enter cash back" required={true}/>
                                     </FormGroup>
                                     <FormGroup>
                                         <Label for="examplePassword">Comment</Label>
-                                        <Input type="number" name="cash_price" id="cash_price" placeholder="Please enter cash price" required={true} />
+                                        <Input type="number" name="cash_price" id="cash_price"
+                                               placeholder="Please enter cash price" required={true}/>
                                         <Input type="text" name="comment" id="comment"
                                                placeholder="Please enter comment" required={true}
                                                defaultValue={currentItem ? currentItem.comment : ""}/>

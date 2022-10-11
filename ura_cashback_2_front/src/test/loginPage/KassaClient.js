@@ -5,6 +5,7 @@ import {Button, Input} from "reactstrap";
 import {Link} from "react-router-dom";
 
 function KassaClient() {
+
     return (
         <>
             <div className="login">

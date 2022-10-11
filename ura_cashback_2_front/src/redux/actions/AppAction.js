@@ -1,12 +1,18 @@
 import * as api from "../../api/AppApi";
 import {
     activeUser,
-    addAttachment, addUser, editUser,
-    getUsers, removeUsers,
+    addUser,
+    editUser,
+    getUsers,
+    removeUsers,
+    addAttachment,
+    addOrder,
+    deleteOrder,
+    editOrder,
+    getOrders
 } from "../../api/AppApi";
 import * as types from "../actionTypes/AppActionTypes";
 import {toast} from "react-toastify";
-import {addAttachment, addOrder, deleteOrder, editOrder, getOrders} from "../../api/AppApi";
 export const getUser = () => (dispatch) => {
 
     dispatch({
@@ -62,7 +68,7 @@ export const isActiveUser = (payload) =>(dispatch)=>{
             types.REQUEST_ERROR
         ],
         data:payload
-    }).then(res=>{
+    }).then(() =>{
         dispatch(getUser())
     })
 }
@@ -174,7 +180,6 @@ export const editOrders = (payload) => (dispatch) => {
 
 
 export const delOrder = (payload) => (dispatch) => {
-
     dispatch({
         api: deleteOrder,
         types: [
