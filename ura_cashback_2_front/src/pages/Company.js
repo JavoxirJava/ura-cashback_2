@@ -64,7 +64,7 @@ class Company extends Component {
 
         return (
             <div>
-                <div>
+                <div className="container">
                     <h2 className="text-center">Company List</h2>
                     <Button className="btn btn-primary" onClick={openModal}>Add Company</Button>
                     <Table>

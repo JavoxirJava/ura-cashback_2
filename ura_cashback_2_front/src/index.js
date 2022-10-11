@@ -8,7 +8,7 @@ import {ToastContainer} from "react-toastify";
 import App from "./routes/App";
 
 const container = document.getElementById('root');
-document.body.style.marginLeft = "3.7%";
+// document.body.style.marginLeft = "3.7%";
 const root = createRoot(container);
 
 
