@@ -13,8 +13,12 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/api/attachment")
 public class AttachmentController {
-    @Autowired
+    final
     AttachmentService attachmentService;
+
+    public AttachmentController(AttachmentService attachmentService) {
+        this.attachmentService = attachmentService;
+    }
 
     @PostMapping
     public HttpEntity<?> upload(MultipartHttpServletRequest request) throws IOException {

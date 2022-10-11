@@ -1,14 +1,10 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
-import {
-    activeCompany,
-    addAttachmentAction,
-    getCompany,
-    saveCompany,
-} from "../redux/actions/AppAction";
+import {activeCompany, addAttachmentAction, getCompany, saveCompany,} from "../redux/actions/AppAction";
 import {Button, Col, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader, Row, Table} from "reactstrap";
 import {api} from "../api/api";
 import './style.scss';
+
 class Company extends Component {
 
     componentDidMount() {
@@ -53,15 +49,20 @@ class Company extends Component {
             let percentage = document.getElementById("percentage").value;
             let obj;
             if (currentCompany) {
-                obj = {id: currentCompany.id, name, bio, description, percentage, attachmentId: attachmentId.payload , active}
+                obj = {
+                    id: currentCompany.id,
+                    name,
+                    bio,
+                    description,
+                    percentage,
+                    attachmentId: attachmentId.payload,
+                    active
+                }
             } else {
                 obj = {name, bio, description, percentage, attachmentId: attachmentId.payload, active}
             }
             this.props.dispatch(saveCompany(obj));
         }
-
-
-
         return (
             <div>
                 <div>
@@ -91,15 +92,19 @@ class Company extends Component {
                                     <td>{item.bio}</td>
                                     <td>{item.description}</td>
                                     <td>{item.percentage}</td>
-                                    <td><Row>
-                                        <Label check for="active">
-                                            <div className="form-check form-switch">
-                                                <Input type="checkbox"
-                                                       onChange={() => {changeActive();changeActiveCompany(item.id)}}/>
-                                            </div>
-                                        </Label>
-                                    </Row></td>
-                                    <td><Button color="warning" outline onClick={() => openModal(item)}>Edit</Button></td>
+                                    <td>
+                                        <Row>
+                                            <Label check for="active">
+                                                <div className="form-check form-switch">
+                                                    <Input type="checkbox" defaultChecked={item.active}
+                                                           onChange={() => {changeActive();changeActiveCompany(item.id)}}/>
+                                                </div>
+                                            </Label>
+                                        </Row>
+                                    </td>
+                                    <td>
+                                        <Button color="warning" outline onClick={() => openModal(item)}>Edit</Button>
+                                    </td>
                                 </tr>
                                 </tbody>
                             )
@@ -108,7 +113,7 @@ class Company extends Component {
                     </Table>
                 </div>
                 <Modal isOpen={showModal}>
-                    <ModalHeader>{currentCompany ? "Edit Company" : "add Company"}</ModalHeader>
+                    <ModalHeader>{currentCompany ? "Edit Company" : "Add Company"}</ModalHeader>
                     <ModalBody>
                         <Input className='mb-2' name="name" id="name" type='text'
                                defaultValue={currentCompany ? currentCompany.name : ""} placeholder='Enter company name'
