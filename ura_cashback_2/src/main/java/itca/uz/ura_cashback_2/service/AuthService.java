@@ -20,8 +20,8 @@ import org.springframework.web.client.ResourceAccessException;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 import java.util.UUID;
-
 
 
 @Service
@@ -58,10 +58,16 @@ public class AuthService implements UserDetailsService {
         return new ApiResponse("User is all ready exist", false);
     }
 
-
     public ApiResponse deleteClient(UUID id){
         authRepository.deleteById(id);
         return new ApiResponse("Successfully delete client",true);
+    }
+
+    public ApiResponse activeUser(UUID id){
+        User user = authRepository.findById(id).orElseThrow(() -> new ResourceAccessException("getUser"));
+        user.setActive(!user.isActive());
+        authRepository.save(user);
+        return new ApiResponse("Successfully active",true);
     }
 
 
@@ -91,6 +97,11 @@ public class AuthService implements UserDetailsService {
 //                user.getRoles().stream().map(Role::getRoleName).collect(Collectors.toList())
 //        );
 //    }
+
+
+    public List<User> getUser(){
+        return authRepository.findAll();
+    }
 
 
 

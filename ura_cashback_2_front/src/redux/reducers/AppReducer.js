@@ -4,12 +4,13 @@ import {createReducer} from "../../utils/StoreUtils";
 
 const initState = {
     user: [],
+    activeUser: false,
     orders: [],
     roles: [],
     company: [],
     oneOrder: {},
     imgId: {},
-    active: false,
+    active: true,
     showModal: false,
     deleteShowModal: false,
     editModal: false,

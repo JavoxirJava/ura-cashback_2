@@ -5,10 +5,8 @@ import itca.uz.ura_cashback_2.payload.ApiResponse;
 import itca.uz.ura_cashback_2.payload.AuthDto;
 import itca.uz.ura_cashback_2.payload.ReqLogin;
 import itca.uz.ura_cashback_2.repository.AuthRepository;
-import itca.uz.ura_cashback_2.security.CurrentUser;
 import itca.uz.ura_cashback_2.security.JwtTokenProvider;
 import itca.uz.ura_cashback_2.service.AuthService;
-import itca.uz.ura_cashback_2.utils.AppConstant;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
@@ -21,21 +19,29 @@ import org.springframework.web.client.ResourceAccessException;
 import java.util.UUID;
 
 @RestController
-@RequestMapping(path = "api/auth")
+@RequestMapping(path = "/api/auth")
+@CrossOrigin
 
 public class AuthController {
 
-    @Autowired
+    final
     AuthService authService;
-    @Autowired
+    final
     AuthRepository authRepository;
-    @Autowired
+    final
     JwtTokenProvider jwtTokenProvider;
-    @Autowired
+    final
     AuthenticationManager authenticationManager;
 
+    public AuthController(AuthService authService, AuthRepository authRepository, JwtTokenProvider jwtTokenProvider, AuthenticationManager authenticationManager) {
+        this.authService = authService;
+        this.authRepository = authRepository;
+        this.jwtTokenProvider = jwtTokenProvider;
+        this.authenticationManager = authenticationManager;
+    }
+
     @PostMapping
-    public HttpEntity<?>  addAuth(@RequestBody AuthDto authDto){
+    public HttpEntity<?> addAuth(@RequestBody AuthDto authDto){
         ApiResponse apiResponse = authService.addOrEditRegisterClient(new User(), authDto);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
@@ -54,11 +60,16 @@ public class AuthController {
     }
 
 
-    @GetMapping
-    public HttpEntity<?> getUserPage(@RequestParam(value = "page",defaultValue = AppConstant.DEFAULT_PAGE) int page,
-                                     @RequestParam(value = "size",defaultValue = AppConstant.DEFAULT_SIZE) int size,
-                                     @CurrentUser User user) throws Exception {
-        return ResponseEntity.ok(authService.getUserList(page,size,user));
+//    @GetMapping("/list")
+//    public HttpEntity<?> getUserPage(@RequestParam(value = "page",defaultValue = AppConstant.DEFAULT_PAGE) int page,
+//                                     @RequestParam(value = "size",defaultValue = AppConstant.DEFAULT_SIZE) int size,
+//                                     @CurrentUser User user) throws Exception {
+//        return ResponseEntity.ok(authService.getUserList(page,size,user));
+//    }
+
+    @GetMapping("/list")
+    public HttpEntity<?> getUser(){
+        return ResponseEntity.ok(authService.getUser());
     }
 
     @PostMapping("/login")
@@ -74,6 +85,11 @@ public class AuthController {
                 new UsernamePasswordAuthenticationToken(reqLogin.getPhoneNumber(), reqLogin.getPassword()));
         User user = (User) authenticate.getPrincipal();
         return ResponseEntity.ok(new ReqLogin(user.getPhoneNumber(), user.getPassword()));
+    }
+
+    @PutMapping("/active/{id}")
+    public HttpEntity<?> activeUser(@PathVariable UUID id){
+        return ResponseEntity.ok(authService.activeUser(id));
     }
 
 }

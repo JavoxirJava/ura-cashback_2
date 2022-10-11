@@ -4,6 +4,7 @@
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/ura-cashback_2.iml" filepath="$PROJECT_DIR$/.idea/ura-cashback_2.iml" />
       <module fileurl="file://$PROJECT_DIR$/ura_cashback_2/ura_cashback_2.iml" filepath="$PROJECT_DIR$/ura_cashback_2/ura_cashback_2.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ura_cashback_2_front/ura_cashback_2_front.iml" filepath="$PROJECT_DIR$/ura_cashback_2_front/ura_cashback_2_front.iml" />
     </modules>
   </component>
 </project>

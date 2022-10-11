@@ -1,11 +1,16 @@
 import * as api from "../../api/AppApi";
+import {
+    activeUser,
+    addAttachment, addUser, editUser,
+    getUsers, removeUsers,
+} from "../../api/AppApi";
 import * as types from "../actionTypes/AppActionTypes";
 import {toast} from "react-toastify";
-import {addAttachment} from "../../api/AppApi";
-
+import {addAttachment, addOrder, deleteOrder, editOrder, getOrders} from "../../api/AppApi";
 export const getUser = () => (dispatch) => {
+
     dispatch({
-        api: api.getUsers,
+        api: getUsers,
         types: [
             types.REQUEST_START,
             types.GET_USER_LIST,
@@ -15,7 +20,7 @@ export const getUser = () => (dispatch) => {
 }
 export const saveUser = (payload) => (dispatch) => {
     dispatch({
-        api: payload.id ? api.editUser : api.addUser,
+        api: payload.id ? editUser : addUser,
         types: [
             types.REQUEST_START,
             types.REQUEST_SUCCESS,
@@ -33,6 +38,35 @@ export const saveUser = (payload) => (dispatch) => {
         toast.error("Error saving User!");
     })
 }
+
+export const removeUser = (payload) => (dispatch) => {
+    dispatch({
+        api: removeUsers,
+        types: [
+            types.REQUEST_START,
+            types.REQUEST_SUCCESS,
+            types.REQUEST_ERROR
+        ],
+        data: payload.id
+    }).then(res => {
+        dispatch(getUser())
+        toast.success(res);
+    })
+}
+export const isActiveUser = (payload) =>(dispatch)=>{
+    dispatch({
+        api: activeUser,
+        types: [
+            types.REQUEST_START,
+            types.REQUEST_SUCCESS,
+            types.REQUEST_ERROR
+        ],
+        data:payload
+    }).then(res=>{
+        dispatch(getUser())
+    })
+}
+
 
 export const getRole = () => (dispatch) => {
     dispatch({
@@ -71,14 +105,13 @@ export const saveCompany = (payload) => (dispatch) => {
         } else {
             toast.error("You cannot save company!")
         }
-    }).catch(err => {
+    }).catch(() => {
         toast.error("Error saving company!");
     })
 }
 
 
 export const activeCompany = (payload) => (dispatch) => {
-
     dispatch({
         api: api.activeCompany12(payload),
         types: [
@@ -87,16 +120,16 @@ export const activeCompany = (payload) => (dispatch) => {
             types.REQUEST_ERROR
         ],
         data: payload.id
-    }).then(res => {
+    }).then(() => {
         dispatch(getCompany())
         toast.success("Company active successfully!");
-    }).catch(err => {
-        toast.error("Error active county!");
+    }).catch(() => {
+        toast.error("Error active company!");
     })
 }
 export const getOrder = () => (dispatch) => {
     dispatch({
-        api: api.getOrder(),
+        api: getOrders,
         types: [
             types.REQUEST_START,
             types.GET_ORDER_LIST,
@@ -106,7 +139,7 @@ export const getOrder = () => (dispatch) => {
 }
 export const saveOrder = (payload) => (dispatch) => {
     dispatch({
-        api: api.addOrder,
+        api: addOrder,
         types: [
             types.REQUEST_START,
             types.REQUEST_SUCCESS,
@@ -120,14 +153,14 @@ export const saveOrder = (payload) => (dispatch) => {
         } else {
             toast.error("You cannot save company!")
         }
-    }).catch(err => {
+    }).catch(() => {
         toast.error("Error saving company!");
     })
 }
 
-export const editOrder = (payload) => (dispatch) => {
+export const editOrders = (payload) => (dispatch) => {
     dispatch({
-        api: api.editOrder(payload),
+        api: editOrder(payload),
         types: [
             types.REQUEST_START,
             types.REQUEST_SUCCESS,
@@ -143,17 +176,17 @@ export const editOrder = (payload) => (dispatch) => {
 export const delOrder = (payload) => (dispatch) => {
 
     dispatch({
-        api: api.deleteOrder,
+        api: deleteOrder,
         types: [
             types.REQUEST_START,
             types.REQUEST_SUCCESS,
             types.REQUEST_ERROR
         ],
         data: payload.id
-    }).then(res => {
+    }).then(() => {
         dispatch(getOrder())
         toast.success("County deleted successfully!");
-    }).catch(err => {
+    }).catch(() => {
         toast.error("Error delete order!");
     })
 }
@@ -176,7 +209,7 @@ export const addAttachmentAction = (payload) => (dispatch) => {
         });
         toast.success("Attachment saved successfully!");
         // dispatch(getValyutaies());
-    }).catch(err => {
+    }).catch(() => {
         toast.error("Error saving attachment!");
     })
 }
