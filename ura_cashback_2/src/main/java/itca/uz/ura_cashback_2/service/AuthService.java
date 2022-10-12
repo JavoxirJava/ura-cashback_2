@@ -32,7 +32,6 @@ public class AuthService implements UserDetailsService {
     final CompanyRepository companyRepository;
     final RoleRepository roleRepository;
 
-
     public AuthService(AuthRepository authRepository, AttachmentRepository attachmentRepository, CompanyRepository companyRepository, RoleRepository roleRepository) {
         this.authRepository = authRepository;
         this.attachmentRepository = attachmentRepository;
@@ -70,13 +69,8 @@ public class AuthService implements UserDetailsService {
     }
 
     public void editUserSalary(Double salary, User user) {
-        try {
-            user.setSalary(salary);
-            authRepository.save(user);
-            new ApiResponse("successfully edit user salary", true);
-        } catch (Exception e) {
-            new ApiResponse("error: " + e.getMessage(), false);
-        }
+        user.setSalary(salary);
+        authRepository.save(user);
     }
 
 
