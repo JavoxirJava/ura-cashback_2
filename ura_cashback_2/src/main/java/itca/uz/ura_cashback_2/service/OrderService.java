@@ -15,7 +15,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.ResourceAccessException;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -25,68 +24,41 @@ public class OrderService {
     final CompanyRepository companyRepository;
     final CompanyUserRoleService companyUserRoleService;
     final RoleRepository roleRepository;
+    final AuthService authService;
 
-    public OrderService(OrderRepository orderRepository, AuthRepository authRepository, CompanyRepository companyRepository, CompanyUserRoleService companyUserRoleService, RoleRepository roleRepository) {
+    public OrderService(OrderRepository orderRepository, AuthRepository authRepository, CompanyRepository companyRepository,
+                        CompanyUserRoleService companyUserRoleService, RoleRepository roleRepository, AuthService authService) {
         this.orderRepository = orderRepository;
         this.authRepository = authRepository;
         this.companyRepository = companyRepository;
         this.companyUserRoleService = companyUserRoleService;
         this.roleRepository = roleRepository;
+        this.authService = authService;
     }
 
-    public ApiResponse addOrder(Order order, OrderDto orderDto, UUID adminId) {
-        User getUserClient = getOneUser(orderDto.getClientId());
-        User getUserAdmin = getOneUser(adminId);
+    public ApiResponse addOrder(Order order, OrderDto orderDto) {
+        User getUserClient = authService.getOneUser(orderDto.getClientId());
+        User getUserAdmin = authService.getOneUser(orderDto.getAdminId());
         Company getCompany = companyUserRoleService.getCompanyFindByUser(getUserAdmin.getId(), roleRepository.findRoleByRoleName(RoleName.ROLE_ADMIN).getId());
-
-
-
-
-//        Company byRoleNameAndUserId = companyRepository.findByRoleNameAndUserId(RoleName.ROLE_ADMIN, getUserAdmin.getId());
-//        getUserAdmin.getRoles().stream().map(role -> role.equals(RoleName.ROLE_ADMIN) )
-//        if (getUserClient.getSalary() > orderDto.getCashback()) {
-//
-//        }
-        return null;
-    }
-
-    public void addEditShort(OrderDto orderDto, Order order) {
-        //            Double percentage = getOneCompany(orderDto.getId()).getPercentage();
-        User oneUser = getOneUser(orderDto.getClientId());
-
-        order.setClient(oneUser);
-        order.setComment(orderDto.getComment());
-        order.setCash_price(orderDto.getCash_price());
-//        order.setCashback(orderDto.getCash_price() * percentage / 100);
+        if (orderDto.getCash_price() > 0 && orderDto.getCashback() <= getUserAdmin.getSalary()) {
+            authService.editUserSalary(orderDto.getCash_price() * getCompany.getKasserPercentage() / 100, getUserAdmin);
+            authService.editUserSalary(orderDto.getCash_price() < 0
+                    ? getUserClient.getSalary() - orderDto.getCashback()
+                    : orderDto.getCash_price() * getCompany.getClientPercentage() / 100 - orderDto.getCashback(), getUserClient);
+        } else return new ApiResponse("There are not enough funds in your Cashback account", false);
         order.setCashback(orderDto.getCashback());
+        order.setComment(orderDto.getComment());
+        order.setClient(getUserClient);
+        order.setCash_price(orderDto.getCash_price());
+        order.setCreatedBy(getUserAdmin.getId());
         orderRepository.save(order);
-
-    }
-
-    public ApiResponse addOrder(OrderDto orderDto) {
-        User oneUser = getOneUser(orderDto.getClientId());
-        if (oneUser.getSalary() >= orderDto.getCashback()) {
-            Order order = new Order();
-            addEditShort(orderDto, order);
-            return new ApiResponse("successfully saved Order", true);
-        }
-        return new ApiResponse("Not exist in the your cashback", false);
-    }
-
-    public ApiResponse editOrder(UUID id, OrderDto orderDto) {
-        Optional<Order> orderById = orderRepository.findById(id);
-        if (orderById.isPresent()) {
-            addEditShort(orderDto, orderById.get());
-            return new ApiResponse("successfully edit order", true);
-        }
-        return new ApiResponse("order not found", false);
+        return new ApiResponse("successfully saved order", true);
     }
 
     public User login(LoginDto loginDto) {
         return authRepository.findByPhoneNumberEqualsAndPasswordEquals
                 (loginDto.getPhoneNumber(), loginDto.getPassword());
     }
-
 
     public Order getOneOrder(UUID id) {
         return orderRepository.findById(id).orElseThrow(() -> new ResourceAccessException("getOrder"));
@@ -100,15 +72,4 @@ public class OrderService {
         orderRepository.deleteById(orderId);
         return new ApiResponse("successfully deleted Order", true);
     }
-
-    public Company getOneCompany(UUID id) {
-        return companyRepository.findById(id).orElseThrow(() -> new ResourceAccessException("getCompany"));
-    }
-
-    public User getOneUser(UUID id) {
-        return authRepository.findById(id).orElseThrow(() -> new ResourceAccessException("getUser"));
-    }
-
-
 }
-

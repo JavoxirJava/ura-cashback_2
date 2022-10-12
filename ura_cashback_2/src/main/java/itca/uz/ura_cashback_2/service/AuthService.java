@@ -69,13 +69,13 @@ public class AuthService implements UserDetailsService {
         return new ApiResponse("Successfully active", true);
     }
 
-    public ApiResponse editUserSalary(Double salary, User user) {
+    public void editUserSalary(Double salary, User user) {
         try {
             user.setSalary(salary);
             authRepository.save(user);
-            return new ApiResponse("successfully edit user salary", true);
+            new ApiResponse("successfully edit user salary", true);
         } catch (Exception e) {
-            return new ApiResponse("error: " + e.getMessage(), false);
+            new ApiResponse("error: " + e.getMessage(), false);
         }
     }
 
@@ -89,6 +89,10 @@ public class AuthService implements UserDetailsService {
                 allUser.getTotalPages(),
                 new ArrayList<>(allUser.getContent())
         );
+    }
+
+    public User getOneUser(UUID id) {
+        return authRepository.findById(id).orElseThrow(() -> new ResourceAccessException("getUser"));
     }
 
 //    public AuthDto getUser(User user){
