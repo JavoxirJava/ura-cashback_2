@@ -32,7 +32,6 @@ public class AuthService implements UserDetailsService {
     final CompanyRepository companyRepository;
     final RoleRepository roleRepository;
 
-
     public AuthService(AuthRepository authRepository, AttachmentRepository attachmentRepository, CompanyRepository companyRepository, RoleRepository roleRepository) {
         this.authRepository = authRepository;
         this.attachmentRepository = attachmentRepository;
@@ -70,14 +69,9 @@ public class AuthService implements UserDetailsService {
         return new ApiResponse("Successfully active", true);
     }
 
-    public ApiResponse editUserSalary(Double salary, User user) {
-        try {
-            user.setSalary(salary);
-            authRepository.save(user);
-            return new ApiResponse("successfully edit user salary", true);
-        } catch (Exception e) {
-            return new ApiResponse("error: " + e.getMessage(), false);
-        }
+    public void editUserSalary(Double salary, User user) {
+        user.setSalary(salary);
+        authRepository.save(user);
     }
 
 
@@ -90,6 +84,10 @@ public class AuthService implements UserDetailsService {
                 allUser.getTotalPages(),
                 new ArrayList<>(allUser.getContent())
         );
+    }
+
+    public User getOneUser(UUID id) {
+        return authRepository.findById(id).orElseThrow(() -> new ResourceAccessException("getUser"));
     }
 
 //    public AuthDto getUser(User user){

@@ -47,7 +47,7 @@ public class CompanyService {
 
     public CompanyDto getOneCompany(UUID id, User user) {
         if (user.getRoles().size() > 2) {
-            Company company = companyRepository.findById(id).orElseThrow(() -> new ResourceAccessException("GetCompany"));
+            Company company = getOneCompany(id);
             return new CompanyDto(
                     company.getId(),
                     company.getName(),
@@ -59,6 +59,10 @@ public class CompanyService {
                     company.isActive());
         }
         return new CompanyDto();
+    }
+
+    public Company getOneCompany(UUID companyId) {
+        return companyRepository.findById(companyId).orElseThrow(() -> new ResourceAccessException("GetCompany"));
     }
 
     public ResPageable getCompanyPage(int page, int size, User user) throws Exception {

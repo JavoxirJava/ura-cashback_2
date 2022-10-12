@@ -1,5 +1,6 @@
 package itca.uz.ura_cashback_2.controller;
 
+import itca.uz.ura_cashback_2.entity.Order;
 import itca.uz.ura_cashback_2.payload.ApiResponse;
 import itca.uz.ura_cashback_2.payload.LoginDto;
 import itca.uz.ura_cashback_2.payload.OrderDto;
@@ -16,8 +17,11 @@ import java.util.UUID;
 @CrossOrigin
 @RequestMapping("/api/order")
 public class OrderController {
-    @Autowired
-    OrderService orderService;
+    final OrderService orderService;
+
+    public OrderController(OrderService orderService) {
+        this.orderService = orderService;
+    }
 
 
     @GetMapping("/list")
@@ -27,13 +31,13 @@ public class OrderController {
 
     @PostMapping
     public HttpEntity<?> addOrder(@RequestBody OrderDto orderDto) {
-        ApiResponse apiResponse = orderService.addOrder(orderDto);
+        ApiResponse apiResponse = orderService.addOrder(new Order(), orderDto);
         return ResponseEntity.status(apiResponse.isSuccess() ? HttpStatus.CREATED : HttpStatus.CONFLICT).body(apiResponse);
     }
 
     @PutMapping("/{id}")
     public HttpEntity<?> editOrder(@PathVariable UUID id, @RequestBody OrderDto orderDto) {
-        ApiResponse apiResponse = orderService.editOrder(id, orderDto);
+        ApiResponse apiResponse = orderService.addOrder(orderService.getOneOrder(id), orderDto);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
