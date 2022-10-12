@@ -2,13 +2,12 @@ import * as api from "../../api/AppApi";
 import {
     activeUser,
     addAttachment, addUser, editUser,
-    getUsers, removeUsers,
+    getUsers, removeUsers, userPage,
 } from "../../api/AppApi";
 import * as types from "../actionTypes/AppActionTypes";
 import {toast} from "react-toastify";
 
 export const getUser = () => (dispatch) => {
-
     dispatch({
         api: getUsers,
         types: [
@@ -16,6 +15,19 @@ export const getUser = () => (dispatch) => {
             types.GET_USER_LIST,
             types.REQUEST_ERROR
         ]
+    })
+}
+export const pageUser = (payload) => (dispatch)=>{
+    dispatch({
+        api: userPage,
+        types:[
+            types.REQUEST_START,
+            types.REQUEST_SUCCESS,
+            types.REQUEST_ERROR
+        ],
+        data:payload
+    }).then(()=>{
+        dispatch(getUser())
     })
 }
 export const saveUser = (payload) => (dispatch) => {
@@ -62,7 +74,7 @@ export const isActiveUser = (payload) =>(dispatch)=>{
             types.REQUEST_ERROR
         ],
         data:payload
-    }).then(res=>{
+    }).then(()=>{
         dispatch(getUser())
     })
 }

@@ -41,27 +41,35 @@ public class AuthService implements UserDetailsService {
         this.roleRepository = roleRepository;
     }
 
-    public ApiResponse addOrEditRegisterClient(User user, AuthDto authDto){
-        if (!authRepository.existsByPhoneNumberEqualsIgnoreCaseAndEmailEqualsIgnoreCase(authDto.getPhoneNumber(), authDto.getEmail())){
-            if (authDto.getPassword().equals(authDto.getPrePassword())){
-                user.setFirstName(authDto.getFirstName());
-                user.setLastName(authDto.getLastName());
-                user.setPhoneNumber(authDto.getPhoneNumber());
-                user.setEmail(authDto.getEmail());
-                user.setPassword(authDto.getPassword());
-                user.setRoles(Collections.singleton(roleRepository.findRoleByRoleName(RoleName.ROLE_USER)));
-                authRepository.save(user);
-                return new ApiResponse("User saved", true);
+    public ApiResponse addOrEditRegisterClient(User user,AuthDto authDto) {
+            if (!authRepository.existsByPhoneNumberEqualsIgnoreCaseAndEmailEqualsIgnoreCase(authDto.getPhoneNumber(), authDto.getEmail())) {
+                if (authDto.getPassword().equals(authDto.getPrePassword())) {
+                    user.setFirstName(authDto.getFirstName());
+                    user.setLastName(authDto.getLastName());
+                    user.setPhoneNumber(authDto.getPhoneNumber());
+                    user.setEmail(authDto.getEmail());
+                    user.setPassword(authDto.getPassword());
+                    user.setRoles(Collections.singleton(roleRepository.findRoleByRoleName(RoleName.ROLE_USER)));
+                    try {
+                        authRepository.save(user);
+                    }catch (Exception e){
+                        authRepository.save(user);
+                    }
+                    return new ApiResponse("User saved", true);
+                }
+                return new ApiResponse("Password and PrePassword are not the same", false);
             }
-            return new ApiResponse("Password and PrePassword are not the same", false);
-        }
-        return new ApiResponse("User is all ready exist", false);
+            return new ApiResponse("User is all ready exist", false);
     }
+
+
+
 
     public ApiResponse deleteClient(UUID id){
         authRepository.deleteById(id);
         return new ApiResponse("Successfully delete client",true);
     }
+
 
     public ApiResponse activeUser(UUID id){
         User user = authRepository.findById(id).orElseThrow(() -> new ResourceAccessException("getUser"));
@@ -73,7 +81,7 @@ public class AuthService implements UserDetailsService {
 
 
 
-    public ResPageable getUserList(int page, int size, User user) throws Exception {
+    public ResPageable getUserList(int page, int size) throws Exception {
         Page<User> allUser = authRepository.findAll(CommonUtils.getPageable(page, size));
         return new ResPageable(
                 page,
@@ -83,26 +91,6 @@ public class AuthService implements UserDetailsService {
                 new ArrayList<>(allUser.getContent())
         );
     }
-
-//    public AuthDto getUser(User user){
-//        return new AuthDto(
-//                user.getId(),
-//                user.getFirstName(),
-//                user.getLastName(),
-//                user.getPhoneNumber(),
-//                user.getEmail(),
-//                user.getSalary(),
-//                user.getPassword(),
-//                user.getCompany().stream().map(Company::getName).collect(Collectors.toList()),
-//                user.getRoles().stream().map(Role::getRoleName).collect(Collectors.toList())
-//        );
-//    }
-
-
-    public List<User> getUser(){
-        return authRepository.findAll();
-    }
-
 
 
     @Override

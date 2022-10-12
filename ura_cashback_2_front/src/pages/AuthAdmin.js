@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import {Button, Input, Modal, ModalBody, ModalFooter, ModalHeader, Table} from "reactstrap";
 import {connect} from "react-redux";
-import {getUser, isActiveUser, removeUser, saveUser} from "../redux/actions/AppAction";
+import {getUser, isActiveUser, pageUser, removeUser, saveUser} from "../redux/actions/AppAction";
+
 
 
 
@@ -14,7 +15,7 @@ class AuthAdmin extends Component {
 
     render() {
 
-        const {user, dispatch, showModal,currentUser,deleteShowModal,activeUser} = this.props;
+        const {user, dispatch, showModal,currentUser,deleteShowModal,activeUser,pages} = this.props;
 
         const openModal = (item) =>{
             dispatch({
@@ -36,16 +37,18 @@ class AuthAdmin extends Component {
             })
         }
 
-        const changeActive = (item) => {
+        const changeActive = () => {
             dispatch({
               type:"updateState",
               payload:{
                   activeUser: !activeUser,
-                  currentUser: item
               }
           });
-            if(currentUser.id !== undefined) {
-                this.props.dispatch(isActiveUser(currentUser.id))
+        }
+
+        const changeActiveUser = (item)=>{
+            if(item.id !== undefined) {
+                this.props.dispatch(isActiveUser(item.id))
             }
         }
 
@@ -54,6 +57,12 @@ class AuthAdmin extends Component {
         const deleteUser = () =>{
             this.props.dispatch(removeUser(currentUser));
             deleteModal("")
+            dispatch({
+                type:"updateState",
+                payload:{
+                    deleteShowModal: !deleteShowModal
+                }
+            })
         }
 
         const addUser = ()=> {
@@ -63,9 +72,27 @@ class AuthAdmin extends Component {
             let email = document.getElementById("email").value;
             let password = document.getElementById("password").value;
             let prePassword = document.getElementById("prePassword").value;
-            let obj = currentUser ? {id : currentUser.id,firstName,lastName,phoneNumber,email,password,prePassword } :
-                {firstName,lastName,phoneNumber,email,password,prePassword};
+            let obj = currentUser ? {
+                    id: currentUser.id,
+                    firstName,
+                    lastName,
+                    phoneNumber,
+                    email,
+                    password,
+                    prePassword
+                } :
+                {firstName, lastName, phoneNumber, email, password, prePassword};
             this.props.dispatch(saveUser(obj));
+            dispatch({
+                type:"updateState",
+                payload:{
+                    showModal: !showModal
+                }
+            })
+        }
+
+        const page = () => {
+          this.props.dispatch(pageUser(1))
         }
 
 
@@ -98,8 +125,8 @@ class AuthAdmin extends Component {
                             <td>{item.phoneNumber}</td>
                             <td>{item.password}</td>
                             <td>{item.active ?
-                            <Input type="checkbox" checked={item.active}  onChange={()=> changeActive(item)}/> :
-                            <Input type="checkbox" checked={item.active}   onChange={()=> changeActive(item)}/>}
+                            <Input type="checkbox" checked={item.active} onClick={()=> changeActiveUser(item)}  onChange={changeActive}/> :
+                            <Input type="checkbox" checked={item.active} onClick={()=> changeActiveUser(item)}  onChange={changeActive}/>}
                             </td>
                             <td><Button color="warning" outline onClick={()=> openModal(item)}>Edit</Button></td>
                             <td><Button color="danger" outline onClick={()=> deleteModal(item) }>Delete</Button></td>
@@ -108,6 +135,36 @@ class AuthAdmin extends Component {
                     )}
                 </Table>
                 </div>
+
+                <div>
+                    <nav aria-label="Page navigation example">
+                        <ul className="pagination">
+                            <li className="page-item"><a className="page-link" onClick={page} >1</a></li>
+                            <li className="page-item"><a className="page-link" onClick={page} >2</a></li>
+                            <li className="page-item"><a className="page-link" onClick={page} >3</a></li>
+                        </ul>
+                    </nav>
+                </div>
+
+
+                {/*<div className="pagination clr ignore-select" id="pagination">*/}
+                {/*    <div className="pagination__inner d-flex jc-flex-start">*/}
+                {/*        <a href="https://uzfilms.tv/">1</a>*/}
+                {/*        <span className="nav_ext">...</span>*/}
+                {/*        <a href="https://uzfilms.tv/page/5/">5</a>*/}
+                {/*        <a href="https://uzfilms.tv/page/6/">6</a>*/}
+                {/*        <a href="https://uzfilms.tv/page/7/">7</a>*/}
+                {/*        <a href="https://uzfilms.tv/page/8/">8</a>*/}
+                {/*        <span>13</span>*/}
+                {/*        <a href="https://uzfilms.tv/page/14/">14</a>*/}
+                {/*        <a href="https://uzfilms.tv/page/15/">15</a>*/}
+                {/*        <a href="https://uzfilms.tv/page/16/">16</a>*/}
+                {/*        <a href="https://uzfilms.tv/page/17/">17</a>*/}
+                {/*        <span className="nav_ext">...</span>*/}
+                {/*        <a href="https://uzfilms.tv/page/22/">22</a>*/}
+                {/*    </div>*/}
+                {/*</div>*/}
+
 
                 <Modal isOpen={showModal}>
                     <ModalHeader>{currentUser ? "Edit User" : "add User"}</ModalHeader>
@@ -141,6 +198,6 @@ class AuthAdmin extends Component {
 AuthAdmin.propTypes = {};
 
 export default connect(
-    ({app:{user, dispatch,showModal,currentUser,deleteShowModal,activeUser}})=>
-    ({user, dispatch, showModal,currentUser, deleteShowModal,activeUser}))
+    ({app:{user, dispatch,showModal,currentUser,deleteShowModal,activeUser,pages}})=>
+    ({user, dispatch, showModal,currentUser, deleteShowModal,activeUser,pages}))
 (AuthAdmin);

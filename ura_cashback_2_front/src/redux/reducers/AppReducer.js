@@ -4,6 +4,7 @@ import {createReducer} from "../../utils/StoreUtils";
 
 const initState = {
     user: [],
+    pages:[],
     activeUser: false,
     orders: [],
     roles: [],
@@ -27,7 +28,9 @@ const reducers = {
         state.orders = payload.payload
     },
     [types.GET_USER_LIST](state, payload) {
-        state.user = payload.payload
+        console.log(payload.payload.object)
+        state.user = payload.payload.object
+        state.pages = payload.payload.totalPages
     },
     [types.REQUEST_SUCCESS](state) {
         state.showModal = false

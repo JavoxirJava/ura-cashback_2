@@ -16,7 +16,7 @@ export const deleteCountry = (data) => {
 }
 //*****************************************************************=> User
 export const getUsers = () => {
-    return HttpClient.doGet(api.userList);
+    return HttpClient.doGet(api.users);
 }
 export const addUser = (data) => {
     return HttpClient.doPost(api.users, data);
@@ -27,9 +27,11 @@ export const editUser = (data) => {
 export const removeUsers = (data) =>{
     return HttpClient.doDelete(api.users + "/" + data);
 }
-
 export const activeUser = (data) => {
     return HttpClient.doPut(api.users + "/active/" + data);
+}
+export const userPage = (data) => {
+    return HttpClient.doGet(api.users+ "?page=" + data )
 }
 //*****************************************************************=> Order
 export const getOrders = () => {
