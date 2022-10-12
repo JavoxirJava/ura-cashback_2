@@ -33,10 +33,11 @@ public class OrderService {
     public ApiResponse addOrder(Order order, OrderDto orderDto, UUID adminId) {
         User getUserClient = getOneUser(orderDto.getClientId());
         User getUserAdmin = getOneUser(adminId);
+//        Company byRoleNameAndUserId = companyRepository.findByRoleNameAndUserId(RoleName.ROLE_ADMIN, getUserAdmin.getId());
 //        getUserAdmin.getRoles().stream().map(role -> role.equals(RoleName.ROLE_ADMIN) )
-        if (getUserClient.getSalary() > orderDto.getCashback()) {
-
-        }
+//        if (getUserClient.getSalary() > orderDto.getCashback()) {
+//
+//        }
         return null;
     }
 
