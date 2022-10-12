@@ -14,7 +14,7 @@ import javax.persistence.*;
 @NoArgsConstructor
 @Entity
 public class
-Company extends AbsEntity { //Ozod Samandar
+Company extends AbsEntity { //Ozod Samandar,
     @Column(nullable = false)
     private String name;
 
