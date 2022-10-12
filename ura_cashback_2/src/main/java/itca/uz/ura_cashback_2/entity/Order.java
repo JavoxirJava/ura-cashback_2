@@ -12,13 +12,13 @@ import javax.persistence.ManyToOne;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity(name = "orders")
-public class Order extends AbsEntity {//Javohir ,Asliddin
+public class Order extends AbsEntity {//Javohir ,Asliddin  yoo mayyo shottayam nagli chopgansiladaa Akbar qani
 
     private Double cashback;
 
     private String comment;
 
-    @ManyToOne(optional = false)
+    @ManyToOne
     private User client;
 
     private Double cash_price;

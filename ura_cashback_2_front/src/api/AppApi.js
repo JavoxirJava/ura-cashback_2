@@ -1,6 +1,6 @@
 import HttpClient from "../utils/HttpClient";
 import {api} from "./api";
-import data from "bootstrap/js/src/dom/data";
+// import data from "bootstrap/js/src/dom/data";
 //*****************************************************************=> Country
 export const getCountries = () => {
     return HttpClient.doGet(api.country);
@@ -35,7 +35,7 @@ export const userPage = (data) => {
 }
 //*****************************************************************=> Order
 export const getOrders = () => {
-    return HttpClient.doGet(api.order);
+    return HttpClient.doGet(api.order + "/list");
 }
 export const addOrder = (data) => {
     return HttpClient.doPost(api.order, data);

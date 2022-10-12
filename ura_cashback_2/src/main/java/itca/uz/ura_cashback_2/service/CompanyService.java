@@ -33,10 +33,10 @@ public class CompanyService {
                 company.setName(companyDto.getName());
                 company.setBio(companyDto.getBio());
                 company.setDescription(companyDto.getDescription());
-                company.setPercentage(companyDto.getPercentage());
+                company.setClientPercentage(companyDto.getClintPercentage());
+                company.setKasserPercentage(companyDto.getKassaPercentage());
                 company.setAttachment(attachmentRepository.findById(companyDto.getAttachmentId())
                         .orElseThrow(()-> new ResourceAccessException("GetAttachment")));
-                company.setActive(companyDto.isActive());
                 companyRepository.save(company);
                 return new ApiResponse("Successfully saved company", true);
             }
@@ -47,20 +47,25 @@ public class CompanyService {
 
     public CompanyDto getOneCompany(UUID id, User user) {
         if (user.getRoles().size() > 2) {
-            Company company = companyRepository.findById(id).orElseThrow(() -> new ResourceAccessException("GetCompany"));
+            Company company = getOneCompany(id);
             return new CompanyDto(
                     company.getId(),
                     company.getName(),
                     company.getBio(),
                     company.getDescription(),
-                    company.getPercentage(),
+                    company.getClientPercentage(),
+                    company.getKasserPercentage(),
                     company.getAttachment(),
                     company.isActive());
         }
         return new CompanyDto();
     }
 
-    public ResPageable getCompanyList(int page, int size, User user) throws Exception {
+    public Company getOneCompany(UUID companyId) {
+        return companyRepository.findById(companyId).orElseThrow(() -> new ResourceAccessException("GetCompany"));
+    }
+
+    public ResPageable getCompanyPage(int page, int size, User user) throws Exception {
         Page<Company> allCompany = companyRepository.findAll(CommonUtils.getPageable(page, size));
         return new ResPageable(
                 page,
@@ -75,13 +80,13 @@ public class CompanyService {
     public ApiResponse changeActiveCom(UUID id, User user) {
         Optional<Company> byId = companyRepository.findById(id);
         if (byId.isPresent()) {
-            if (user.getRoles().size() > 2) {
+//            if (user.getRoles().size() > 2) {
                 Company company = byId.get();
                 company.setActive(!company.isActive());
                 companyRepository.save(company);
                 return new ApiResponse(company.isActive() ? "Company active" : "Company inactive", true);
-            }
-            return new ApiResponse("User role not equals", false);
+//            }
+//            return new ApiResponse("User role not equals", false);
         }
         return new ApiResponse("Company not found", false);
     }

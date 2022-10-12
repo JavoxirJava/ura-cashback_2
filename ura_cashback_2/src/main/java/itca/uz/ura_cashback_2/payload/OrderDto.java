@@ -10,7 +10,7 @@ import java.util.UUID;
 @AllArgsConstructor
 @Data
 public class OrderDto {
-    private UUID id;
+    private UUID adminId;
     private String comment;
     private UUID clientId;
     private Double cash_price;

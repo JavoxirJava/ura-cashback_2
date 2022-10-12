@@ -3,10 +3,17 @@ import {
     activeUser,
     addAttachment, addUser, editUser,
     getUsers, removeUsers, userPage,
+    addUser, removeUsers,
+    editUser,
+    getUsers,
+    addAttachment,
+    addOrder,
+    deleteOrder,
+    editOrder,
+    getOrders
 } from "../../api/AppApi";
 import * as types from "../actionTypes/AppActionTypes";
 import {toast} from "react-toastify";
-
 export const getUser = () => (dispatch) => {
     dispatch({
         api: getUsers,
@@ -124,7 +131,6 @@ export const saveCompany = (payload) => (dispatch) => {
 
 
 export const activeCompany = (payload) => (dispatch) => {
-
     dispatch({
         api: api.activeCompany12(payload),
         types: [
@@ -142,7 +148,7 @@ export const activeCompany = (payload) => (dispatch) => {
 }
 export const getOrder = () => (dispatch) => {
     dispatch({
-        api: api.getOrders,
+        api: getOrders,
         types: [
             types.REQUEST_START,
             types.GET_ORDER_LIST,
@@ -171,9 +177,9 @@ export const saveOrder = (payload) => (dispatch) => {
     })
 }
 
-export const editOrder = (payload) => (dispatch) => {
+export const editOrders = (payload) => (dispatch) => {
     dispatch({
-        api: api.editOrder(payload),
+        api: editOrder(payload),
         types: [
             types.REQUEST_START,
             types.REQUEST_SUCCESS,
@@ -187,9 +193,8 @@ export const editOrder = (payload) => (dispatch) => {
 
 
 export const delOrder = (payload) => (dispatch) => {
-
     dispatch({
-        api: api.deleteOrder,
+        api: deleteOrder,
         types: [
             types.REQUEST_START,
             types.REQUEST_SUCCESS,

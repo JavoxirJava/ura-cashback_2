@@ -26,7 +26,6 @@ public class Dataloader implements CommandLineRunner {
         if (initMode.equals("create-drop") || initMode.equals("create")) {
             roleRepository.save(new Role(RoleName.ROLE_USER));
             roleRepository.save(new Role(RoleName.ROLE_ADMIN));
-            roleRepository.save(new Role(RoleName.ROLE_MODERATOR));
             roleRepository.save(new Role(RoleName.ROLE_SUPER_ADMIN));
         }
     }

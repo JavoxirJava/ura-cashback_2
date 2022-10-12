@@ -3,6 +3,7 @@ import {Button, Input, Modal, ModalBody, ModalFooter, ModalHeader, Table} from "
 import {connect} from "react-redux";
 import {getUser, isActiveUser, pageUser, removeUser, saveUser} from "../redux/actions/AppAction";
 
+import {getUser, isActiveUser, removeUser, saveUser} from "../../redux/actions/AppAction";
 
 
 

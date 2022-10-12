@@ -32,8 +32,6 @@ public class AuthService implements UserDetailsService {
     final CompanyRepository companyRepository;
     final RoleRepository roleRepository;
 
-
-
     public AuthService(AuthRepository authRepository, AttachmentRepository attachmentRepository, CompanyRepository companyRepository, RoleRepository roleRepository) {
         this.authRepository = authRepository;
         this.attachmentRepository = attachmentRepository;
@@ -62,23 +60,24 @@ public class AuthService implements UserDetailsService {
             return new ApiResponse("User is all ready exist", false);
     }
 
-
-
-
-    public ApiResponse deleteClient(UUID id){
+    public ApiResponse deleteClient(UUID id) {
         authRepository.deleteById(id);
-        return new ApiResponse("Successfully delete client",true);
+        return new ApiResponse("Successfully delete client", true);
     }
 
+    public ApiResponse activeUser(UUID id) {
 
     public ApiResponse activeUser(UUID id){
         User user = authRepository.findById(id).orElseThrow(() -> new ResourceAccessException("getUser"));
         user.setActive(!user.isActive());
         authRepository.save(user);
-        return new ApiResponse("Successfully active",true);
+        return new ApiResponse("Successfully active", true);
     }
 
-
+    public void editUserSalary(Double salary, User user) {
+        user.setSalary(salary);
+        authRepository.save(user);
+    }
 
 
     public ResPageable getUserList(int page, int size) throws Exception {
@@ -90,6 +89,30 @@ public class AuthService implements UserDetailsService {
                 allUser.getTotalPages(),
                 new ArrayList<>(allUser.getContent())
         );
+    }
+
+
+    public User getOneUser(UUID id) {
+        return authRepository.findById(id).orElseThrow(() -> new ResourceAccessException("getUser"));
+    }
+
+//    public AuthDto getUser(User user){
+//        return new AuthDto(
+//                user.getId(),
+//                user.getFirstName(),
+//                user.getLastName(),
+//                user.getPhoneNumber(),
+//                user.getEmail(),
+//                user.getSalary(),
+//                user.getPassword(),
+//                user.getCompany().stream().map(Company::getName).collect(Collectors.toList()),
+//                user.getRoles().stream().map(Role::getRoleName).collect(Collectors.toList())
+//        );
+//    }
+
+
+    public List<User> getUser() {
+        return authRepository.findAll();
     }
 
 
