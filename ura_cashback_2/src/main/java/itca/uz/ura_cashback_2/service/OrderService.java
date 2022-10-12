@@ -40,11 +40,11 @@ public class OrderService {
         User getUserClient = authService.getOneUser(orderDto.getClientId());
         User getUserAdmin = authService.getOneUser(orderDto.getAdminId());
         Company getCompany = companyUserRoleService.getCompanyFindByUser(getUserAdmin.getId(), roleRepository.findRoleByRoleName(RoleName.ROLE_ADMIN).getId());
-        if (orderDto.getCash_price() > 0 && orderDto.getCashback() <= getUserAdmin.getSalary()) {
-            authService.editUserSalary(orderDto.getCash_price() * getCompany.getKasserPercentage() / 100, getUserAdmin);
+        if (orderDto.getCashback() <= getUserClient.getSalary()) {
+            authService.editUserSalary(getUserAdmin.getSalary() + (orderDto.getCash_price() * getCompany.getKasserPercentage() / 100), getUserAdmin);
             authService.editUserSalary(orderDto.getCash_price() < 0
                     ? getUserClient.getSalary() - orderDto.getCashback()
-                    : orderDto.getCash_price() * getCompany.getClientPercentage() / 100 - orderDto.getCashback(), getUserClient);
+                    : getUserClient.getSalary() + (orderDto.getCash_price() * getCompany.getClientPercentage() / 100 - orderDto.getCashback()), getUserClient);
         } else return new ApiResponse("There are not enough funds in your Cashback account", false);
         order.setCashback(orderDto.getCashback());
         order.setComment(orderDto.getComment());
