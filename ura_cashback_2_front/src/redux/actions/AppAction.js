@@ -1,10 +1,9 @@
 import * as api from "../../api/AppApi";
 import {
     activeUser,
-    addUser,
+    addUser, removeUsers,
     editUser,
     getUsers,
-    removeUsers,
     addAttachment,
     addOrder,
     deleteOrder,
