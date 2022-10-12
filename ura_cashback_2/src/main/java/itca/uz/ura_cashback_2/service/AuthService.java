@@ -40,16 +40,17 @@ public class AuthService implements UserDetailsService {
         this.roleRepository = roleRepository;
     }
 
-    public ApiResponse addOrEditRegisterClient(User user, AuthDto authDto) {
+    public ApiResponse clintRegister(User user, AuthDto authDto) {
         if (!authRepository.existsByPhoneNumberEqualsIgnoreCaseAndEmailEqualsIgnoreCase(authDto.getPhoneNumber(), authDto.getEmail())) {
             if (authDto.getPassword().equals(authDto.getPrePassword())) {
                 user.setFirstName(authDto.getFirstName());
                 user.setLastName(authDto.getLastName());
                 user.setPhoneNumber(authDto.getPhoneNumber());
                 user.setEmail(authDto.getEmail());
+                user.setSalary(authDto.getSalary());
                 user.setPassword(authDto.getPassword());
-                user.setRoles(Collections.singleton(roleRepository.findRoleByRoleName(RoleName.ROLE_USER)));
-                authRepository.save(user);
+                user.setActive(authDto.isActive());
+                User save = authRepository.save(user);
                 return new ApiResponse("User saved", true);
             }
             return new ApiResponse("Password and PrePassword are not the same", false);

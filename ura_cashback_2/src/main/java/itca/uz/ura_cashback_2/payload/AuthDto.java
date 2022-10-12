@@ -25,15 +25,14 @@ public class AuthDto {
 
     private Double salary;
 
-    private boolean active;
-
     private String password;
 
     private String prePassword;
 
     private List<UUID> companyId;
 
-    private List<Role> roles;
+    private Role role;
 
+    private boolean active;
 
 }
