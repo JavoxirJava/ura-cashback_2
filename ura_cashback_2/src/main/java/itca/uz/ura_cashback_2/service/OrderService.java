@@ -2,7 +2,6 @@ package itca.uz.ura_cashback_2.service;
 
 import itca.uz.ura_cashback_2.entity.Company;
 import itca.uz.ura_cashback_2.entity.Order;
-import itca.uz.ura_cashback_2.entity.Role;
 import itca.uz.ura_cashback_2.entity.User;
 import itca.uz.ura_cashback_2.entity.enums.RoleName;
 import itca.uz.ura_cashback_2.payload.ApiResponse;
@@ -11,6 +10,7 @@ import itca.uz.ura_cashback_2.payload.OrderDto;
 import itca.uz.ura_cashback_2.repository.AuthRepository;
 import itca.uz.ura_cashback_2.repository.CompanyRepository;
 import itca.uz.ura_cashback_2.repository.OrderRepository;
+import itca.uz.ura_cashback_2.repository.RoleRepository;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.ResourceAccessException;
 
@@ -23,16 +23,25 @@ public class OrderService {
     final OrderRepository orderRepository;
     final AuthRepository authRepository;
     final CompanyRepository companyRepository;
+    final CompanyUserRoleService companyUserRoleService;
+    final RoleRepository roleRepository;
 
-    public OrderService(OrderRepository orderRepository, AuthRepository authRepository, CompanyRepository companyRepository) {
+    public OrderService(OrderRepository orderRepository, AuthRepository authRepository, CompanyRepository companyRepository, CompanyUserRoleService companyUserRoleService, RoleRepository roleRepository) {
         this.orderRepository = orderRepository;
         this.authRepository = authRepository;
         this.companyRepository = companyRepository;
+        this.companyUserRoleService = companyUserRoleService;
+        this.roleRepository = roleRepository;
     }
 
     public ApiResponse addOrder(Order order, OrderDto orderDto, UUID adminId) {
         User getUserClient = getOneUser(orderDto.getClientId());
         User getUserAdmin = getOneUser(adminId);
+        Company getCompany = companyUserRoleService.getCompanyFindByUser(getUserAdmin.getId(), roleRepository.findRoleByRoleName(RoleName.ROLE_ADMIN).getId());
+
+
+
+
 //        Company byRoleNameAndUserId = companyRepository.findByRoleNameAndUserId(RoleName.ROLE_ADMIN, getUserAdmin.getId());
 //        getUserAdmin.getRoles().stream().map(role -> role.equals(RoleName.ROLE_ADMIN) )
 //        if (getUserClient.getSalary() > orderDto.getCashback()) {

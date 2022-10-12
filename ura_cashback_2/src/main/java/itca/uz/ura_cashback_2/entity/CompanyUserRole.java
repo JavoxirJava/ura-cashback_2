@@ -11,6 +11,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 @EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
@@ -19,12 +20,9 @@ import java.util.Set;
 @Entity
 public class CompanyUserRole extends AbsEntity {
 
-    @ManyToMany
-    private List<User> user;
+    private UUID userId;
 
-    @OneToOne
-    private Company company;
+    private UUID companyId;
 
-    @ManyToMany
-    private Set<Role> role;
+    private Integer roleId;
 }
