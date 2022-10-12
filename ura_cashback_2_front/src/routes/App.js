@@ -1,13 +1,13 @@
 import {Provider} from "react-redux";
 import store from "../redux";
 import {Route, Routes} from "react-router-dom";
-import NotFount from "../pages/notFaunt/NotFount";
+import NotFount from "../pages/clint/notFaunt/NotFount";
 // import Navbar from "../pages/navbar/Navbar";
 // import Sidebar from "../pages/navbar/Sidebar";
-import AuthAdmin from "../pages/AuthAdmin";
+import AuthAdmin from "../pages/admin/AuthAdmin";
 
-import Order from "../pages/order/Order";
-import Company from "../pages/Company";
+import Order from "../pages/admin/order/Order";
+import Company from "../pages/admin/company/Company";
 import KassaClient from "../test/loginPage/KassaClient";
 
 //https://www.w3schools.com/react/showreact.asp?filename=demo2_react_usememo // add uchun menga kk

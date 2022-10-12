@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Button, Input, Modal, ModalBody, ModalFooter, ModalHeader, Table} from "reactstrap";
 import {connect} from "react-redux";
-import {getUser, isActiveUser, removeUser, saveUser} from "../redux/actions/AppAction";
+import {getUser, isActiveUser, removeUser, saveUser} from "../../redux/actions/AppAction";
 
 
 

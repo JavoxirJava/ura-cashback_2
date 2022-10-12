@@ -38,9 +38,6 @@ public class User extends AbsEntity implements UserDetails { //Shahzod aka, Shah
     @Column(nullable = false)
     private String password;
 
-    @OneToMany
-    private List<Company> company;
-
     private boolean accountNonExpired;
     private boolean accountNonLocked;
     private boolean credentialsNonExpired;

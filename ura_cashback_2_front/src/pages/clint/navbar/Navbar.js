@@ -1,6 +1,6 @@
 import React from 'react';
 import {Nav, NavItem, NavLink} from 'reactstrap';
-import '../order/order.scss';
+import '../../admin/order/order.scss';
 
 function Navbar() {
     // const [dropdownOpen, setDropdownOpen] = useState(false);

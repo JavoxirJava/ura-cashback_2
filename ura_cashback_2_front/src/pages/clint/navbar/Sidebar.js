@@ -6,7 +6,7 @@ import shape from './sidebarImg/Shape.png';
 import './sidebar.scss';
 import './sidebarImg/sidebar2.css';
 import {connect} from "react-redux";
-import {api} from "../../api/api";
+import {api} from "../../../api/api";
 import {Link} from "react-router-dom";
 
 function Sidebar(props) {

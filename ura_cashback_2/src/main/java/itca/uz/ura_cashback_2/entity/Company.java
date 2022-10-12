@@ -13,7 +13,8 @@ import javax.persistence.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Company extends AbsEntity { //Ozod Samandar
+public class
+Company extends AbsEntity { //Ozod Samandar
     @Column(nullable = false)
     private String name;
 
@@ -21,7 +22,9 @@ public class Company extends AbsEntity { //Ozod Samandar
 
     private String description;
 
-        private Double percentage;
+    private Double clientPercentage;
+
+    private Double kasserPercentage;
 
     @OneToOne
     private Attachment attachment;

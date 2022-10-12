@@ -1,7 +1,7 @@
 import * as api from "../../api/AppApi";
 import {
     activeUser,
-    addAttachment, addUser, editUser,
+    addUser, editUser,
     getUsers, removeUsers,
 } from "../../api/AppApi";
 import * as types from "../actionTypes/AppActionTypes";

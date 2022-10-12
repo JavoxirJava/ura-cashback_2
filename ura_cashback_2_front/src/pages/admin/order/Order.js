@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import "./orderC.css"
 import {Button, FormGroup, Input, Label, Offcanvas, OffcanvasBody, OffcanvasHeader, Table} from "reactstrap";
-import {getOrder, saveOrder, delOrder} from "../../redux/actions/AppAction";
+import {getOrder, saveOrder, delOrder} from "../../../redux/actions/AppAction";
 import {connect} from "react-redux";
 
 class Order extends Component {
@@ -53,8 +53,6 @@ class Order extends Component {
         }
         const deleteOrders = (e) => {
             this.props.dispatch(delOrder(currentItem))
-        const deleteOrders = () => {
-            this.props.dispatch(deleteOrder(currentItem))
         }
 
 
