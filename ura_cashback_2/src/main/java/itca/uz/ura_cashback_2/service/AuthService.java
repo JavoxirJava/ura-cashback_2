@@ -33,7 +33,6 @@ public class AuthService implements UserDetailsService {
     final RoleRepository roleRepository;
 
 
-
     public AuthService(AuthRepository authRepository, AttachmentRepository attachmentRepository, CompanyRepository companyRepository, RoleRepository roleRepository) {
         this.authRepository = authRepository;
         this.attachmentRepository = attachmentRepository;
@@ -41,9 +40,9 @@ public class AuthService implements UserDetailsService {
         this.roleRepository = roleRepository;
     }
 
-    public ApiResponse addOrEditRegisterClient(User user, AuthDto authDto){
-        if (!authRepository.existsByPhoneNumberEqualsIgnoreCaseAndEmailEqualsIgnoreCase(authDto.getPhoneNumber(), authDto.getEmail())){
-            if (authDto.getPassword().equals(authDto.getPrePassword())){
+    public ApiResponse addOrEditRegisterClient(User user, AuthDto authDto) {
+        if (!authRepository.existsByPhoneNumberEqualsIgnoreCaseAndEmailEqualsIgnoreCase(authDto.getPhoneNumber(), authDto.getEmail())) {
+            if (authDto.getPassword().equals(authDto.getPrePassword())) {
                 user.setFirstName(authDto.getFirstName());
                 user.setLastName(authDto.getLastName());
                 user.setPhoneNumber(authDto.getPhoneNumber());
@@ -58,19 +57,27 @@ public class AuthService implements UserDetailsService {
         return new ApiResponse("User is all ready exist", false);
     }
 
-    public ApiResponse deleteClient(UUID id){
+    public ApiResponse deleteClient(UUID id) {
         authRepository.deleteById(id);
-        return new ApiResponse("Successfully delete client",true);
+        return new ApiResponse("Successfully delete client", true);
     }
 
-    public ApiResponse activeUser(UUID id){
+    public ApiResponse activeUser(UUID id) {
         User user = authRepository.findById(id).orElseThrow(() -> new ResourceAccessException("getUser"));
         user.setActive(!user.isActive());
         authRepository.save(user);
-        return new ApiResponse("Successfully active",true);
+        return new ApiResponse("Successfully active", true);
     }
 
-
+    public ApiResponse editUserSalary(Double salary, User user) {
+        try {
+            user.setSalary(salary);
+            authRepository.save(user);
+            return new ApiResponse("successfully edit user salary", true);
+        } catch (Exception e) {
+            return new ApiResponse("error: " + e.getMessage(), false);
+        }
+    }
 
 
     public ResPageable getUserList(int page, int size, User user) throws Exception {
@@ -99,10 +106,9 @@ public class AuthService implements UserDetailsService {
 //    }
 
 
-    public List<User> getUser(){
+    public List<User> getUser() {
         return authRepository.findAll();
     }
-
 
 
     @Override
