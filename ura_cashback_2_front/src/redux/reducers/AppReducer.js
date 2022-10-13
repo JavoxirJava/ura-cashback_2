@@ -28,9 +28,9 @@ const reducers = {
         state.orders = payload.payload
     },
     [types.GET_USER_LIST](state, payload) {
-        console.log(payload.payload.object)
         state.user = payload.payload.object
         state.pages = payload.payload.totalPages
+
     },
     [types.REQUEST_SUCCESS](state) {
         state.showModal = false

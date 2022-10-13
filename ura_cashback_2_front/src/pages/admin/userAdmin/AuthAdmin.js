@@ -1,22 +1,21 @@
 import React, {Component} from 'react';
 import {Button, Input, Modal, ModalBody, ModalFooter, ModalHeader, Table} from "reactstrap";
 import {connect} from "react-redux";
-import {getUser, isActiveUser, pageUser, removeUser, saveUser} from "../redux/actions/AppAction";
-
-import {getUser, isActiveUser, removeUser, saveUser} from "../../redux/actions/AppAction";
-
-
+import {getUser, isActiveUser, removeUser, saveUser} from "../../../redux/actions/AppAction";
+import UserPage from "./UserPage";
 
 
 class AuthAdmin extends Component {
 
     componentDidMount() {
         this.props.dispatch(getUser());
+
     }
 
     render() {
 
         const {user, dispatch, showModal,currentUser,deleteShowModal,activeUser,pages} = this.props;
+
 
         const openModal = (item) =>{
             dispatch({
@@ -92,10 +91,6 @@ class AuthAdmin extends Component {
             })
         }
 
-        const page = () => {
-          this.props.dispatch(pageUser(1))
-        }
-
 
 
         return (
@@ -137,34 +132,10 @@ class AuthAdmin extends Component {
                 </Table>
                 </div>
 
-                <div>
-                    <nav aria-label="Page navigation example">
-                        <ul className="pagination">
-                            <li className="page-item"><a className="page-link" onClick={page} >1</a></li>
-                            <li className="page-item"><a className="page-link" onClick={page} >2</a></li>
-                            <li className="page-item"><a className="page-link" onClick={page} >3</a></li>
-                        </ul>
-                    </nav>
-                </div>
+                <UserPage postPrePost={pages}  totalPosts={10}/>
 
 
-                {/*<div className="pagination clr ignore-select" id="pagination">*/}
-                {/*    <div className="pagination__inner d-flex jc-flex-start">*/}
-                {/*        <a href="https://uzfilms.tv/">1</a>*/}
-                {/*        <span className="nav_ext">...</span>*/}
-                {/*        <a href="https://uzfilms.tv/page/5/">5</a>*/}
-                {/*        <a href="https://uzfilms.tv/page/6/">6</a>*/}
-                {/*        <a href="https://uzfilms.tv/page/7/">7</a>*/}
-                {/*        <a href="https://uzfilms.tv/page/8/">8</a>*/}
-                {/*        <span>13</span>*/}
-                {/*        <a href="https://uzfilms.tv/page/14/">14</a>*/}
-                {/*        <a href="https://uzfilms.tv/page/15/">15</a>*/}
-                {/*        <a href="https://uzfilms.tv/page/16/">16</a>*/}
-                {/*        <a href="https://uzfilms.tv/page/17/">17</a>*/}
-                {/*        <span className="nav_ext">...</span>*/}
-                {/*        <a href="https://uzfilms.tv/page/22/">22</a>*/}
-                {/*    </div>*/}
-                {/*</div>*/}
+
 
 
                 <Modal isOpen={showModal}>

@@ -94,8 +94,8 @@ class Company extends Component {
                                     <td>{item.name}</td>
                                     <td>{item.bio}</td>
                                     <td>{item.description}</td>
-                                    <td>{item.clintPercentage}</td>
-                                    <td>{item.kassaPercentage}</td>
+                                    <td>{item.clientPercentage}</td>
+                                    <td>{item.kasserPercentage}</td>
                                     <td>
                                         <Row>
                                             <Label check for="active">

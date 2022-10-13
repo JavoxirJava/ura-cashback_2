@@ -49,7 +49,7 @@ body::-webkit-scrollbar {
     margin: 0 auto;
 }
 
-/*! Login Page */
+/*! Login Posts */
 
 .login-page {
     display: -webkit-box;
@@ -192,7 +192,7 @@ body::-webkit-scrollbar {
     width: 13px;
 }
 
-/* Content Page */
+/* Content Posts */
 .content-page {
     background-color: #f4fafe;
     padding: 20px 14px 0 14px;

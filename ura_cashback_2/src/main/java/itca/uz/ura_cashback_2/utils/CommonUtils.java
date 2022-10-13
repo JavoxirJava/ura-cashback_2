@@ -12,6 +12,6 @@ public class CommonUtils {
         if (size>Integer.parseInt(AppConstant.MAX_SIZE)){
             throw new Exception("Size "+AppConstant.MAX_SIZE+" dan bolmasin");
         }
-        return PageRequest.of(page, size, Sort.Direction.DESC, "createdAt");
+        return PageRequest.of(page, size, Sort.Direction.DESC, "createdAt","phoneNumber");
     }
 }

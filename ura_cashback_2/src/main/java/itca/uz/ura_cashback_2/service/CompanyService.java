@@ -77,7 +77,7 @@ public class CompanyService {
         );
     }
 
-    public ApiResponse changeActiveCom(UUID id, User user) {
+    public ApiResponse changeActiveCom(UUID id) {
         Optional<Company> byId = companyRepository.findById(id);
         if (byId.isPresent()) {
 //            if (user.getRoles().size() > 2) {

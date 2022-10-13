@@ -52,13 +52,10 @@ class Order extends Component {
             this.props.dispatch(saveOrder(obj))
         }
 
-        const deleteOrders = () => {
-            this.props.dispatch(delOrder(currentItem))
-        }
-
         // const deleteOrders = () => {
         //     this.props.dispatch(delOrder(currentItem))
         // }
+
 
 
         return (

@@ -1,11 +1,9 @@
 package itca.uz.ura_cashback_2.controller;
 
 import itca.uz.ura_cashback_2.entity.Company;
-import itca.uz.ura_cashback_2.entity.User;
 import itca.uz.ura_cashback_2.payload.ApiResponse;
 import itca.uz.ura_cashback_2.payload.CompanyDto;
 import itca.uz.ura_cashback_2.repository.CompanyRepository;
-import itca.uz.ura_cashback_2.security.CurrentUser;
 import itca.uz.ura_cashback_2.service.CompanyService;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
@@ -14,6 +12,7 @@ import org.springframework.web.client.ResourceAccessException;
 
 import java.util.UUID;
 
+@CrossOrigin
 @RestController
 @RequestMapping("/api/company")
 public class CompanyController {
@@ -40,9 +39,9 @@ public class CompanyController {
     }
 
     @GetMapping("/{id}")
-    public HttpEntity<?> getOneCompany(@PathVariable UUID id,  @CurrentUser User user){
-        CompanyDto companyDto = companyService.getOneCompany(id, user);
-        return ResponseEntity.ok(companyDto);
+    public HttpEntity<?> getOneCompany(@PathVariable UUID id){
+        Company oneCompany = companyService.getOneCompany(id);
+        return ResponseEntity.ok(oneCompany);
     }
 
 //    @PreAuthorize(value = "hasAnyRole('ROLE_SUPER_ADMIN')")
@@ -59,8 +58,8 @@ public class CompanyController {
     }
 
     @PutMapping("/active/{id}")
-    public HttpEntity<?> changeActiveCom(@PathVariable UUID id, @CurrentUser User user){
-        ApiResponse apiResponse = companyService.changeActiveCom(id, user);
+    public HttpEntity<?> changeActiveCom(@PathVariable UUID id){
+        ApiResponse apiResponse = companyService.changeActiveCom(id);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 }

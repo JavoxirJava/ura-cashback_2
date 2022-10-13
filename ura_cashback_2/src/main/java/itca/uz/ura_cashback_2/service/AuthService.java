@@ -12,20 +12,16 @@ import itca.uz.ura_cashback_2.repository.CompanyRepository;
 import itca.uz.ura_cashback_2.repository.RoleRepository;
 import itca.uz.ura_cashback_2.utils.CommonUtils;
 import org.springframework.data.domain.Page;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.ResourceAccessException;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 import java.util.UUID;
 
 
 @Service
-public class AuthService implements UserDetailsService {
+public class AuthService{
 
     final AuthRepository authRepository;
     final AttachmentRepository attachmentRepository;
@@ -65,7 +61,7 @@ public class AuthService implements UserDetailsService {
         return new ApiResponse("Successfully delete client", true);
     }
 
-    public ApiResponse activeUser(UUID id) {
+
 
     public ApiResponse activeUser(UUID id){
         User user = authRepository.findById(id).orElseThrow(() -> new ResourceAccessException("getUser"));
@@ -96,32 +92,5 @@ public class AuthService implements UserDetailsService {
         return authRepository.findById(id).orElseThrow(() -> new ResourceAccessException("getUser"));
     }
 
-//    public AuthDto getUser(User user){
-//        return new AuthDto(
-//                user.getId(),
-//                user.getFirstName(),
-//                user.getLastName(),
-//                user.getPhoneNumber(),
-//                user.getEmail(),
-//                user.getSalary(),
-//                user.getPassword(),
-//                user.getCompany().stream().map(Company::getName).collect(Collectors.toList()),
-//                user.getRoles().stream().map(Role::getRoleName).collect(Collectors.toList())
-//        );
-//    }
 
-
-    public List<User> getUser() {
-        return authRepository.findAll();
-    }
-
-
-    @Override
-    public UserDetails loadUserByUsername(String phoneNumber) throws UsernameNotFoundException {
-        return authRepository.findByPhoneNumberEquals(phoneNumber).orElseThrow(() -> new UsernameNotFoundException("getUser"));
-    }
-
-    public User getUserByToken(UUID id) {
-        return authRepository.findById(id).orElseThrow(() -> new ResourceAccessException("getUser"));
-    }
 }

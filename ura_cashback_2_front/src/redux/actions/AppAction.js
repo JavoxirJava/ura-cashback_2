@@ -3,17 +3,14 @@ import {
     activeUser,
     addAttachment, addUser, editUser,
     getUsers, removeUsers, userPage,
-    addUser, removeUsers,
-    editUser,
-    getUsers,
-    addAttachment,
-    addOrder,
     deleteOrder,
     editOrder,
     getOrders
 } from "../../api/AppApi";
 import * as types from "../actionTypes/AppActionTypes";
 import {toast} from "react-toastify";
+
+
 export const getUser = () => (dispatch) => {
     dispatch({
         api: getUsers,
