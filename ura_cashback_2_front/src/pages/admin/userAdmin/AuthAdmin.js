@@ -1,20 +1,21 @@
 import React, {Component} from 'react';
 import {Button, Input, Modal, ModalBody, ModalFooter, ModalHeader, Table} from "reactstrap";
 import {connect} from "react-redux";
-import {getUser, isActiveUser, removeUser, saveUser} from "../../redux/actions/AppAction";
-
-
+import {getUser, isActiveUser, removeUser, saveUser} from "../../../redux/actions/AppAction";
+import UserPage from "./UserPage";
 
 
 class AuthAdmin extends Component {
 
     componentDidMount() {
         this.props.dispatch(getUser());
+
     }
 
     render() {
 
-        const {user, dispatch, showModal,currentUser,deleteShowModal,activeUser} = this.props;
+        const {user, dispatch, showModal,currentUser,deleteShowModal,activeUser,pages} = this.props;
+
 
         const openModal = (item) =>{
             dispatch({
@@ -36,16 +37,18 @@ class AuthAdmin extends Component {
             })
         }
 
-        const changeActive = (item) => {
+        const changeActive = () => {
             dispatch({
               type:"updateState",
               payload:{
                   activeUser: !activeUser,
-                  currentUser: item
               }
           });
-            if(currentUser.id !== undefined) {
-                this.props.dispatch(isActiveUser(currentUser.id))
+        }
+
+        const changeActiveUser = (item)=>{
+            if(item.id !== undefined) {
+                this.props.dispatch(isActiveUser(item.id))
             }
         }
 
@@ -54,6 +57,12 @@ class AuthAdmin extends Component {
         const deleteUser = () =>{
             this.props.dispatch(removeUser(currentUser));
             deleteModal("")
+            dispatch({
+                type:"updateState",
+                payload:{
+                    deleteShowModal: !deleteShowModal
+                }
+            })
         }
 
         const addUser = ()=> {
@@ -63,9 +72,23 @@ class AuthAdmin extends Component {
             let email = document.getElementById("email").value;
             let password = document.getElementById("password").value;
             let prePassword = document.getElementById("prePassword").value;
-            let obj = currentUser ? {id : currentUser.id,firstName,lastName,phoneNumber,email,password,prePassword } :
-                {firstName,lastName,phoneNumber,email,password,prePassword};
+            let obj = currentUser ? {
+                    id: currentUser.id,
+                    firstName,
+                    lastName,
+                    phoneNumber,
+                    email,
+                    password,
+                    prePassword
+                } :
+                {firstName, lastName, phoneNumber, email, password, prePassword};
             this.props.dispatch(saveUser(obj));
+            dispatch({
+                type:"updateState",
+                payload:{
+                    showModal: !showModal
+                }
+            })
         }
 
 
@@ -98,8 +121,8 @@ class AuthAdmin extends Component {
                             <td>{item.phoneNumber}</td>
                             <td>{item.password}</td>
                             <td>{item.active ?
-                            <Input type="checkbox" checked={item.active}  onChange={()=> changeActive(item)}/> :
-                            <Input type="checkbox" checked={item.active}   onChange={()=> changeActive(item)}/>}
+                            <Input type="checkbox" checked={item.active} onClick={()=> changeActiveUser(item)}  onChange={changeActive}/> :
+                            <Input type="checkbox" checked={item.active} onClick={()=> changeActiveUser(item)}  onChange={changeActive}/>}
                             </td>
                             <td><Button color="warning" outline onClick={()=> openModal(item)}>Edit</Button></td>
                             <td><Button color="danger" outline onClick={()=> deleteModal(item) }>Delete</Button></td>
@@ -108,6 +131,12 @@ class AuthAdmin extends Component {
                     )}
                 </Table>
                 </div>
+
+                <UserPage postPrePost={pages}  totalPosts={10}/>
+
+
+
+
 
                 <Modal isOpen={showModal}>
                     <ModalHeader>{currentUser ? "Edit User" : "add User"}</ModalHeader>
@@ -141,6 +170,6 @@ class AuthAdmin extends Component {
 AuthAdmin.propTypes = {};
 
 export default connect(
-    ({app:{user, dispatch,showModal,currentUser,deleteShowModal,activeUser}})=>
-    ({user, dispatch, showModal,currentUser, deleteShowModal,activeUser}))
+    ({app:{user, dispatch,showModal,currentUser,deleteShowModal,activeUser,pages}})=>
+    ({user, dispatch, showModal,currentUser, deleteShowModal,activeUser,pages}))
 (AuthAdmin);

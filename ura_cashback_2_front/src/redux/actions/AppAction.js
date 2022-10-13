@@ -1,11 +1,8 @@
 import * as api from "../../api/AppApi";
 import {
     activeUser,
-    addUser, removeUsers,
-    editUser,
-    getUsers,
-    addAttachment,
-    addOrder,
+    addAttachment, addUser, editUser,
+    getUsers, removeUsers, userPage,
     deleteOrder,
     editOrder,
     getOrders,
@@ -13,6 +10,8 @@ import {
 } from "../../api/AppApi";
 import * as types from "../actionTypes/AppActionTypes";
 import {toast} from "react-toastify";
+
+
 import {GET_ORDER_LOGIN} from "../actionTypes/AppActionTypes";
 
 export const getUser = () => (dispatch) => {
@@ -25,6 +24,18 @@ export const getUser = () => (dispatch) => {
         ]
     })
 }
+export const pageUser = (payload) => (dispatch)=>{
+    dispatch({
+        api: userPage,
+        types:[
+            types.REQUEST_START,
+            types.REQUEST_SUCCESS,
+            types.REQUEST_ERROR
+        ],
+        data:payload
+    }).then(()=>{
+        dispatch(getUser())
+    })
 export const getOneUser = (payload) => (dispatch) => {
     dispatch({
         api: getOneUsers,
@@ -79,6 +90,8 @@ export const isActiveUser = (payload) => (dispatch) => {
             types.REQUEST_SUCCESS,
             types.REQUEST_ERROR
         ],
+        data:payload
+    }).then(()=>{
         data: payload
     }).then(() => {
         dispatch(getUser())
@@ -157,7 +170,7 @@ export const getOrder = () => (dispatch) => {
 }
 export const saveOrder = (payload) => (dispatch) => {
     dispatch({
-        api: addOrder,
+        api: api.addOrder,
         types: [
             types.REQUEST_START,
             types.REQUEST_SUCCESS,

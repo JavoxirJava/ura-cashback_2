@@ -5,6 +5,7 @@ import {GET_ORDER_LOGIN} from "../actionTypes/AppActionTypes";
 
 const initState = {
     user: [],
+    pages:[],
     activeUser: false,
     orders: [],
     roles: [],
@@ -28,7 +29,9 @@ const reducers = {
         state.orders = payload.payload
     },
     [types.GET_USER_LIST](state, payload) {
-        state.user = payload.payload
+        state.user = payload.payload.object
+        state.pages = payload.payload.totalPages
+
     },
     [types.GET_ONE_USER_LIST](state, payload) {
         state.currentUser = payload.payload
