@@ -29,6 +29,11 @@ public class OrderController {
         return ResponseEntity.ok(orderService.getOrderList());
     }
 
+    @GetMapping("/{id}")
+    public HttpEntity<?> getOrderFindByUser(@PathVariable UUID id) {
+        return ResponseEntity.ok(orderService.getFindByUser(id));
+    }
+
     @PostMapping
     public HttpEntity<?> addOrder(@RequestBody OrderDto orderDto) {
         ApiResponse apiResponse = orderService.addOrder(new Order(), orderDto);
@@ -47,7 +52,7 @@ public class OrderController {
     }
 
     @PutMapping("/login")
-    public HttpEntity<?> isLogin(LoginDto loginDto) {
+    public HttpEntity<?> isLogin(@RequestBody LoginDto loginDto) {
         return ResponseEntity.ok(orderService.login(loginDto));
     }
 

@@ -1,5 +1,6 @@
 import * as types from "../actionTypes/AppActionTypes";
 import {createReducer} from "../../utils/StoreUtils";
+import {GET_ORDER_LOGIN} from "../actionTypes/AppActionTypes";
 
 
 const initState = {
@@ -32,6 +33,9 @@ const reducers = {
         state.pages = payload.payload.totalPages
 
     },
+    [types.GET_ONE_USER_LIST](state, payload) {
+        state.currentUser = payload.payload
+    },
     [types.REQUEST_SUCCESS](state) {
         state.showModal = false
     },
@@ -40,6 +44,9 @@ const reducers = {
     },
     [types.GET_ROLE_LIST](state, payload) {
         state.roles = payload.payload._embedded.list
+    },
+    [types.GET_ORDER_LOGIN](state, payload) {
+        state.currentUser = payload.payload
     },
 
     updateState(state, {payload}) {
