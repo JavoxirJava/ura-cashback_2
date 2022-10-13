@@ -47,7 +47,7 @@ public class OrderController {
     }
 
     @PutMapping("/login")
-    public HttpEntity<?> isLogin(LoginDto loginDto) {
+    public HttpEntity<?> isLogin(@RequestBody LoginDto loginDto) {
         return ResponseEntity.ok(orderService.login(loginDto));
     }
 

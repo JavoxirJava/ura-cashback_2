@@ -56,8 +56,10 @@ public class OrderService {
     }
 
     public User login(LoginDto loginDto) {
-        return authRepository.findByPhoneNumberEqualsAndPasswordEquals
-                (loginDto.getPhoneNumber(), loginDto.getPassword());
+        User getUser = authRepository.findByPhoneNumberEqualsAndPasswordEquals(loginDto.getPhoneNumber(), loginDto.getPassword());
+        Company getCompany = companyUserRoleService.getCompanyFindByUser(getUser.getId(), roleRepository.findRoleByRoleName(RoleName.ROLE_ADMIN).getId());
+        if (getCompany.getId() != null) return getUser;
+        return null;
     }
 
     public Order getOneOrder(UUID id) {

@@ -1,0 +1,171 @@
+.login-page {
+  background-color: #FEFFFF;
+  width: 400px;
+  margin: 1% 0 0 37.8%;
+  padding: 40px;
+  height: 50%;
+
+  > h4 {
+    font: 24px "Times New Roman", serif;
+    font-weight: 550;
+  }
+
+  .big-logo-box {
+    width: 158px;
+    height: 88px;
+    margin-top: 15%;
+    margin-left: 22%;
+  }
+
+  .inputs {
+    margin-top: 35%;
+
+    input {
+      padding: 4%;
+      font-family: "Times New Roman", serif;
+    }
+
+    button {
+      margin: 75% 0 6% 0;
+      padding: 5%;
+      background-color: #5468FF;
+      font-family: 'Fira Sans', "Segoe UI Semibold", sans-serif;
+    }
+  }
+}
+
+.form-btn-svg {
+  width: 13px;
+}
+
+body {
+  background-color: #E2E2E2;
+}
+
+.kassa-nav {
+  margin-top: -8%;
+
+  i:hover {
+    cursor: pointer;
+  }
+
+  a {
+    //&::selection {
+    //  background-color: black;
+    //}
+    font-size: 13px;
+    font-weight: 800;
+    font-family: "SF Pro Display", "sans-serif", sans-serif !important;
+  }
+
+  .link-1 {
+    margin-right: 28%;
+  }
+
+  .link-2 {
+    margin-left: 15%;
+  }
+
+  img {
+    width: 52px;
+    height: 29px;
+    margin: 0;
+  }
+}
+
+.fill {
+  background-color: white;
+  padding: 20px 14px 0 14px;
+  height: 680px;
+}
+
+.plus-icon-style {
+  background-color: white;
+  color: #5468FF;
+  border-radius: 50%;
+  margin-left: 80%;
+
+  svg {
+    margin-top: 200%;
+
+    &:hover {
+      cursor: pointer;
+    }
+  }
+}
+
+.client {
+  background-color: #F4FAFE;
+
+  i {
+    color: #3D56F0;
+    margin-left: -8%;
+  }
+
+  img {
+    margin: 8% 0 5% 40%;
+  }
+
+  p {
+    width: 93%;
+    margin: 30px  auto;
+    font-family: 'SF Pro Display', "Segoe UI Semibold", sans-serif;
+    font-weight: normal;
+    font-size: 15px;
+    line-height: 29px;
+    text-align: center;
+    letter-spacing: 0.192941px;
+  }
+}
+
+@media screen and (max-width: 1600px){
+  .login-page {
+    .inputs {
+      button {
+        margin: 65% 0 1% 0;
+      }
+    }
+  }
+}
+
+@media screen and (max-width: 780px) {
+  .login-page {
+    width: 60%;
+    margin: 2% 0 0 20%;
+
+    .inputs {
+      margin-top: 20%;
+    }
+  }
+  body {
+    background-color: #FEFFFF;
+  }
+}
+
+@media screen and (max-width: 415px) {
+  .login-page {
+    width: 100%;
+    margin: 0 0 0 0;
+
+    .inputs {
+      margin-top: 20%;
+    }
+  }
+  body {
+    background-color: #FEFFFF;
+  }
+}
+
+//
+//.login {
+//  -webkit-box-align: center;
+//  align-items: center;
+//  -webkit-box-pack: center;
+//  justify-content: center;
+//  -webkit-box-orient: vertical;
+//  -webkit-box-direction: normal;
+//  flex-direction: column;
+//  height: 100%;
+//  padding: 40px;
+//  background-image: linear-gradient(to bottom, #feffff, #fcfeff);
+//}
