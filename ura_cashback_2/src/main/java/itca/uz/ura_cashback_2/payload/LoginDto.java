@@ -10,7 +10,6 @@ import java.util.UUID;
 @NoArgsConstructor
 @Data
 public class LoginDto {
-    private UUID id;
     private String phoneNumber;
     private String password;
 }

@@ -20,8 +20,10 @@ function App() {
             <Routes>
                 <Route path='/' element={<KassaClient/>}/>
                 <Route path='/user' element={<AuthAdmin/>}/>
+                <Route path='/authAdmin' element={<AuthAdmin/>}/>
                 <Route path='/order' element={<Order/>}/>
                 <Route path='/company' element={<Company/>}/>
+                <Route path='/order/login' element={<KasserLogin/>}/>
                 <Route path='/page' element={<Page/>}/>
                 <Route path='/*' element={<NotFount/>}/>
             </Routes>

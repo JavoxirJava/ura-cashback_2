@@ -1,15 +1,21 @@
 import * as api from "../../api/AppApi";
 import {
     activeUser,
-    addAttachment, addUser, editUser,
-    getUsers, removeUsers, userPage,
+    addUser, removeUsers,
+    editUser,
+    getUsers,
+    addAttachment,
+    addOrder,
     deleteOrder,
     editOrder,
-    getOrders
+    getOrders,
+    getOneUsers, loginOrder
 } from "../../api/AppApi";
 import * as types from "../actionTypes/AppActionTypes";
 import {toast} from "react-toastify";
 
+
+import {GET_ORDER_LOGIN} from "../actionTypes/AppActionTypes";
 
 export const getUser = () => (dispatch) => {
     dispatch({
@@ -33,6 +39,17 @@ export const pageUser = (payload) => (dispatch)=>{
     }).then(()=>{
         dispatch(getUser())
     })
+}
+export const getOneUser = (payload) => (dispatch) => {
+    dispatch({
+        api: getOneUsers,
+        types: [
+            types.REQUEST_START,
+            types.GET_ONE_USER_LIST,
+            types.REQUEST_ERROR
+        ],
+        data: payload
+    });
 }
 export const saveUser = (payload) => (dispatch) => {
     dispatch({
@@ -69,7 +86,7 @@ export const removeUser = (payload) => (dispatch) => {
         toast.success(res);
     })
 }
-export const isActiveUser = (payload) =>(dispatch)=>{
+export const isActiveUser = (payload) => (dispatch) => {
     dispatch({
         api: activeUser,
         types: [
@@ -155,7 +172,7 @@ export const getOrder = () => (dispatch) => {
 }
 export const saveOrder = (payload) => (dispatch) => {
     dispatch({
-        api: api.addOrder,
+        api: addOrder,
         types: [
             types.REQUEST_START,
             types.REQUEST_SUCCESS,
@@ -166,9 +183,7 @@ export const saveOrder = (payload) => (dispatch) => {
         if (res.success) {
             dispatch(getOrder())
             toast.success("Order saved successfully!");
-        } else {
-            toast.error("You cannot save company!")
-        }
+        } else toast.error("You cannot save company!");
     }).catch(() => {
         toast.error("Error saving company!");
     })
@@ -176,18 +191,39 @@ export const saveOrder = (payload) => (dispatch) => {
 
 export const editOrders = (payload) => (dispatch) => {
     dispatch({
-        api: editOrder(payload),
+        api: editOrder,
         types: [
             types.REQUEST_START,
             types.REQUEST_SUCCESS,
             types.REQUEST_ERROR
         ],
+        data: payload
     }).then(res => {
         dispatch(getOrder())
         toast.success(res);
     });
 }
-
+export const loginOrderAction = (payload) => (dispatch) => {
+    dispatch({
+        api: loginOrder,
+        types: [
+            types.REQUEST_START,
+            types.GET_ORDER_LOGIN,
+            types.REQUEST_ERROR
+        ],
+        data: payload
+    }).then(res => {
+        if (res !== undefined) {
+            toast.success("Successfully login");
+            dispatch({
+                type: "updateState",
+                payload: {
+                    showModal: true,
+                }
+            });
+        } else toast.error("Kasser not fount");
+    });
+}
 
 export const delOrder = (payload) => (dispatch) => {
     dispatch({

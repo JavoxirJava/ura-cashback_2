@@ -11,6 +11,7 @@ import itca.uz.ura_cashback_2.repository.AuthRepository;
 import itca.uz.ura_cashback_2.repository.CompanyRepository;
 import itca.uz.ura_cashback_2.repository.OrderRepository;
 import itca.uz.ura_cashback_2.repository.RoleRepository;
+import org.aspectj.weaver.ast.Or;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.ResourceAccessException;
 
@@ -40,11 +41,11 @@ public class OrderService {
         User getUserClient = authService.getOneUser(orderDto.getClientId());
         User getUserAdmin = authService.getOneUser(orderDto.getAdminId());
         Company getCompany = companyUserRoleService.getCompanyFindByUser(getUserAdmin.getId(), roleRepository.findRoleByRoleName(RoleName.ROLE_ADMIN).getId());
-        if (orderDto.getCash_price() > 0 && orderDto.getCashback() <= getUserAdmin.getSalary()) {
-            authService.editUserSalary(orderDto.getCash_price() * getCompany.getKasserPercentage() / 100, getUserAdmin);
+        if (orderDto.getCashback() <= getUserClient.getSalary()) {
+            authService.editUserSalary(getUserAdmin.getSalary() + (orderDto.getCash_price() * getCompany.getKasserPercentage() / 100), getUserAdmin);
             authService.editUserSalary(orderDto.getCash_price() < 0
                     ? getUserClient.getSalary() - orderDto.getCashback()
-                    : orderDto.getCash_price() * getCompany.getClientPercentage() / 100 - orderDto.getCashback(), getUserClient);
+                    : getUserClient.getSalary() + (orderDto.getCash_price() * getCompany.getClientPercentage() / 100 - orderDto.getCashback()), getUserClient);
         } else return new ApiResponse("There are not enough funds in your Cashback account", false);
         order.setCashback(orderDto.getCashback());
         order.setComment(orderDto.getComment());
@@ -56,12 +57,18 @@ public class OrderService {
     }
 
     public User login(LoginDto loginDto) {
-        return authRepository.findByPhoneNumberEqualsAndPasswordEquals
-                (loginDto.getPhoneNumber(), loginDto.getPassword());
+        User getUser = authRepository.findByPhoneNumberEqualsAndPasswordEquals(loginDto.getPhoneNumber(), loginDto.getPassword());
+        Company getCompany = companyUserRoleService.getCompanyFindByUser(getUser.getId(), roleRepository.findRoleByRoleName(RoleName.ROLE_ADMIN).getId());
+        if (getCompany.getId() != null) return getUser;
+        return null;
     }
 
     public Order getOneOrder(UUID id) {
         return orderRepository.findById(id).orElseThrow(() -> new ResourceAccessException("getOrder"));
+    }
+
+    public List<Order> getFindByUser(UUID userId) {
+        return orderRepository.findByCreatedByEquals(userId);
     }
 
     public List<Order> getOrderList() {

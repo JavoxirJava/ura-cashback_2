@@ -56,6 +56,17 @@ public class AuthController {
        return ResponseEntity.ok(authService.getUserList(page,size));
     }
 
+    @GetMapping("/{id}")
+    public HttpEntity<?> getOneUser(@PathVariable UUID id) {
+        return ResponseEntity.ok(authService.getOneUser(id));
+    }
+
+    @PostMapping("/login")
+    public HttpEntity<?>  login(@RequestBody ReqLogin reqLogin){
+        User user = authRepository.findByPhoneNumberEquals(reqLogin.getPhoneNumber()).orElseThrow(() -> new ResourceAccessException("getUser"));
+        String generatedToken = jwtTokenProvider.generatedToken(user.getId());
+        return ResponseEntity.ok(generatedToken);
+    }
 
 
 //    @PostMapping("/login")
