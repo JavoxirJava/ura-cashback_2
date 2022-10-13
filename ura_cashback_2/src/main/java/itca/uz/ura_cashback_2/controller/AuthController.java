@@ -1,5 +1,6 @@
 package itca.uz.ura_cashback_2.controller;
 
+import itca.uz.ura_cashback_2.entity.CompanyUserRole;
 import itca.uz.ura_cashback_2.entity.User;
 import itca.uz.ura_cashback_2.payload.ApiResponse;
 import itca.uz.ura_cashback_2.payload.AuthDto;
@@ -7,7 +8,7 @@ import itca.uz.ura_cashback_2.payload.ReqLogin;
 import itca.uz.ura_cashback_2.repository.AuthRepository;
 import itca.uz.ura_cashback_2.security.JwtTokenProvider;
 import itca.uz.ura_cashback_2.service.AuthService;
-import org.springframework.beans.factory.annotation.Autowired;
+import itca.uz.ura_cashback_2.service.CompanyUserRoleService;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -24,25 +25,23 @@ import java.util.UUID;
 
 public class AuthController {
 
-    final
-    AuthService authService;
-    final
-    AuthRepository authRepository;
-    final
-    JwtTokenProvider jwtTokenProvider;
-    final
-    AuthenticationManager authenticationManager;
+    final AuthService authService;
+    final AuthRepository authRepository;
+    final JwtTokenProvider jwtTokenProvider;
+    final AuthenticationManager authenticationManager;
+    final CompanyUserRoleService companyUserRoleService;
 
-    public AuthController(AuthService authService, AuthRepository authRepository, JwtTokenProvider jwtTokenProvider, AuthenticationManager authenticationManager) {
+    public AuthController(AuthService authService, AuthRepository authRepository, JwtTokenProvider jwtTokenProvider, AuthenticationManager authenticationManager, CompanyUserRoleService companyUserRoleService) {
         this.authService = authService;
         this.authRepository = authRepository;
         this.jwtTokenProvider = jwtTokenProvider;
         this.authenticationManager = authenticationManager;
+        this.companyUserRoleService = companyUserRoleService;
     }
 
     @PostMapping
     public HttpEntity<?> addAuth(@RequestBody AuthDto authDto){
-        ApiResponse apiResponse = authService.addOrEditRegisterClient(new User(), authDto);
+        ApiResponse apiResponse = authService.clintAndAdminRegister(new CompanyUserRole(), new User(), authDto);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
@@ -50,7 +49,8 @@ public class AuthController {
     @PutMapping("/{id}")
     public HttpEntity<?> editAuth(@PathVariable UUID id, @RequestBody AuthDto authDto){
         User user = authRepository.findById(id).orElseThrow(() -> new ResourceAccessException("getUser"));
-        ApiResponse apiResponse = authService.addOrEditRegisterClient(user, authDto);
+        CompanyUserRole companyUserRole = companyUserRoleService.getCompanyUserRole(id, authDto.getRole().getId());
+        ApiResponse apiResponse = authService.clintAndAdminRegister(companyUserRole, user, authDto);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 

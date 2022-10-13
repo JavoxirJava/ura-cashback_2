@@ -1,6 +1,7 @@
 package itca.uz.ura_cashback_2.service;
 
 
+import itca.uz.ura_cashback_2.entity.CompanyUserRole;
 import itca.uz.ura_cashback_2.entity.User;
 import itca.uz.ura_cashback_2.entity.enums.RoleName;
 import itca.uz.ura_cashback_2.payload.ApiResponse;
@@ -19,7 +20,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.ResourceAccessException;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
@@ -31,17 +31,19 @@ public class AuthService implements UserDetailsService {
     final AttachmentRepository attachmentRepository;
     final CompanyRepository companyRepository;
     final RoleRepository roleRepository;
+    final CompanyUserRoleService companyUserRoleService;
 
-    public AuthService(AuthRepository authRepository, AttachmentRepository attachmentRepository, CompanyRepository companyRepository, RoleRepository roleRepository) {
+    public AuthService(AuthRepository authRepository, AttachmentRepository attachmentRepository, CompanyRepository companyRepository, RoleRepository roleRepository, CompanyUserRoleService companyUserRoleService) {
         this.authRepository = authRepository;
         this.attachmentRepository = attachmentRepository;
         this.companyRepository = companyRepository;
         this.roleRepository = roleRepository;
+        this.companyUserRoleService = companyUserRoleService;
     }
 
-    public ApiResponse clintRegister(User user, AuthDto authDto) {
+    public ApiResponse clintAndAdminRegister(CompanyUserRole companyUserRole, User user, AuthDto authDto) {
         if (!authRepository.existsByPhoneNumberEqualsIgnoreCaseAndEmailEqualsIgnoreCase(authDto.getPhoneNumber(), authDto.getEmail())) {
-            if (authDto.getPassword().equals(authDto.getPrePassword())) {
+           if (authDto.getPassword().equals(authDto.getPrePassword())) {
                 user.setFirstName(authDto.getFirstName());
                 user.setLastName(authDto.getLastName());
                 user.setPhoneNumber(authDto.getPhoneNumber());
@@ -50,6 +52,10 @@ public class AuthService implements UserDetailsService {
                 user.setPassword(authDto.getPassword());
                 user.setActive(authDto.isActive());
                 User save = authRepository.save(user);
+                if (authDto.getRole()!=null){
+                    companyUserRoleService.addCompanyUserRole(companyUserRole, save.getId(), authDto.getCompanyId(), authDto.getRole().getId());
+                }else
+                    companyUserRoleService.addCompanyUserRole(companyUserRole, save.getId(), authDto.getCompanyId(), roleRepository.findRoleByRoleName(RoleName.ROLE_USER).getId());
                 return new ApiResponse("User saved", true);
             }
             return new ApiResponse("Password and PrePassword are not the same", false);
@@ -75,7 +81,7 @@ public class AuthService implements UserDetailsService {
     }
 
 
-    public ResPageable getUserList(int page, int size, User user) throws Exception {
+    public ResPageable getUserList(int page, int size) throws Exception {
         Page<User> allUser = authRepository.findAll(CommonUtils.getPageable(page, size));
         return new ResPageable(
                 page,
@@ -89,20 +95,6 @@ public class AuthService implements UserDetailsService {
     public User getOneUser(UUID id) {
         return authRepository.findById(id).orElseThrow(() -> new ResourceAccessException("getUser"));
     }
-
-//    public AuthDto getUser(User user){
-//        return new AuthDto(
-//                user.getId(),
-//                user.getFirstName(),
-//                user.getLastName(),
-//                user.getPhoneNumber(),
-//                user.getEmail(),
-//                user.getSalary(),
-//                user.getPassword(),
-//                user.getCompany().stream().map(Company::getName).collect(Collectors.toList()),
-//                user.getRoles().stream().map(Role::getRoleName).collect(Collectors.toList())
-//        );
-//    }
 
 
     public List<User> getUser() {

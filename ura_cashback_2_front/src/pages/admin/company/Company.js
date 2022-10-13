@@ -1,10 +1,14 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
-import {activeCompany, addAttachmentAction, getCompany, saveCompany,} from "../../../redux/actions/AppAction";
+import {
+    activeCompany,
+    addAttachmentAction,
+    getCompany,
+    saveCompany,
+} from "../../../redux/actions/AppAction";
 import {Button, Col, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader, Row, Table} from "reactstrap";
 import {api} from "../../../api/api";
 import '../style.scss';
-
 class Company extends Component {
 
     componentDidMount() {
@@ -167,9 +171,6 @@ class Company extends Component {
 
 Company.propTypes = {};
 
-export default connect(
-    ({
-         app: {company, showModal, deleteShowModal, currentCompany, attachmentId, active}
-     }) =>
-        ({company, showModal, deleteShowModal, currentCompany, attachmentId, active})
-)(Company);
+export default connect (   ({app: {company, showModal, deleteShowModal, currentCompany, attachmentId, active}}) =>
+        ({company, showModal, deleteShowModal, currentCompany, attachmentId, active}))
+(Company);

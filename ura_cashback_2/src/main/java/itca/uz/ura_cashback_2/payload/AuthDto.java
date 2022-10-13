@@ -29,7 +29,7 @@ public class AuthDto {
 
     private String prePassword;
 
-    private List<UUID> companyId;
+    private UUID companyId;
 
     private Role role;
 

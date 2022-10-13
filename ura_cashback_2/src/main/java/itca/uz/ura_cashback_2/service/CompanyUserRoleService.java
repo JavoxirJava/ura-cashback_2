@@ -28,4 +28,8 @@ public class CompanyUserRoleService {
     public Company getCompanyFindByUser(UUID userId, Integer roleId) {
         return companyService.getOneCompany(companyUserRoleRepository.findByUserIdEqualsAndRoleIdEquals(userId, roleId).getCompanyId());
     }
+
+    public CompanyUserRole getCompanyUserRole(UUID userId, Integer roleId){
+        return companyUserRoleRepository.findByUserIdEqualsAndRoleIdEquals(userId, roleId);
+    }
 }

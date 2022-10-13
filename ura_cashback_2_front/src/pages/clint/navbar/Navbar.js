@@ -23,7 +23,10 @@ function Navbar() {
                 {/*</Dropdown>*/}
                 <h1 className="h1-navbar" style={{margin: "0 10% 0 2%"}}>Javohir dev</h1>
                 <NavItem>
-                    <NavLink href="/company">Company</NavLink>
+                    <NavLink href="/admin/company">Company</NavLink>
+                </NavItem>
+                <NavItem>
+                    <NavLink href="/company">CompanyFrond</NavLink>
                 </NavItem>
                 <NavItem>
                     <NavLink href="/order">Order</NavLink>

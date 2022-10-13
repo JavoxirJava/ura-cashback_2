@@ -7,10 +7,6 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.Entity;
-import javax.persistence.ManyToMany;
-import javax.persistence.OneToOne;
-import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
 @EqualsAndHashCode(callSuper = true)

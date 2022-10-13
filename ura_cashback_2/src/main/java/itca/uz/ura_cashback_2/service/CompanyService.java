@@ -37,6 +37,7 @@ public class CompanyService {
                 company.setKasserPercentage(companyDto.getKassaPercentage());
                 company.setAttachment(attachmentRepository.findById(companyDto.getAttachmentId())
                         .orElseThrow(()-> new ResourceAccessException("GetAttachment")));
+                company.setActive(companyDto.isActive());
                 companyRepository.save(company);
                 return new ApiResponse("Successfully saved company", true);
             }

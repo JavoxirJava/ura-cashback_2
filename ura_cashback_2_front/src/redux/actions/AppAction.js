@@ -25,7 +25,7 @@ export const getUser = () => (dispatch) => {
 }
 export const saveUser = (payload) => (dispatch) => {
     dispatch({
-        api: payload.id ? editUser : addUser,
+        api: payload.id ? api.editUser : api.addUser,
         types: [
             types.REQUEST_START,
             types.REQUEST_SUCCESS,
