@@ -11,6 +11,7 @@ import itca.uz.ura_cashback_2.repository.AuthRepository;
 import itca.uz.ura_cashback_2.repository.CompanyRepository;
 import itca.uz.ura_cashback_2.repository.OrderRepository;
 import itca.uz.ura_cashback_2.repository.RoleRepository;
+import org.aspectj.weaver.ast.Or;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.ResourceAccessException;
 
@@ -64,6 +65,10 @@ public class OrderService {
 
     public Order getOneOrder(UUID id) {
         return orderRepository.findById(id).orElseThrow(() -> new ResourceAccessException("getOrder"));
+    }
+
+    public List<Order> getFindByUser(UUID userId) {
+        return orderRepository.findByCreatedByEquals(userId);
     }
 
     public List<Order> getOrderList() {
