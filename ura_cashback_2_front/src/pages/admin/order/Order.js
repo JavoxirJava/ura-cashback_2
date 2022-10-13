@@ -3,7 +3,8 @@ import "./orderC.css"
 import {
     Button,
     Col,
-    Modal, ModalBody,
+    Modal,
+    ModalBody,
     ModalFooter,
     ModalHeader,
     Offcanvas,
@@ -31,16 +32,6 @@ class Order extends Component {
         document.body.style.backgroundColor = "white"
         const {orders, deleteModal, currentItem, dispatch, currentUser} = this.props;
 
-        // const openModal = (item) => {
-        //     dispatch({
-        //         type: 'updateState',
-        //         payload: {
-        //             showModal: !showModal,
-        //             currentItem: item
-        //         }
-        //     });
-        // };
-
         const infoModal = (user, admin) => {
             this.setState({currentUserOrder: user});
             this.props.dispatch(getOneUser(admin));
@@ -60,27 +51,6 @@ class Order extends Component {
                 }
             });
         };
-
-        const saveOrders = () => {
-            let obj;
-            let comment = document.getElementById("comment").value;
-            let cash_price = document.getElementById("cash_price").value;
-            let cashback = document.getElementById("cashback").value;
-            let id = currentItem.id ? currentItem.id : null;
-
-            if (currentItem.id) {
-                obj = {id, comment, cash_price, cashback}
-            } else {
-                obj = {comment, cash_price, cashback}
-            }
-            this.props.dispatch(saveOrder(obj))
-        }
-
-        // const deleteOrders = () => {
-        //     this.props.dispatch(delOrder(currentItem))
-        // }
-
-
 
         const deleteOrders = () => {
             this.props.dispatch(delOrder(currentItem));
@@ -162,48 +132,15 @@ class Order extends Component {
                     </Offcanvas>
 
                     <Modal isOpen={deleteModal} toggle={() => openDeleteModal("")}>
-                        <ModalHeader toggle={() => openDeleteModal("")}></ModalHeader>
+                        <ModalHeader toggle={() => openDeleteModal("")}> </ModalHeader>
                         <ModalBody><h5>siz haqiqatdanham ushbu orderni uchirmoqchimisiz?</h5></ModalBody>
                         <ModalFooter>
                             <Button color="success" outline onClick={() => openDeleteModal("")}>Cancel</Button>
                             <Button color="danger" outline onClick={deleteOrders}>Delete</Button>
                         </ModalFooter>
                     </Modal>
-
-                    {/*<div>*/}
-                    {/*    <Offcanvas isOpen={showModal}>*/}
-                    {/*        <OffcanvasHeader toggle={openModal}>*/}
-                    {/*            {currentItem ? "Edit Order" : "Add order"}*/}
-                    {/*        </OffcanvasHeader>*/}
-                    {/*        <OffcanvasBody>*/}
-                    {/*            <strong>*/}
-                    {/*                <FormGroup>*/}
-                    {/*                    <Label for="examplePassword">Comment</Label>*/}
-                    {/*                    <Input type="text" name="comment" id="comment"*/}
-                    {/*                           placeholder="Please enter comment" required={true}/>*/}
-                    {/*                </FormGroup>*/}
-                    {/*                <FormGroup>*/}
-                    {/*                    <Label for="examplePassword">Comment</Label>*/}
-                    {/*                    <Input type="number" name="cashback" id="cashback"*/}
-                    {/*                           placeholder="Please enter cash back" required={true}/>*/}
-                    {/*                </FormGroup>*/}
-                    {/*                <FormGroup>*/}
-                    {/*                    <Label for="examplePassword">Comment</Label>*/}
-                    {/*                    <Input type="number" name="cash_price" id="cash_price"*/}
-                    {/*                           placeholder="Please enter cash price" required={true}/>*/}
-                    {/*                    <Input type="text" name="comment" id="comment"*/}
-                    {/*                           placeholder="Please enter comment" required={true}*/}
-                    {/*                           defaultValue={currentItem ? currentItem.comment : ""}/>*/}
-                    {/*                </FormGroup>*/}
-                    {/*            </strong>*/}
-                    {/*            <Button color="primary" onClick={saveOrders}>Save</Button>*/}
-                    {/*            <Button color='light' onClick={openModal}>Cancel</Button>*/}
-                    {/*        </OffcanvasBody>*/}
-                    {/*    </Offcanvas>*/}
-                    {/*</div>*/}
                 </div>
             </div>
-
         );
     }
 }

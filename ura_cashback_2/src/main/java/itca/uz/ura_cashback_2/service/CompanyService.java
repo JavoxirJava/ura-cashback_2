@@ -27,38 +27,35 @@ public class CompanyService {
         this.attachmentRepository = attachmentRepository;
     }
 
-    public ApiResponse addCompany(CompanyDto companyDto, Company company){
-        if (!companyRepository.existsCompanyByNameEqualsIgnoreCase(companyDto.getName())){
-            if (!companyRepository.existsCompanyByAttachmentIdEquals(companyDto.getAttachmentId())){
+    public ApiResponse addCompany(CompanyDto companyDto, Company company) {
+        if (!companyRepository.existsCompanyByNameEqualsIgnoreCase(companyDto.getName())) {
+            if (!companyRepository.existsCompanyByAttachmentIdEquals(companyDto.getAttachmentId())) {
                 company.setName(companyDto.getName());
                 company.setBio(companyDto.getBio());
                 company.setDescription(companyDto.getDescription());
                 company.setClientPercentage(companyDto.getClintPercentage());
                 company.setKasserPercentage(companyDto.getKassaPercentage());
                 company.setAttachment(attachmentRepository.findById(companyDto.getAttachmentId())
-                        .orElseThrow(()-> new ResourceAccessException("GetAttachment")));
+                        .orElseThrow(() -> new ResourceAccessException("GetAttachment")));
                 companyRepository.save(company);
                 return new ApiResponse("Successfully saved company", true);
             }
-            return new ApiResponse("Attachment already exist",false);
+            return new ApiResponse("Attachment already exist", false);
         }
         return new ApiResponse("Name already exist", false);
     }
 
     public CompanyDto getOneCompany(UUID id, User user) {
-        if (user.getRoles().size() > 2) {
-            Company company = getOneCompany(id);
-            return new CompanyDto(
-                    company.getId(),
-                    company.getName(),
-                    company.getBio(),
-                    company.getDescription(),
-                    company.getClientPercentage(),
-                    company.getKasserPercentage(),
-                    company.getAttachment(),
-                    company.isActive());
-        }
-        return new CompanyDto();
+        Company company = getOneCompany(id);
+        return new CompanyDto(
+                company.getId(),
+                company.getName(),
+                company.getBio(),
+                company.getDescription(),
+                company.getClientPercentage(),
+                company.getKasserPercentage(),
+                company.getAttachment(),
+                company.isActive());
     }
 
     public Company getOneCompany(UUID companyId) {
@@ -81,10 +78,10 @@ public class CompanyService {
         Optional<Company> byId = companyRepository.findById(id);
         if (byId.isPresent()) {
 //            if (user.getRoles().size() > 2) {
-                Company company = byId.get();
-                company.setActive(!company.isActive());
-                companyRepository.save(company);
-                return new ApiResponse(company.isActive() ? "Company active" : "Company inactive", true);
+            Company company = byId.get();
+            company.setActive(!company.isActive());
+            companyRepository.save(company);
+            return new ApiResponse(company.isActive() ? "Company active" : "Company inactive", true);
 //            }
 //            return new ApiResponse("User role not equals", false);
         }

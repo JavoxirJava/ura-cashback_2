@@ -11,7 +11,6 @@ import itca.uz.ura_cashback_2.repository.AuthRepository;
 import itca.uz.ura_cashback_2.repository.CompanyRepository;
 import itca.uz.ura_cashback_2.repository.OrderRepository;
 import itca.uz.ura_cashback_2.repository.RoleRepository;
-import org.aspectj.weaver.ast.Or;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.ResourceAccessException;
 
@@ -38,16 +37,18 @@ public class OrderService {
     }
 
     public ApiResponse addOrder(Order order, OrderDto orderDto) {
+        double cashback = 0;
         User getUserClient = authService.getOneUser(orderDto.getClientId());
         User getUserAdmin = authService.getOneUser(orderDto.getAdminId());
         Company getCompany = companyUserRoleService.getCompanyFindByUser(getUserAdmin.getId(), roleRepository.findRoleByRoleName(RoleName.ROLE_ADMIN).getId());
-        if (orderDto.getCashback() <= getUserClient.getSalary()) {
+        if (orderDto.getCashback() != null) cashback = orderDto.getCashback();
+        if (cashback <= getUserClient.getSalary()) {
             authService.editUserSalary(getUserAdmin.getSalary() + (orderDto.getCash_price() * getCompany.getKasserPercentage() / 100), getUserAdmin);
             authService.editUserSalary(orderDto.getCash_price() < 0
-                    ? getUserClient.getSalary() - orderDto.getCashback()
-                    : getUserClient.getSalary() + (orderDto.getCash_price() * getCompany.getClientPercentage() / 100 - orderDto.getCashback()), getUserClient);
+                    ? getUserClient.getSalary() - cashback
+                    : getUserClient.getSalary() + (orderDto.getCash_price() * getCompany.getClientPercentage() / 100 - cashback), getUserClient);
         } else return new ApiResponse("There are not enough funds in your Cashback account", false);
-        order.setCashback(orderDto.getCashback());
+        order.setCashback(cashback);
         order.setComment(orderDto.getComment());
         order.setClient(getUserClient);
         order.setCash_price(orderDto.getCash_price());

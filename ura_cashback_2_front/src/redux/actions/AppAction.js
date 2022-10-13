@@ -1,18 +1,20 @@
 import * as api from "../../api/AppApi";
 import {
     activeUser,
-    addAttachment, addUser, editUser,
-    getUsers, removeUsers, userPage,
+    addAttachment,
+    addUser,
+    editUser,
+    getUsers,
+    removeUsers,
+    userPage,
     deleteOrder,
     editOrder,
     getOrders,
-    getOneUsers, loginOrder
+    getOneUsers,
+    loginOrder, findByUser, findByPhoneNumber
 } from "../../api/AppApi";
 import * as types from "../actionTypes/AppActionTypes";
 import {toast} from "react-toastify";
-
-
-import {GET_ORDER_LOGIN} from "../actionTypes/AppActionTypes";
 
 export const getUser = () => (dispatch) => {
     dispatch({
@@ -24,18 +26,43 @@ export const getUser = () => (dispatch) => {
         ]
     })
 }
-export const pageUser = (payload) => (dispatch)=>{
+
+export const pageUser = (payload) => (dispatch) => {
     dispatch({
         api: userPage,
-        types:[
+        types: [
             types.REQUEST_START,
             types.REQUEST_SUCCESS,
             types.REQUEST_ERROR
         ],
-        data:payload
-    }).then(()=>{
+        data: payload
+    }).then(() => {
         dispatch(getUser())
     })
+}
+
+export const findByUserPhoneNumber = (payload) => (dispatch) => {
+    dispatch({
+        api: findByPhoneNumber,
+        types: [
+            types.REQUEST_START,
+            types.GET_ONE_USER_LIST,
+            types.REQUEST_ERROR
+        ],
+        data: payload
+    }).then(res => {
+        console.log(res);
+        if (res !== undefined){
+            dispatch({
+                type: "updateState",
+                payload: {
+                    activeUser: true,
+                }
+            });
+        } else toast.warning("user not fount");
+    });
+}
+
 export const getOneUser = (payload) => (dispatch) => {
     dispatch({
         api: getOneUsers,
@@ -47,6 +74,7 @@ export const getOneUser = (payload) => (dispatch) => {
         data: payload
     });
 }
+
 export const saveUser = (payload) => (dispatch) => {
     dispatch({
         api: payload.id ? editUser : addUser,
@@ -82,6 +110,7 @@ export const removeUser = (payload) => (dispatch) => {
         toast.success(res);
     })
 }
+
 export const isActiveUser = (payload) => (dispatch) => {
     dispatch({
         api: activeUser,
@@ -90,14 +119,11 @@ export const isActiveUser = (payload) => (dispatch) => {
             types.REQUEST_SUCCESS,
             types.REQUEST_ERROR
         ],
-        data:payload
-    }).then(()=>{
         data: payload
     }).then(() => {
         dispatch(getUser())
     })
 }
-
 
 export const getRole = () => (dispatch) => {
     dispatch({
@@ -120,6 +146,7 @@ export const getCompany = () => (dispatch) => {
         ]
     })
 }
+
 export const saveCompany = (payload) => (dispatch) => {
     dispatch({
         api: payload.id ? api.editCompany : api.addCompany,
@@ -141,7 +168,6 @@ export const saveCompany = (payload) => (dispatch) => {
     })
 }
 
-
 export const activeCompany = (payload) => (dispatch) => {
     dispatch({
         api: api.activeCompany12(payload),
@@ -158,6 +184,7 @@ export const activeCompany = (payload) => (dispatch) => {
         toast.error("Error active company!");
     })
 }
+
 export const getOrder = () => (dispatch) => {
     dispatch({
         api: getOrders,
@@ -168,6 +195,7 @@ export const getOrder = () => (dispatch) => {
         ]
     })
 }
+
 export const saveOrder = (payload) => (dispatch) => {
     dispatch({
         api: api.addOrder,
@@ -201,6 +229,7 @@ export const editOrders = (payload) => (dispatch) => {
         toast.success(res);
     });
 }
+
 export const loginOrderAction = (payload) => (dispatch) => {
     dispatch({
         api: loginOrder,
@@ -220,6 +249,18 @@ export const loginOrderAction = (payload) => (dispatch) => {
                 }
             });
         } else toast.error("Kasser not fount");
+    });
+}
+
+export const getOrderFindByUser = (payload) => (dispatch) => {
+    dispatch({
+        api: findByUser,
+        types: [
+            types.REQUEST_START,
+            types.GET_ORDER_LIST,
+            types.REQUEST_ERROR
+        ],
+        data: payload
     });
 }
 

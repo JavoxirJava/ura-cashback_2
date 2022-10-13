@@ -17,7 +17,6 @@ function App() {
             {/*<Navbar/>*/}
             <Sidebar/>
             <Routes>
-                <Route path='/' element={<KassaClient/>}/>
                 <Route path='/user' element={<AuthAdmin/>}/>
                 <Route path='/order' element={<Order/>}/>
                 <Route path='/company' element={<Company/>}/>
