@@ -1,15 +1,12 @@
 import * as api from "../../api/AppApi";
 import {
     activeUser,
-    addUser, removeUsers,
-    editUser,
-    getUsers,
-    addAttachment,
-    addOrder,
+    addAttachment, addUser, editUser,
+    getUsers, removeUsers, userPage,
     deleteOrder,
     editOrder,
     getOrders,
-    getOneUsers, loginOrder, userPage
+    getOneUsers, loginOrder
 } from "../../api/AppApi";
 import * as types from "../actionTypes/AppActionTypes";
 import {toast} from "react-toastify";
@@ -29,17 +26,16 @@ export const getUser = () => (dispatch) => {
 }
 export const pageUser = (payload) => (dispatch)=>{
     dispatch({
-        api: userPage,
-        types:[
+        api: getOneUsers,
+        types: [
             types.REQUEST_START,
-            types.REQUEST_SUCCESS,
+            types.GET_ONE_USER_LIST,
             types.REQUEST_ERROR
         ],
         data:payload
     }).then(()=>{
         dispatch(getUser())
     })
-}
 export const getOneUser = (payload) => (dispatch) => {
     dispatch({
         api: getOneUsers,
@@ -48,6 +44,8 @@ export const getOneUser = (payload) => (dispatch) => {
             types.GET_ONE_USER_LIST,
             types.REQUEST_ERROR
         ],
+        data: payload
+    });
         data: payload
     });
 }
