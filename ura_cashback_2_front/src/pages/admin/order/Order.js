@@ -12,7 +12,7 @@ import {
     Row,
     Table
 } from "reactstrap";
-import {delOrder, getOneUser, getOrder} from "../../../redux/actions/AppAction";
+import {delOrder, getOneUser, getOrder, saveOrder} from "../../../redux/actions/AppAction";
 import {connect} from "react-redux";
 
 class Order extends Component {
@@ -81,16 +81,6 @@ class Order extends Component {
             this.props.dispatch(saveOrder(obj))
         }
 
-        // const deleteOrders = () => {
-        //     this.props.dispatch(delOrder(currentItem))
-        // }
-
-
-
-        const deleteOrders = () => {
-            this.props.dispatch(delOrder(currentItem));
-            openDeleteModal("");
-        }
 
         return (
             <div>

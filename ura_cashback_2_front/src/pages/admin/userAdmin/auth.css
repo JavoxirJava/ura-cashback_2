@@ -19,10 +19,16 @@
     background-color: white;
     padding-top: 2%;
     border-radius: 30px;
+    height: 656px;
 }
 .register Input{
     margin-top: 15px;
     padding: 2%;
+    border-top-style: inherit;
+    border-left-style: inherit;
+    border-right-style: inherit;
+    border-bottom-style: groove;
+    border-radius: 0;
 }
 .register Button{
     margin-top: 7%;
@@ -33,4 +39,25 @@
 }
 .register h2{
     text-align: center;
+}
+.iconca1{
+    margin-top: 35px;
+}
+.iconca2{
+    margin-top: 50px;
+}
+.iconca3{
+    margin-top: 45px;
+}
+.iconca4{
+    margin-top: 45px;
+}
+.iconca5{
+    margin-top: 45px;
+}
+.iconca6{
+    margin-top: 45px;
+}
+.register2{
+    padding-right: 0;
 }

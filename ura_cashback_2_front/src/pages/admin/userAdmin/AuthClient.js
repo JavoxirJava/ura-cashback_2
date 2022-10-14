@@ -33,12 +33,26 @@ class AuthClient extends Component {
                 </div>
                 <div className="col-6 register">
                     <h2>Hisob ochish</h2>
-                    <Input className="mb-2" type="text" id="firstName" placeholder="First name" required/>
-                    <Input className="mb-2" type="text" id="lastName" placeholder="Last name" required/>
-                    <Input className="mb-2" type="text" id="phoneNumber" placeholder="Phone number" required/>
-                    <Input className="mb-2" type="email" id="email" placeholder="Email" required/>
-                    <Input className="mb-2" type="password" id="password" placeholder="Password" required/>
-                    <Input className="mb-2" type="password" id="prePassword" placeholder="Pre password" required/>
+                    <div className="row">
+                        <div className="col-10 register2">
+                            <Input className="mb-2" type="text" id="firstName" placeholder="First name" required/>
+                            <Input className="mb-2" type="text" id="lastName" placeholder="Last name" required/>
+                            <Input className="mb-2" type="text" id="phoneNumber" placeholder="Phone number" required/>
+                            <Input className="mb-2" type="email" id="email" placeholder="Email" required/>
+                            <Input className="mb-2" type="password" id="password" placeholder="Password" required/>
+                            <Input className="mb-2" type="password" id="prePassword" placeholder="Pre password" required/>
+                        </div>
+                        <div className="col-2">
+                            <ul>
+                                <li className="row iconca1"><i className="pi pi-user" ></i></li>
+                                <li className="row iconca2"><i className="pi pi-user" ></i></li>
+                                <li className="row iconca3"><i className="pi pi-phone" ></i></li>
+                                <li className="row iconca4"><i className="pi pi-at" ></i></li>
+                                <li className="row iconca5"><i className="pi pi-lock" ></i></li>
+                                <li className="row iconca6"><i className="pi pi-lock" ></i></li>
+                            </ul>
+                        </div>
+                    </div>
                     <Button color="info" type="submit" onClick={registerClient} outline >Next</Button>
                 </div>
             </div>

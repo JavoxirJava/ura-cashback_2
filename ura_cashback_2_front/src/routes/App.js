@@ -7,17 +7,17 @@ import Company from "../pages/admin/company/Company";
 import KassaClient from "../test/loginPage/KassaClient";
 import Navbar from "../pages/clint/navbar/Navbar";
 import Sidebar from "../pages/clint/navbar/Sidebar";
-import AuthAdmin from "../pages/admin/userAdmin/AuthAdmin";
 import KasserLogin from "../pages/admin/order/loginPage/KasserLogin";
 import AuthClient from "../pages/admin/userAdmin/AuthClient";
+import AuthAdmin from "../pages/admin/userAdmin/AuthAdmin";
 
 //https://www.w3schools.com/react/showreact.asp?filename=demo2_react_usememo // add uchun menga kk
 
 function App() {
     return (
         <Provider store={store}>
-            {/*<Navbar/>*/}
-            {/*<Sidebar/>*/}
+            <Navbar/>
+            <Sidebar/>
             <Routes>
                 <Route path='/' element={<KassaClient/>}/>
                 <Route path='/user' element={<AuthAdmin/>}/>
@@ -25,7 +25,7 @@ function App() {
                 <Route path='/order' element={<Order/>}/>
                 <Route path='/company' element={<Company/>}/>
                 <Route path='/order/login' element={<KasserLogin/>}/>
-                {/*<Route path='/*' element={<NotFount/>}/>*/}
+                <Route path='/*' element={<NotFount/>}/>
             </Routes>
         </Provider>
     );

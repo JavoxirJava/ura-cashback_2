@@ -20,7 +20,6 @@ class AuthAdmin extends Component {
         const {user,page,size, dispatch, showModal,currentUser,deleteShowModal,activeUser,pages} = this.props;
 
 
-
         const indexOfLasPost = page * size;
         const indexOfFirstPosts = indexOfLasPost - size;
         const currentPosts = user.slice(indexOfFirstPosts,indexOfLasPost);
