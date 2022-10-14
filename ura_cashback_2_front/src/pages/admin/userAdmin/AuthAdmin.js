@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {Button, Input, Modal, ModalBody, ModalFooter, ModalHeader, Table} from "reactstrap";
 import {connect} from "react-redux";
 import {getUser, isActiveUser, removeUser, saveUser} from "../../../redux/actions/AppAction";
-import UserPage from "./UserPage";
 
 
 class AuthAdmin extends Component {
@@ -12,10 +11,34 @@ class AuthAdmin extends Component {
 
     }
 
+
     render() {
 
-        const {user, dispatch, showModal,currentUser,deleteShowModal,activeUser,pages} = this.props;
+        document.body.style.marginLeft = "3.7%";
+        document.body.style.backgroundColor = "white"
 
+        const {user,page,size, dispatch, showModal,currentUser,deleteShowModal,activeUser,pages} = this.props;
+
+
+
+        const indexOfLasPost = page * size;
+        const indexOfFirstPosts = indexOfLasPost - size;
+        const currentPosts = user.slice(indexOfFirstPosts,indexOfLasPost);
+
+
+        const pageNumbers = [];
+        for (let i = 1; i <= Math.ceil(user.length / size); i++) {
+            pageNumbers.push(i);
+        }
+
+        const paginate = (number) => {
+            dispatch({
+                type:"updateState",
+                payload:{
+                    page: number
+                }
+            })
+        }
 
         const openModal = (item) =>{
             dispatch({
@@ -93,6 +116,7 @@ class AuthAdmin extends Component {
 
 
 
+
         return (
 
             <div>
@@ -111,7 +135,7 @@ class AuthAdmin extends Component {
                             <th colSpan="2">Action</th>
                         </tr>
                     </thead>
-                    {user.map((item,i)=>
+                    {currentPosts.map((item,i)=>
                         <tbody key={i}>
                         <tr>
                             <td>{i + 1}</td>
@@ -132,7 +156,18 @@ class AuthAdmin extends Component {
                 </Table>
                 </div>
 
-                <UserPage postPrePost={pages}  totalPosts={10}/>
+
+                <nav>
+                    <ul className="pagination">
+                        {pageNumbers.map((number,i)=>
+                            <li key={i} className="page-item">
+                                <a onClick={()=> paginate(number)} className="page-link">{number}</a>
+                            </li>
+                        )}
+                    </ul>
+                </nav>
+
+
 
 
 
@@ -170,6 +205,6 @@ class AuthAdmin extends Component {
 AuthAdmin.propTypes = {};
 
 export default connect(
-    ({app:{user, dispatch,showModal,currentUser,deleteShowModal,activeUser,pages}})=>
-    ({user, dispatch, showModal,currentUser, deleteShowModal,activeUser,pages}))
+    ({app:{user,page,size, dispatch,showModal,currentUser,deleteShowModal,activeUser,pages}})=>
+    ({user,page, size, dispatch, showModal,currentUser, deleteShowModal,activeUser,pages}))
 (AuthAdmin);

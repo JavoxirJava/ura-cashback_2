@@ -9,7 +9,7 @@ import {
     deleteOrder,
     editOrder,
     getOrders,
-    getOneUsers, loginOrder
+    getOneUsers, loginOrder, userPage
 } from "../../api/AppApi";
 import * as types from "../actionTypes/AppActionTypes";
 import {toast} from "react-toastify";
@@ -62,8 +62,9 @@ export const saveUser = (payload) => (dispatch) => {
         data: payload
     }).then(res => {
         if (res.success) {
-            dispatch(getUser())
+            dispatch(getUser());
             toast.success("USER saved successfully!");
+            window.location.reload();
         } else {
             toast.error("You cannot save User!")
         }

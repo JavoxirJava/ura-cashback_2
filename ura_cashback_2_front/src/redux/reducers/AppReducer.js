@@ -1,11 +1,11 @@
 import * as types from "../actionTypes/AppActionTypes";
 import {createReducer} from "../../utils/StoreUtils";
-import {GET_ORDER_LOGIN} from "../actionTypes/AppActionTypes";
 
 
 const initState = {
     user: [],
-    pages:[],
+    page: "1",
+    size:"5",
     activeUser: false,
     orders: [],
     roles: [],
@@ -30,8 +30,6 @@ const reducers = {
     },
     [types.GET_USER_LIST](state, payload) {
         state.user = payload.payload.object
-        state.pages = payload.payload.totalPages
-
     },
     [types.GET_ONE_USER_LIST](state, payload) {
         state.currentUser = payload.payload
