@@ -37,21 +37,22 @@ public class OrderService {
     }
 
     public ApiResponse addOrder(Order order, OrderDto orderDto) {
-        double cashback = 0;
+        double cashback = 0, cash_price = 0;
         User getUserClient = authService.getOneUser(orderDto.getClientId());
         User getUserAdmin = authService.getOneUser(orderDto.getAdminId());
         Company getCompany = companyUserRoleService.getCompanyFindByUser(getUserAdmin.getId(), roleRepository.findRoleByRoleName(RoleName.ROLE_ADMIN).getId());
         if (orderDto.getCashback() != null) cashback = orderDto.getCashback();
+        if (orderDto.getCash_price() != null) cash_price = orderDto.getCash_price();
         if (cashback <= getUserClient.getSalary()) {
-            authService.editUserSalary(getUserAdmin.getSalary() + (orderDto.getCash_price() * getCompany.getKasserPercentage() / 100), getUserAdmin);
-            authService.editUserSalary(orderDto.getCash_price() < 0
+            authService.editUserSalary(getUserAdmin.getSalary() + (cash_price * getCompany.getKasserPercentage() / 100), getUserAdmin);
+            authService.editUserSalary(cash_price < 0
                     ? getUserClient.getSalary() - cashback
-                    : getUserClient.getSalary() + (orderDto.getCash_price() * getCompany.getClientPercentage() / 100 - cashback), getUserClient);
+                    : getUserClient.getSalary() + (cash_price * getCompany.getClientPercentage() / 100 - cashback), getUserClient);
         } else return new ApiResponse("There are not enough funds in your Cashback account", false);
         order.setCashback(cashback);
         order.setComment(orderDto.getComment());
         order.setClient(getUserClient);
-        order.setCash_price(orderDto.getCash_price());
+        order.setCash_price(cash_price);
         order.setCreatedBy(getUserAdmin.getId());
         orderRepository.save(order);
         return new ApiResponse("successfully saved order", true);

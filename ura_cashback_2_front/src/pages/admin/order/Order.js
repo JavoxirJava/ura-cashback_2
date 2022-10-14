@@ -15,6 +15,8 @@ import {
 } from "reactstrap";
 import {delOrder, getOneUser, getOrder} from "../../../redux/actions/AppAction";
 import {connect} from "react-redux";
+import Navbar from "../../clint/navbar/Navbar";
+import Sidebar from "../../clint/navbar/Sidebar";
 
 class Order extends Component {
     componentDidMount() {
@@ -59,6 +61,8 @@ class Order extends Component {
 
         return (
             <div>
+                <Navbar/>
+                <Sidebar/>
                 <div className="ms-5 me-5 mt-5">
                     {/*<Button color="info" outline onClick={openModal}>Add Order</Button>*/}
                     <Table>

@@ -41,6 +41,7 @@ export const deleteOrder = (data) => {
 }
 export const loginOrder = (data) => {
     return HttpClient.doPut(api.order + "/login", data);
+    // return HttpClient.doPut("http://localhost/api/order/login", data);
 }
 export const findByUser = (data) => {
     return HttpClient.doGet(api.order + "/" + data);

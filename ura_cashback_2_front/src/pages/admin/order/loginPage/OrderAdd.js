@@ -19,7 +19,7 @@ function OrderAdd(props) {
     const addOrderSend = () => {
         let cash_price = document.getElementById("cash_price").value;
         let cashback = document.getElementById("cashback").value;
-        dispatch(saveOrder({adminId: currentAdmin.id, clientId: currentUser.id, cash_price, cashback}))
+        dispatch(saveOrder({adminId: currentAdmin.id, clientId: currentUser.id, cash_price, cashback}));
     }
 
     return (
