@@ -8,6 +8,7 @@ import java.util.UUID;
 
 public interface AuthRepository extends JpaRepository<User, UUID> {
     boolean existsByPhoneNumberEqualsIgnoreCaseAndEmailEqualsIgnoreCase(String phoneNumber, String email);
+
     User findByPhoneNumberEqualsAndPasswordEquals(String phoneNumber, String password);
 //    @Query(value = "select * from company " +
 //            "where id=(select company_id from users_company " +
@@ -17,5 +18,5 @@ public interface AuthRepository extends JpaRepository<User, UUID> {
 //            "where role_name=:role))))", nativeQuery = true)
 //    Company findByRoleEquals(@Param("role") RoleName role);
 
-    Optional<User> findByPhoneNumberEquals(String phoneNumber);
+    User findByPhoneNumberEquals(String phoneNumber);
 }

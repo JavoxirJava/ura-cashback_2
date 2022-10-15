@@ -2,7 +2,6 @@ package itca.uz.ura_cashback_2.service;
 
 
 import itca.uz.ura_cashback_2.entity.User;
-import itca.uz.ura_cashback_2.entity.enums.RoleName;
 import itca.uz.ura_cashback_2.payload.ApiResponse;
 import itca.uz.ura_cashback_2.payload.AuthDto;
 import itca.uz.ura_cashback_2.payload.ResPageable;
@@ -16,7 +15,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.ResourceAccessException;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.UUID;
 
 
@@ -43,7 +41,6 @@ public class AuthService{
                     user.setPhoneNumber(authDto.getPhoneNumber());
                     user.setEmail(authDto.getEmail());
                     user.setPassword(authDto.getPassword());
-                    user.setRoles(Collections.singleton(roleRepository.findRoleByRoleName(RoleName.ROLE_USER)));
                     try {
                         authRepository.save(user);
                     }catch (Exception e){
@@ -87,9 +84,12 @@ public class AuthService{
         );
     }
 
-
     public User getOneUser(UUID id) {
         return authRepository.findById(id).orElseThrow(() -> new ResourceAccessException("getUser"));
+    }
+
+    public User findByPhoneNumber(String phoneNumber) {
+        return authRepository.findByPhoneNumberEquals(phoneNumber);
     }
 
 

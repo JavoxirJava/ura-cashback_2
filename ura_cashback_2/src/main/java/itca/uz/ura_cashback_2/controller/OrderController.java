@@ -5,7 +5,6 @@ import itca.uz.ura_cashback_2.payload.ApiResponse;
 import itca.uz.ura_cashback_2.payload.LoginDto;
 import itca.uz.ura_cashback_2.payload.OrderDto;
 import itca.uz.ura_cashback_2.service.OrderService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

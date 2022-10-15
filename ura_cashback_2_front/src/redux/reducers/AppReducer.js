@@ -19,6 +19,7 @@ const initState = {
     attachmentId: '',
     currentCompany: '',
     currentUser: '',
+    currentAdmin: ''
 }
 const reducers = {
     [types.REQUEST_SUCCESS](state) {
@@ -30,6 +31,7 @@ const reducers = {
     },
     [types.GET_USER_LIST](state, payload) {
         state.user = payload.payload.object
+        state.pages = payload.payload.totalPages
     },
     [types.GET_ONE_USER_LIST](state, payload) {
         state.currentUser = payload.payload
@@ -44,7 +46,7 @@ const reducers = {
         state.roles = payload.payload._embedded.list
     },
     [types.GET_ORDER_LOGIN](state, payload) {
-        state.currentUser = payload.payload
+        state.currentAdmin = payload.payload
     },
 
     updateState(state, {payload}) {

@@ -16,13 +16,10 @@ import java.util.UUID;
 @RestController
 @RequestMapping(path = "/api/auth")
 @CrossOrigin
-
 public class AuthController {
 
-    final
-    AuthService authService;
-    final
-    AuthRepository authRepository;
+    final AuthService authService;
+    final AuthRepository authRepository;
 
 
     public AuthController(AuthService authService, AuthRepository authRepository) {
@@ -63,18 +60,20 @@ public class AuthController {
     }
 
 
-
 //    @PostMapping("/login")
 //    public HttpEntity<?>  login(@RequestBody ReqLogin reqLogin){
 //        User user = authRepository.findByPhoneNumberEquals(reqLogin.getPhoneNumber()).orElseThrow(() -> new ResourceAccessException("getUser"));
 //        return ResponseEntity.ok(generatedToken);
 //    }
 
-
-
     @PutMapping("/active/{id}")
     public HttpEntity<?> activeUser(@PathVariable UUID id){
         return ResponseEntity.ok(authService.activeUser(id));
+    }
+
+    @GetMapping("/order/{phoneNumber}")
+    public HttpEntity<?> findByPhoneNumber(@PathVariable String phoneNumber) {
+        return ResponseEntity.ok(authService.findByPhoneNumber(phoneNumber));
     }
 
 }

@@ -1,19 +1,6 @@
 import HttpClient from "../utils/HttpClient";
 import {api} from "./api";
 // import data from "bootstrap/js/src/dom/data";
-//*****************************************************************=> Country
-export const getCountries = () => {
-    return HttpClient.doGet(api.country);
-}
-export const addCountry = (data) => {
-    return HttpClient.doPost(api.country, data);
-}
-export const editCountry = (data) => {
-    return HttpClient.doPut(api.country + "/" + data.id, data);
-}
-export const deleteCountry = (data) => {
-    return HttpClient.doDelete(api.country + "/" + data);
-}
 //*****************************************************************=> User
 export const getUsers = () => {
     return HttpClient.doGet(api.users);
@@ -36,6 +23,9 @@ export const activeUser = (data) => {
 export const userPage = (data) => {
     return HttpClient.doGet(api.users+ "?page=" + data )
 }
+export const findByPhoneNumber = (data) => {
+    return HttpClient.doGet(api.orderUser + data)
+}
 //*****************************************************************=> Order
 export const getOrders = () => {
     return HttpClient.doGet(api.order + "/list");
@@ -51,6 +41,10 @@ export const deleteOrder = (data) => {
 }
 export const loginOrder = (data) => {
     return HttpClient.doPut(api.order + "/login", data);
+    // return HttpClient.doPut("http://localhost/api/order/login", data);
+}
+export const findByUser = (data) => {
+    return HttpClient.doGet(api.order + "/" + data);
 }
 //*****************************************************************=> Company
 export const getCompanies = () => {

@@ -4,6 +4,8 @@ import {activeCompany, addAttachmentAction, getCompany, saveCompany,} from "../.
 import {Button, Col, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader, Row, Table} from "reactstrap";
 import {api} from "../../../api/api";
 import '../style.scss';
+import Navbar from "../../clint/navbar/Navbar";
+import Sidebar from "../../clint/navbar/Sidebar";
 
 class Company extends Component {
 
@@ -12,6 +14,8 @@ class Company extends Component {
     }
 
     render() {
+        document.body.style.marginLeft = "3.7%";
+        document.body.style.backgroundColor = "white";
         const {company, dispatch, showModal, currentCompany, attachmentId, active} = this.props;
 
         const openModal = (item) => {
@@ -36,7 +40,7 @@ class Company extends Component {
                 payload: {
                     active: !active
                 }
-            })
+            });
         }
         const changeActiveCompany = (item) => {
             this.props.dispatch(activeCompany(item));
@@ -48,26 +52,16 @@ class Company extends Component {
             let description = document.getElementById("description").value;
             let clintPercentage = document.getElementById("clintPercentage").value;
             let kassaPercentage = document.getElementById("kassaPercentage").value;
-            let obj;
-            if (currentCompany) {
-                obj = {
-                    id: currentCompany.id,
-                    name,
-                    bio,
-                    description,
-                    clintPercentage,
-                    kassaPercentage,
-                    attachmentId: attachmentId.payload,
-                    active
-                }
-            } else {
-                obj = {name, bio, description, clintPercentage, kassaPercentage, attachmentId: attachmentId.payload, active}
-            }
+            let obj = currentCompany
+                ? {id: currentCompany.id, name, bio, description, clintPercentage, kassaPercentage, attachmentId: attachmentId.payload, active}
+                : {name, bio, description, clintPercentage, kassaPercentage, attachmentId: attachmentId.payload, active};
             this.props.dispatch(saveCompany(obj));
         }
         return (
             <div>
-                <div className="container">
+                <Navbar/>
+                <Sidebar/>
+                <div className="ms-5 me-5">
                     <h2 className="text-center">Company List</h2>
                     <Button className="btn btn-primary" onClick={openModal}>Add Company</Button>
                     <Table>
@@ -168,8 +162,6 @@ class Company extends Component {
 Company.propTypes = {};
 
 export default connect(
-    ({
-         app: {company, showModal, deleteShowModal, currentCompany, attachmentId, active}
-     }) =>
-        ({company, showModal, deleteShowModal, currentCompany, attachmentId, active})
-)(Company);
+    ({app: {company, showModal, deleteShowModal, currentCompany, attachmentId, active}}) =>
+        ({company, showModal, deleteShowModal, currentCompany, attachmentId, active}))
+(Company);

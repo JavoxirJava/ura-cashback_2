@@ -40,5 +40,4 @@ export default class HttpClient {
     static doDelete(url, params = {}) {
         return HttpClient.doRequest().delete(url, params)
     }
-
 }
