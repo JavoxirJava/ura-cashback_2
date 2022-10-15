@@ -37,6 +37,9 @@ function Navbar() {
                 <NavItem>
                     <NavLink href="/order/login">Kassa Login</NavLink>
                 </NavItem>
+                <NavItem>
+                    <NavLink href="/authClient">authClient</NavLink>
+                </NavItem>
 
             </Nav>
         </>

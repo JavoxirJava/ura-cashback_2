@@ -2,16 +2,19 @@ import * as api from "../../api/AppApi";
 import {
     activeUser,
     addAttachment,
+    addOrder,
     addUser,
-    editUser,
-    getUsers,
-    removeUsers,
     userPage,
     deleteOrder,
     editOrder,
+    editUser,
     getOrders,
+    getUsers,
+    removeUsers,
     getOneUsers,
-    loginOrder, findByUser, findByPhoneNumber
+    loginOrder,
+    findByUser,
+    findByPhoneNumber
 } from "../../api/AppApi";
 import * as types from "../actionTypes/AppActionTypes";
 import {toast} from "react-toastify";
@@ -52,7 +55,7 @@ export const findByUserPhoneNumber = (payload) => (dispatch) => {
         data: payload
     }).then(res => {
         console.log(res);
-        if (res !== undefined){
+        if (res !== undefined) {
             dispatch({
                 type: "updateState",
                 payload: {
@@ -124,29 +127,6 @@ export const isActiveUser = (payload) => (dispatch) => {
         dispatch(getUser())
     })
 }
-
-export const getRole = () => (dispatch) => {
-    dispatch({
-        api: getRole,
-        types: [
-            types.REQUEST_START,
-            types.GET_ROLE_LIST,
-            types.REQUEST_ERROR
-        ]
-    })
-}
-//company
-export const getCompany = () => (dispatch) => {
-    dispatch({
-        api: api.getCompanies,
-        types: [
-            types.REQUEST_START,
-            types.GET_COMPANY_LIST,
-            types.REQUEST_ERROR
-        ]
-    })
-}
-
 export const saveCompany = (payload) => (dispatch) => {
     dispatch({
         api: payload.id ? api.editCompany : api.addCompany,
@@ -169,6 +149,7 @@ export const saveCompany = (payload) => (dispatch) => {
 //         toast.error("Error saving company!");
 //     })
 
+
 export const activeCompany = (payload) => (dispatch) => {
     dispatch({
         api: api.activeCompany12(payload),
@@ -185,7 +166,6 @@ export const activeCompany = (payload) => (dispatch) => {
         toast.error("Error active company!");
     })
 }
-
 export const getOrder = () => (dispatch) => {
     dispatch({
         api: getOrders,
@@ -196,10 +176,9 @@ export const getOrder = () => (dispatch) => {
         ]
     })
 }
-
 export const saveOrder = (payload) => (dispatch) => {
     dispatch({
-        api: api.addOrder,
+        api: addOrder,
         types: [
             types.REQUEST_START,
             types.REQUEST_SUCCESS,
@@ -216,19 +195,26 @@ export const saveOrder = (payload) => (dispatch) => {
     })
 }
 
-export const editOrders = (payload) => (dispatch) => {
+export const getRole = () => (dispatch) => {
     dispatch({
-        api: editOrder,
+        api: getRole,
         types: [
             types.REQUEST_START,
-            types.REQUEST_SUCCESS,
+            types.GET_ROLE_LIST,
             types.REQUEST_ERROR
-        ],
-        data: payload
-    }).then(res => {
-        dispatch(getOrder())
-        toast.success(res);
-    });
+        ]
+    })
+}
+//company
+export const getCompany = () => (dispatch) => {
+    dispatch({
+        api: api.getCompanies,
+        types: [
+            types.REQUEST_START,
+            types.GET_COMPANY_LIST,
+            types.REQUEST_ERROR
+        ]
+    })
 }
 
 export const loginOrderAction = (payload) => (dispatch) => {
@@ -253,18 +239,6 @@ export const loginOrderAction = (payload) => (dispatch) => {
     });
 }
 
-export const getOrderFindByUser = (payload) => (dispatch) => {
-    dispatch({
-        api: findByUser,
-        types: [
-            types.REQUEST_START,
-            types.GET_ORDER_LIST,
-            types.REQUEST_ERROR
-        ],
-        data: payload
-    });
-}
-
 export const delOrder = (payload) => (dispatch) => {
     dispatch({
         api: deleteOrder,
@@ -281,6 +255,33 @@ export const delOrder = (payload) => (dispatch) => {
         toast.error("Error delete order!");
     })
 }
+export const editOrders = (payload) => (dispatch) => {
+    dispatch({
+        api: editOrder,
+        types: [
+            types.REQUEST_START,
+            types.REQUEST_SUCCESS,
+            types.REQUEST_ERROR
+        ],
+        data: payload
+    }).then(res => {
+        dispatch(getOrder())
+        toast.success(res);
+    });
+}
+
+export const getOrderFindByUser = (payload) => (dispatch) => {
+    dispatch({
+        api: findByUser,
+        types: [
+            types.REQUEST_START,
+            types.GET_ORDER_LIST,
+            types.REQUEST_ERROR
+        ],
+        data: payload
+    });
+}
+
 //finish
 export const addAttachmentAction = (payload) => (dispatch) => {
     dispatch({
@@ -302,5 +303,5 @@ export const addAttachmentAction = (payload) => (dispatch) => {
         // dispatch(getValyutaies());
     }).catch(() => {
         toast.error("Error saving attachment!");
-    })
+    });
 }

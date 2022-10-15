@@ -1,0 +1,51 @@
+.home{
+    width: 1364px;
+    margin: 0;
+}
+.home h3{
+    text-align: center;
+}
+
+.img1 {
+    width: 70px;
+    height: 50px;
+    margin-left: 20px;
+    margin-top: 20px;
+}
+.img2{
+    margin-left: 50px;
+}
+.register{
+    background-color: white;
+    padding-top: 2%;
+    border-radius: 30px;
+    height: 656px;
+}
+.register Input{
+    margin-top: 15px;
+    padding: 2%;
+    border-top-style: inherit;
+    border-left-style: inherit;
+    border-right-style: inherit;
+    border-bottom-style: groove;
+    border-radius: 0;
+}
+.register Button{
+    margin-top: 7%;
+    margin-left: 40%;
+    padding-left: 7%;
+    border-radius: 20px;
+    padding-right: 7%;
+}
+.register h2{
+    text-align: center;
+}
+.iconca1{
+    margin-top: 35px;
+}
+.iconca2{
+    margin-top: 50px;
+}
+.iconca-45{
+    margin-top: 45px;
+}
