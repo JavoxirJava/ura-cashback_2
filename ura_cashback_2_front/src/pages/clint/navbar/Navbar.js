@@ -26,6 +26,9 @@ function Navbar() {
                     <NavLink href="/company">Company</NavLink>
                 </NavItem>
                 <NavItem>
+                    <NavLink href="/company/register">CompanyRegister</NavLink>
+                </NavItem>
+                <NavItem>
                     <NavLink href="/order">Order</NavLink>
                 </NavItem>
                 <NavItem>

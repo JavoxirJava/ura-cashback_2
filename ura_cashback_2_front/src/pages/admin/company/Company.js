@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
-import {activeCompany, addAttachmentAction, getCompany, saveCompany,} from "../../../redux/actions/AppAction";
-import {Button, Col, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader, Row, Table} from "reactstrap";
+import {activeCompany, getCompany,} from "../../../redux/actions/AppAction";
+import {Input, Label, Row, Table} from "reactstrap";
 import {api} from "../../../api/api";
 import '../style.scss';
 import Navbar from "../../clint/navbar/Navbar";
@@ -16,23 +16,23 @@ class Company extends Component {
     render() {
         document.body.style.marginLeft = "3.7%";
         document.body.style.backgroundColor = "white";
-        const {company, dispatch, showModal, currentCompany, attachmentId, active} = this.props;
+        const {company,dispatch,active} = this.props;
 
-        const openModal = (item) => {
-            dispatch({
-                type: 'updateState',
-                payload: {
-                    showModal: !showModal,
-                    currentCompany: item
-                }
-            })
-        }
+        // const openModal = (item) => {
+        //     dispatch({
+        //         type: 'updateState',
+        //         payload: {
+        //             showModal: !showModal,
+        //             currentCompany: item
+        //         }
+        //     })
+        // }
 
-        const sendPhoto = (item) => {
-            let obj = new FormData();
-            obj.append("file", item.target.files[0]);
-            this.props.dispatch(addAttachmentAction(obj));
-        }
+        // const sendPhoto = (item) => {
+        //     let obj = new FormData();
+        //     obj.append("file", item.target.files[0]);
+        //     this.props.dispatch(addAttachmentAction(obj));
+        // }
 
         const changeActive = () => {
             dispatch({
@@ -46,24 +46,24 @@ class Company extends Component {
             this.props.dispatch(activeCompany(item));
         }
 
-        const addCompany = () => {
-            let name = document.getElementById("name").value;
-            let bio = document.getElementById("bio").value;
-            let description = document.getElementById("description").value;
-            let clintPercentage = document.getElementById("clintPercentage").value;
-            let kassaPercentage = document.getElementById("kassaPercentage").value;
-            let obj = currentCompany
-                ? {id: currentCompany.id, name, bio, description, clintPercentage, kassaPercentage, attachmentId: attachmentId.payload, active}
-                : {name, bio, description, clintPercentage, kassaPercentage, attachmentId: attachmentId.payload, active};
-            this.props.dispatch(saveCompany(obj));
-        }
+        // const addCompany = () => {
+        //     let name = document.getElementById("name").value;
+        //     let bio = document.getElementById("bio").value;
+        //     let description = document.getElementById("description").value;
+        //     let clintPercentage = document.getElementById("clintPercentage").value;
+        //     let kassaPercentage = document.getElementById("kassaPercentage").value;
+        //     let obj = currentCompany
+        //         ? {id: currentCompany.id, name, bio, description, clintPercentage, kassaPercentage, attachmentId: attachmentId.payload, active}
+        //         : {name, bio, description, clintPercentage, kassaPercentage, attachmentId: attachmentId.payload, active};
+        //     this.props.dispatch(saveCompany(obj));
+        // }
         return (
             <div>
                 <Navbar/>
                 <Sidebar/>
                 <div className="ms-5 me-5">
                     <h2 className="text-center">Company List</h2>
-                    <Button className="btn btn-primary" onClick={openModal}>Add Company</Button>
+                    {/*<Button className="btn btn-primary" onClick={openModal}>Add Company</Button>*/}
                     <Table>
                         <thead>
                         <tr>
@@ -75,7 +75,7 @@ class Company extends Component {
                             <th>ClintPercentage</th>
                             <th>KassaPercentage</th>
                             <th>Active</th>
-                            <th colSpan='1'>Action</th>
+                            {/*<th colSpan='1'>Action</th>*/}
                         </tr>
                         </thead>
                         {company.length !== null ?
@@ -100,9 +100,9 @@ class Company extends Component {
                                             </Label>
                                         </Row>
                                     </td>
-                                    <td>
-                                        <Button color="warning" outline onClick={() => openModal(item)}>Edit</Button>
-                                    </td>
+                                    {/*<td>*/}
+                                    {/*    <Button color="warning" outline onClick={() => openModal(item)}>Edit</Button>*/}
+                                    {/*</td>*/}
                                 </tr>
                                 </tbody>
                             )
@@ -110,43 +110,43 @@ class Company extends Component {
                         }
                     </Table>
                 </div>
-                <Modal isOpen={showModal}>
-                    <ModalHeader>{currentCompany.id ? "Edit Company" : "Add Company"}</ModalHeader>
-                    <ModalBody>
-                        <Input className='mb-2' name="name" id="name" type='text'
-                               defaultValue={currentCompany ? currentCompany.name : ""} placeholder='Enter company name'
-                               required/>
-                        <Input className='mb-2' name="bio" id="bio" type='text'
-                               defaultValue={currentCompany ? currentCompany.bio : ""} placeholder='Enter company bio'
-                               required/>
-                        <Input className='mb-2' name="description" id="description" type='text'
-                               defaultValue={currentCompany ? currentCompany.description : ""}
-                               placeholder='Enter company description'
-                               required/>
-                        <Input className='mb-2' name="clintPercentage" id="clintPercentage" type='number'
-                               defaultValue={currentCompany ? currentCompany.clintPercentage : ""}
-                               placeholder='Enter company clintPercentage'
-                               required/>
-                        <Input className='mb-2' name="te" id="kassaPercentage" type='number'
-                               defaultValue={currentCompany ? currentCompany.kassaPercentage : ""}
-                               placeholder='Enter company kassaPercentage'
-                               required/>
-                        <Row className="mb-2">
-                            <Col>
-                                Logo
-                                <Input type="file" multiple id="attachment"
-                                       onChange={(item) => sendPhoto(item)}
-                                       label="Upload your document picture:"
-                                       required accept="image/*"/>
-                            </Col>
-                        </Row>
+                {/*<Modal isOpen={showModal}>*/}
+                {/*    <ModalHeader>{currentCompany.id ? "Edit Company" : "Add Company"}</ModalHeader>*/}
+                {/*    <ModalBody>*/}
+                {/*        <Input className='mb-2' name="name" id="name" type='text'*/}
+                {/*               defaultValue={currentCompany ? currentCompany.name : ""} placeholder='Enter company name'*/}
+                {/*               required/>*/}
+                {/*        <Input className='mb-2' name="bio" id="bio" type='text'*/}
+                {/*               defaultValue={currentCompany ? currentCompany.bio : ""} placeholder='Enter company bio'*/}
+                {/*               required/>*/}
+                {/*        <Input className='mb-2' name="description" id="description" type='text'*/}
+                {/*               defaultValue={currentCompany ? currentCompany.description : ""}*/}
+                {/*               placeholder='Enter company description'*/}
+                {/*               required/>*/}
+                {/*        <Input className='mb-2' name="clintPercentage" id="clintPercentage" type='number'*/}
+                {/*               defaultValue={currentCompany ? currentCompany.clintPercentage : ""}*/}
+                {/*               placeholder='Enter company clintPercentage'*/}
+                {/*               required/>*/}
+                {/*        <Input className='mb-2' name="te" id="kassaPercentage" type='number'*/}
+                {/*               defaultValue={currentCompany ? currentCompany.kassaPercentage : ""}*/}
+                {/*               placeholder='Enter company kassaPercentage'*/}
+                {/*               required/>*/}
+                {/*        <Row className="mb-2">*/}
+                {/*            <Col>*/}
+                {/*                Logo*/}
+                {/*                <Input type="file" multiple id="attachment"*/}
+                {/*                       onChange={(item) => sendPhoto(item)}*/}
+                {/*                       label="Upload your document picture:"*/}
+                {/*                       required accept="image/*"/>*/}
+                {/*            </Col>*/}
+                {/*        </Row>*/}
 
-                    </ModalBody>
-                    <ModalFooter>
-                        <Button color='light' onClick={openModal}>Cancel</Button>
-                        <Button color='primary' onClick={addCompany}>Save</Button>
-                    </ModalFooter>
-                </Modal>
+                {/*    </ModalBody>*/}
+                {/*    <ModalFooter>*/}
+                {/*        <Button color='light' onClick={openModal}>Cancel</Button>*/}
+                {/*        <Button color='primary' onClick={addCompany}>Save</Button>*/}
+                {/*    </ModalFooter>*/}
+                {/*</Modal>*/}
                 {/*<Modal isOpen={deleteShowModal}>*/}
                 {/*    <ModalHeader>{currentCompany.name} delete company</ModalHeader>*/}
                 {/*    <ModalFooter>*/}
@@ -162,6 +162,6 @@ class Company extends Component {
 Company.propTypes = {};
 
 export default connect(
-    ({app: {company, showModal, deleteShowModal, currentCompany, attachmentId, active}}) =>
-        ({company, showModal, deleteShowModal, currentCompany, attachmentId, active}))
+    ({app: {company, active}}) =>
+        ({company, active}))
 (Company);

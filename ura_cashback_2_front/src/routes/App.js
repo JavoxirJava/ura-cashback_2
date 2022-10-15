@@ -7,6 +7,7 @@ import Company from "../pages/admin/company/Company";
 import AuthAdmin from "../pages/admin/userAdmin/AuthAdmin";
 import Page from "../pages/admin/pagination/Page";
 import KasserLogin from "../pages/admin/order/loginPage/KasserLogin";
+import CompanyRegister from "../pages/clint/company/Company";
 
 //https://www.w3schools.com/react/showreact.asp?filename=demo2_react_usememo // add uchun menga kk
 
@@ -17,6 +18,7 @@ function App() {
                 <Route path='/user' element={<AuthAdmin/>}/>
                 <Route path='/order' element={<Order/>}/>
                 <Route path='/company' element={<Company/>}/>
+                <Route path='/company/register' element={<CompanyRegister/>}/>
                 <Route path='/page' element={<Page/>}/>
                 <Route path='/authAdmin' element={<AuthAdmin/>}/>
                 <Route path='/order' element={<Order/>}/>

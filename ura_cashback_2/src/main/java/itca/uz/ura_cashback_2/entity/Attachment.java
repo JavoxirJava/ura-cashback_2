@@ -1,4 +1,4 @@
-package itca.uz.ura_cashback_2.entity;
+ package itca.uz.ura_cashback_2.entity;
 
 import itca.uz.ura_cashback_2.entity.template.AbsEntity;
 import lombok.AllArgsConstructor;

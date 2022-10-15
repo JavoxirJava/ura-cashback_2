@@ -1,0 +1,54 @@
+body{
+    background-color: rgba(231, 229, 229, 0.73);
+}
+
+.img{
+    /*padding-right: 100px;*/
+    /*padding-top: 80px;*/
+    /*width: 100%;*/
+   margin: 10%;
+
+    /*margin-top: ;*/
+
+}
+.main-div {
+    /*padding-left: 800px;*/
+    /*padding-right: 100px;*/
+    display: inline-block;
+    padding-top: 10px;
+}
+
+.company-name {
+    margin-top: 60px;
+    padding-bottom: 10px;
+}
+
+.company-bio {
+    margin-top: 30px;
+    padding-bottom: 10px;
+}
+
+.company-description {
+    margin-top: 30px;
+    padding-bottom: 10px;
+}
+
+.company-cPercentage {
+    margin-top: 30px;
+    padding-bottom: 10px;
+}
+
+.company-kPercentage {
+    margin-top: 30px;
+    padding-bottom: 10px;
+}
+
+.company-attachment {
+    margin-top: 30px;
+    padding-bottom: 10px;
+}
+
+.register {
+    margin-top: 30px;
+    margin-left: 450px;
+}
