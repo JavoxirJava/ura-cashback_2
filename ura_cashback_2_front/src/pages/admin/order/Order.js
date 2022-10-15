@@ -13,7 +13,7 @@ import {
     Row,
     Table
 } from "reactstrap";
-import {delOrder, getOneUser, getOrder} from "../../../redux/actions/AppAction";
+import {delOrder, getOneUser, getOrder, saveOrder} from "../../../redux/actions/AppAction";
 import {connect} from "react-redux";
 import Navbar from "../../clint/navbar/Navbar";
 import Sidebar from "../../clint/navbar/Sidebar";
@@ -57,6 +57,21 @@ class Order extends Component {
         const deleteOrders = () => {
             this.props.dispatch(delOrder(currentItem));
             openDeleteModal("");
+        }
+
+        const saveOrders = () => {
+            let obj;
+            let comment = document.getElementById("comment").value;
+            let cash_price = document.getElementById("cash_price").value;
+            let cashback = document.getElementById("cashback").value;
+            let id = currentItem.id ? currentItem.id : null;
+
+            if (currentItem.id) {
+                obj = {id, comment, cash_price, cashback}
+            } else {
+                obj = {comment, cash_price, cashback}
+            }
+            this.props.dispatch(saveOrder(obj))
         }
 
         return (
