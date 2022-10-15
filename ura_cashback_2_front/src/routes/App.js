@@ -4,11 +4,7 @@ import {Route, Routes} from "react-router-dom";
 import NotFount from "../pages/clint/notFaunt/NotFount";
 import Order from "../pages/admin/order/Order";
 import Company from "../pages/admin/company/Company";
-import KassaClient from "../test/loginPage/KassaClient";
-import Navbar from "../pages/clint/navbar/Navbar";
 import Sidebar from "../pages/clint/navbar/Sidebar";
-import AuthAdmin from "../pages/admin/userAdmin/AuthAdmin";
-import Page from "../pages/admin/pagination/Page";
 import KasserLogin from "../pages/admin/order/loginPage/KasserLogin";
 import AuthClient from "../pages/admin/userAdmin/AuthClient";
 import AuthAdmin from "../pages/admin/userAdmin/AuthAdmin";
@@ -18,7 +14,6 @@ import AuthAdmin from "../pages/admin/userAdmin/AuthAdmin";
 function App() {
     return (
         <Provider store={store}>
-            <Navbar/>
             <Sidebar/>
             <Routes>
                 <Route path='/user' element={<AuthAdmin/>}/>

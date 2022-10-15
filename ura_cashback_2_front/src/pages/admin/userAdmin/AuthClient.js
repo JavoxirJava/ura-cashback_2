@@ -9,6 +9,8 @@ import {connect} from "react-redux";
 class AuthClient extends Component {
 
     render() {
+        document.body.style.marginLeft = "3.7%";
+        document.body.style.backgroundColor = "white";
 
 
         const registerClient = ()=>{
@@ -26,15 +28,15 @@ class AuthClient extends Component {
         return (
             <div className="row home">
                 <div className='col-6'>
-                    <img className="row img1" src={cashbackLogo}/>
-                    <img className="img2" src={registerFoto}/>
+                    <img className="row img1" src={cashbackLogo} alt="not"/>
+                    <img className="img2" src={registerFoto} alt="not"/>
                     <h3>Savdolaringizni istalgan vaqtda kuzatib boring,</h3>
                     <h3>Avvalgidan ko'ra osonroq va samaraliroq</h3>
                 </div>
                 <div className="col-6 register">
                     <h2>Hisob ochish</h2>
                     <div className="row">
-                        <div className="col-10 register2">
+                        <div className="col-10 pe-0">
                             <Input className="mb-2" type="text" id="firstName" placeholder="First name" required/>
                             <Input className="mb-2" type="text" id="lastName" placeholder="Last name" required/>
                             <Input className="mb-2" type="text" id="phoneNumber" placeholder="Phone number" required/>
@@ -46,10 +48,10 @@ class AuthClient extends Component {
                             <ul>
                                 <li className="row iconca1"><i className="pi pi-user" ></i></li>
                                 <li className="row iconca2"><i className="pi pi-user" ></i></li>
-                                <li className="row iconca3"><i className="pi pi-phone" ></i></li>
-                                <li className="row iconca4"><i className="pi pi-at" ></i></li>
-                                <li className="row iconca5"><i className="pi pi-lock" ></i></li>
-                                <li className="row iconca6"><i className="pi pi-lock" ></i></li>
+                                <li className="row iconca-45"><i className="pi pi-phone" ></i></li>
+                                <li className="row iconca-45"><i className="pi pi-at" ></i></li>
+                                <li className="row iconca-45"><i className="pi pi-lock" ></i></li>
+                                <li className="row iconca-45"><i className="pi pi-lock" ></i></li>
                             </ul>
                         </div>
                     </div>
