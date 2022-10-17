@@ -3,10 +3,9 @@ import store from "../redux";
 import {Route, Routes} from "react-router-dom";
 import NotFount from "../pages/clint/notFaunt/NotFount";
 import Order from "../pages/admin/order/Order";
-import Company from "../pages/admin/company/Company";
-import Sidebar from "../pages/clint/navbar/Sidebar";
+import Company from "../pages/admin/company/CompanyAdmin";
 import KasserLogin from "../pages/admin/order/loginPage/KasserLogin";
-import CompanyRegister from "../pages/clint/company/Company";
+import CompanyRegister from "../pages/admin/company/CompanyClint";
 import AuthClient from "../pages/admin/userAdmin/AuthClient";
 import AuthAdmin from "../pages/admin/userAdmin/AuthAdmin";
 
@@ -20,11 +19,8 @@ function App() {
                 <Route path='/order' element={<Order/>}/>
                 <Route path='/company' element={<Company/>}/>
                 <Route path='/company/register' element={<CompanyRegister/>}/>
-                <Route path='/page' element={<Page/>}/>
                 <Route path='/authAdmin' element={<AuthAdmin/>}/>
                 <Route path='/authClient' element={<AuthClient/>}/>
-                <Route path='/order' element={<Order/>}/>
-                <Route path='/company' element={<Company/>}/>
                 <Route path='/order/login' element={<KasserLogin/>}/>
                 <Route path='/*' element={<NotFount/>}/>
             </Routes>

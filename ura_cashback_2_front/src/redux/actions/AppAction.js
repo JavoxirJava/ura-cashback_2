@@ -136,6 +136,15 @@ export const saveCompany = (payload) => (dispatch) => {
             types.REQUEST_ERROR
         ],
         data: payload
+    }).then(res => {
+        if (res.success) {
+            dispatch(getUser())
+            toast.success("Company saved successfully!");
+        } else {
+            toast.error("You cannot save Company!")
+        }
+    }).catch(() => {
+        toast.error("Error saving company!");
     })
 }
 //         .then(res => {
