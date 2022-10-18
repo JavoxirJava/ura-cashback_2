@@ -26,6 +26,9 @@ function Navbar() {
                     <NavLink href="/company">Company</NavLink>
                 </NavItem>
                 <NavItem>
+                    <NavLink href="/company/register">CompanyRegister</NavLink>
+                </NavItem>
+                <NavItem>
                     <NavLink href="/order">Order</NavLink>
                 </NavItem>
                 <NavItem>
@@ -33,6 +36,9 @@ function Navbar() {
                 </NavItem>
                 <NavItem>
                     <NavLink href="/order/login">Kassa Login</NavLink>
+                </NavItem>
+                <NavItem>
+                    <NavLink href="/authClient">authClient</NavLink>
                 </NavItem>
 
             </Nav>
