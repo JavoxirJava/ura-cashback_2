@@ -61,3 +61,18 @@
 .register2{
     padding-right: 0;
 }
+.wrapper{
+    margin-left: 100px;
+    margin-top: -38px;
+}
+.wrapper Button{
+    margin-left: 166px;
+    margin-top: -68px;
+    background-color: #3D56F0;
+}
+.wrapper Input{
+    border: #3D56F0 solid 2px;
+}
+.wrapper Button:hover{
+    background-color: #3D56F0;
+}

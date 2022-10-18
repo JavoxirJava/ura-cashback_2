@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
@@ -20,9 +21,12 @@ import java.util.UUID;
 @Entity
 public class CompanyUserRole extends AbsEntity {
 
+    @Column(nullable = false)
     private UUID userId;
 
+    @Column(nullable = false)
     private UUID companyId;
 
+    @Column(nullable = false)
     private Integer roleId;
 }

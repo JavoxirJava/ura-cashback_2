@@ -34,6 +34,7 @@ public class AuthService{
     }
 
     public ApiResponse addOrEditRegisterClient(User user,AuthDto authDto) {
+        if (authDto.getPhoneNumber().length() == 13) {
             if (!authRepository.existsByPhoneNumberEqualsIgnoreCaseAndEmailEqualsIgnoreCase(authDto.getPhoneNumber(), authDto.getEmail())) {
                 if (authDto.getPassword().equals(authDto.getPrePassword())) {
                     user.setFirstName(authDto.getFirstName());
@@ -43,7 +44,7 @@ public class AuthService{
                     user.setPassword(authDto.getPassword());
                     try {
                         authRepository.save(user);
-                    }catch (Exception e){
+                    } catch (Exception e) {
                         authRepository.save(user);
                     }
                     return new ApiResponse("User saved", true);
@@ -51,6 +52,8 @@ public class AuthService{
                 return new ApiResponse("Password and PrePassword are not the same", false);
             }
             return new ApiResponse("User is all ready exist", false);
+        }
+        return new ApiResponse("Phone number error",false);
     }
 
     public ApiResponse deleteClient(UUID id) {
