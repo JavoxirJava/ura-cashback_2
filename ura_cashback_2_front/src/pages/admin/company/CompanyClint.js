@@ -5,8 +5,9 @@ import {connect} from "react-redux";
 import "./company.css";
 import logoCash from "../order/loginPage/image/logo.png";
 import registerCom from "./svg7.png"
-import registerCom1 from "./svg6.png"
-import registerCom2 from "./Group 2.png"
+import registerCom1 from "./Rectangle.png"
+import oval from "./Oval.png"
+import done from "./Shape.png"
 
 class CompanyRegister extends Component {
     render() {
@@ -29,12 +30,19 @@ class CompanyRegister extends Component {
         }
         return (
             <div className="main-div">
+                <h1 className="malumot">Company xaqida malumot</h1>
                 <img className="img"
                     data-aos-duration="1000"
-                    data-aos-easing="ease-in-back" src={logoCash} alt="Loading..."/>
+                    data-aos-easing="ease-in-back" src={registerCom1} alt="Loading..."/>
                 <img className="compImg1"
                     data-aos-duration="1000"
-                    data-aos-easing="ease-in-back" src={registerCom} alt="Loading..."/>
+                    data-aos-easing="ease-in-back" src={logoCash} alt="Loading..."/>
+                <img className="oval"
+                    data-aos-duration="1000"
+                    data-aos-easing="ease-in-back" src={oval} alt="Loading..."/>
+                <img className="done"
+                    data-aos-duration="1000"
+                    data-aos-easing="ease-in-back" src={done} alt="Loading..."/>
                 <Input className='company-name' name="name" id="name" type='text'
                        defaultValue={currentCompany ? currentCompany.name : ""} placeholder='Enter company name'
                        required/>
@@ -61,16 +69,11 @@ class CompanyRegister extends Component {
                                required accept="image/*"/>
                     </Col>
                 </Row>
-                <Button className="registerComp" color='primary' onClick={addCompany}>Register</Button>
-                {/*<div>*/}
-                {/*    <img className="compImg2"*/}
-                {/*         data-aos-duration="1000"*/}
-                {/*         data-aos-easing="ease-in-back" src={registerCom1} alt="Loading..."/>*/}
-                    {/*<img className="compImg3"*/}
-                    {/*     data-aos-duration="1000"*/}
-                    {/*     data-aos-easing="ease-in-back" src={registerCom2} alt="Loading..."/>*/}
+                <Button className="registerComp" color='primary' onClick={addCompany}>✔Register</Button>
+                    <img className="compImg2"
+                         data-aos-duration="1000"
+                         data-aos-easing="ease-in-back" src={registerCom} alt="Loading..."/>
 
-                {/*</div>*/}
             </div>
         );
     }

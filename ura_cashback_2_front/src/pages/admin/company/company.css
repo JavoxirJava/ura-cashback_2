@@ -3,26 +3,60 @@ body{
 }
 
 .img{
-    /*padding-right: 100px;*/
-    /*padding-top: -1px;*/
-    /*margin-bottom: 10px;*/
-    /*margin-right: 200px;*/
-    width: 40%;
-    margin: -130px -95% -35%;
+    /*width: 30%;*/
+    /*margin: -30px -67% -35%;*/
+    position: absolute;
+    width: 309px;
+    height: 1512px;
+    left: 0;
+    top: -7px;
 
+    background: rgba(242, 244, 245, 0.56);
+}
+.oval{
+    position: absolute;
+    width: 36px;
+    height: 36px;
+    left: 25px;
+    top: 130px;
+}
+.malumot{
+    position: absolute;
+    width: 200px;
+    height: 140px;
+    left: 80px;
+    top: 140px;
+    font-size: 14px;
+    color: #171725;
+}
+.done{
+    position: absolute;
+    left: 1.75%;
+    right: 16.10%;
+    top: 19.67%;
+    bottom: 27.29%;
 }
 .compImg1{
-    width: 85%;
-    margin: -130px 50% -150%;
+    /*width: 15%;*/
+    /*margin: -130% 45% -60%;*/
+    position: absolute;
+    width: 95px;
+    height: 52px;
+    left: 34px;
+    top: 37px;
 }
-/*.compImg2{*/
-/*    width: 30%;*/
-/*    margin: -130px 50% -150%;*/
-/*}*/
-/*.compImg3{*/
-/*    width: 45%;*/
-/*    margin: -130px 50% -150%;*/
-/*}*/
+.compImg2{
+    /*width: 30%;*/
+    /*margin: -140% 90% -80%;*/
+    position: absolute;
+    width: 284px;
+    height: 277px;
+    left: 1173px;
+    top: 307px;
+
+    mix-blend-mode: normal;
+    opacity: 0.8;
+}
 .main-div {
     /*padding-left: 500px;*/
     /*padding-right: 8px;*/
@@ -33,7 +67,7 @@ body{
 }
 
 .company-name {
-    margin-top:     50px;
+    margin-top:     20%;
     padding-bottom: 10px;
 }
 
