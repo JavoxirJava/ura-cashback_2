@@ -16,23 +16,13 @@ class AuthAdmin extends Component {
 
 
     render() {
-        document.body.style.marginLeft = "3.7%";
-        document.body.style.backgroundColor = "white"
 
         document.body.style.marginLeft = "3.7%";
         document.body.style.backgroundColor = "white"
 
         const {user,page,size,search, dispatch, showModal,currentUser,deleteShowModal,activeUser} = this.props;
 
-        const indexOfLasPost = page * size;
-        const indexOfFirstPosts = indexOfLasPost - size;
-        const currentPosts = user.slice(indexOfFirstPosts,indexOfLasPost);
 
-
-        const pageNumbers = [];
-        for (let i = 1; i <= Math.ceil(user.length / size); i++) {
-            pageNumbers.push(i);
-        }
 
         const paginate = (number) => {
             dispatch({
@@ -137,7 +127,6 @@ class AuthAdmin extends Component {
         const indexOfLasPost = page * size;
         const indexOfFirstPosts = indexOfLasPost - size;
         const currentPosts = filter.slice(indexOfFirstPosts,indexOfLasPost);
-
 
         const pageNumbers = [];
         for (let i = 1; i <= Math.ceil(user.length / size); i++) {
@@ -248,6 +237,4 @@ export default connect(
     ({app:{user,page,size,search, dispatch,showModal,currentUser,deleteShowModal,activeUser,pages}})=>
     ({user,page, size, search,dispatch, showModal,currentUser, deleteShowModal,activeUser,pages}))
 (AuthAdmin);
-    ({app: {user, page, size, dispatch, showModal, currentUser, deleteShowModal, activeUser, pages}}) =>
-        ({user, page, size, dispatch, showModal, currentUser, deleteShowModal, activeUser, pages}))
-(AuthAdmin);
+

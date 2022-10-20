@@ -3,6 +3,7 @@ import {createReducer} from "../../utils/StoreUtils";
 
 
 const initState = {
+    adminPanel: false,
     user: [],
     search: '',
     page: "1",

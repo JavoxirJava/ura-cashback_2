@@ -16,6 +16,7 @@ class Company extends Component {
     render() {
         document.body.style.marginLeft = "3.7%";
         document.body.style.backgroundColor = "white";
+
         const {company, page, size, dispatch, active} = this.props;
 
         const indexOfLasPost = page * size;
@@ -55,7 +56,6 @@ class Company extends Component {
                 <Navbar/>
                 <Sidebar/>
                 <div className="ms-5 me-5">
-                    <h2 className="text-center">Company List</h2>
                     <Table>
                         <thead>
                         <tr>

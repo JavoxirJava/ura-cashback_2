@@ -42,6 +42,7 @@ public class AuthService{
                     user.setPhoneNumber(authDto.getPhoneNumber());
                     user.setEmail(authDto.getEmail());
                     user.setPassword(authDto.getPassword());
+                    user.setSalary(0.0);
                     try {
                         authRepository.save(user);
                     } catch (Exception e) {
@@ -62,6 +63,24 @@ public class AuthService{
     }
 
 
+    public UUID addCompanyUser(AuthDto authDto){
+        if (authDto.getPhoneNumber().length() == 13) {
+            if (!authRepository.existsByPhoneNumberEqualsIgnoreCaseAndEmailEqualsIgnoreCase(authDto.getPhoneNumber(), authDto.getEmail())) {
+                if (authDto.getPassword().equals(authDto.getPrePassword())) {
+                    User user = new User();
+                    user.setFirstName(authDto.getFirstName());
+                    user.setLastName(authDto.getLastName());
+                    user.setPhoneNumber(authDto.getPhoneNumber());
+                    user.setEmail(authDto.getEmail());
+                    user.setPassword(authDto.getPassword());
+                    user.setSalary(0.0);
+                    User saveUser = authRepository.save(user);
+                    return saveUser.getId();
+                }
+            }
+        }
+        return null;
+    }
 
     public ApiResponse activeUser(UUID id){
         User user = authRepository.findById(id).orElseThrow(() -> new ResourceAccessException("getUser"));

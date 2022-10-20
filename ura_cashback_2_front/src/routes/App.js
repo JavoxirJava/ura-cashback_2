@@ -3,12 +3,12 @@ import store from "../redux";
 import {Route, Routes} from "react-router-dom";
 import NotFount from "../pages/clint/notFaunt/NotFount";
 import Order from "../pages/admin/order/Order";
-import Company from "../pages/admin/company/Company";
 import KasserLogin from "../pages/admin/order/loginPage/KasserLogin";
-import CompanyRegister from "../pages/admin/company/CompanyClint";
+import CompanyRegister from "../pages/admin/company/CompanyRegister";
 import AuthClient from "../pages/admin/userAdmin/AuthClient";
 import AuthAdmin from "../pages/admin/userAdmin/AuthAdmin";
 import KassaClient from "../pages/admin/order/loginPage/KassaClient";
+import Company from "../pages/admin/company/CompanyAdmin";
 
 
 //https://www.w3schools.com/react/showreact.asp?filename=demo2_react_usememo // add uchun menga kk

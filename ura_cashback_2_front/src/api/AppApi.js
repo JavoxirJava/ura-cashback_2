@@ -1,5 +1,6 @@
 import HttpClient from "../utils/HttpClient";
 import {api} from "./api";
+import data from "bootstrap/js/src/dom/data";
 // import data from "bootstrap/js/src/dom/data";
 //*****************************************************************=> User
 export const getUsers = () => {
@@ -10,6 +11,9 @@ export const getOneUsers = (data) => {
 }
 export const addUser = (data) => {
     return HttpClient.doPost(api.users, data);
+}
+export const addCompanyUser = (data) =>{
+    return HttpClient.doPost(api.users + "/companyUser", data);
 }
 export const editUser = (data) => {
     return HttpClient.doPut(api.users + "/" + data.id, data);

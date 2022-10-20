@@ -33,6 +33,11 @@ public class AuthController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
+    @PostMapping("/companyUser")
+    public HttpEntity<?> addCompanyUser(@RequestBody AuthDto authDto){
+        return ResponseEntity.ok(authService.addCompanyUser(authDto));
+    }
+
     @PutMapping("/{id}")
     public HttpEntity<?> editAuth(@PathVariable UUID id, @RequestBody AuthDto authDto){
         User user = authRepository.findById(id).orElseThrow(() -> new ResourceAccessException("getUser"));

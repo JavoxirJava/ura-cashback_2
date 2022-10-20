@@ -27,6 +27,8 @@ public class CompanyDto {
     private Attachment attachment;
     private UUID attachmentId;
 
+    private UUID userId;
+
     private boolean active;
 
 
