@@ -1,24 +1,22 @@
 import * as api from "../../api/AppApi";
 import {
     activeUser,
-    addAttachment,
+    addAttachment, addCompanyUser,
     addOrder,
     addUser,
-    userPage,
     deleteOrder,
     editOrder,
     editUser,
+    findByPhoneNumber,
+    findByUser,
+    getOneUsers,
     getOrders,
     getUsers,
-    removeUsers,
-    getOneUsers,
     loginOrder,
-    findByUser,
-    findByPhoneNumber
+    removeUsers
 } from "../../api/AppApi";
 import * as types from "../actionTypes/AppActionTypes";
 import {toast} from "react-toastify";
-import {GET_ATTACHMENT_ID} from "../actionTypes/AppActionTypes";
 
 export const getUser = () => (dispatch) => {
     dispatch({
@@ -31,19 +29,6 @@ export const getUser = () => (dispatch) => {
     })
 }
 
-export const pageUser = (payload) => (dispatch) => {
-    dispatch({
-        api: userPage,
-        types: [
-            types.REQUEST_START,
-            types.REQUEST_SUCCESS,
-            types.REQUEST_ERROR
-        ],
-        data: payload
-    }).then(() => {
-        dispatch(getUser())
-    })
-}
 
 export const findByUserPhoneNumber = (payload) => (dispatch) => {
     dispatch({
@@ -97,6 +82,30 @@ export const saveUser = (payload) => (dispatch) => {
         }
     }).catch(() => {
         toast.error("Error saving User!");
+    })
+}
+export const saveCompanyUser = (payload) => (dispatch) =>{
+    dispatch({
+        api: addCompanyUser,
+        types:[
+            types.REQUEST_START,
+            types.REQUEST_SUCCESS,
+            types.REQUEST_ERROR
+        ],
+        data : payload
+    }).then(res =>{
+        if(res !== undefined){
+            toast.success("Successfully save")
+            dispatch({
+                type: 'updateState',
+                payload:{
+                    showModal: true,
+                    currentUser: res.payload
+                }
+            })
+        }else {
+            toast.error("Error")
+        }
     })
 }
 
@@ -197,22 +206,12 @@ export const saveOrder = (payload) => (dispatch) => {
         data: payload
     }).then(res => {
         if (res.success) {
-            dispatch(getOrder())
-            toast.success("Order saved successfully!");
-        } else toast.error("You cannot save company!");
-    }).catch(() => {
-        toast.error("Error saving company!");
-    })
-}
-
-export const getRole = () => (dispatch) => {
-    dispatch({
-        api: getRole,
-        types: [
-            types.REQUEST_START,
-            types.GET_ROLE_LIST,
-            types.REQUEST_ERROR
-        ]
+            dispatch(getOrder());
+            dispatch(loginOrder())
+            toast.success(res);
+        }else {
+            toast.error("Error")
+        }
     })
 }
 //company
@@ -302,7 +301,7 @@ export const addAttachmentAction = (payload) => (dispatch) => {
             types.REQUEST_ERROR
         ],
         data: payload
-    }).then(res => {
+    }).then(() => {
         dispatch({
             type: 'updateState',
             payload: {

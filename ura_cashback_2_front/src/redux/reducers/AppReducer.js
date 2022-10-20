@@ -4,7 +4,9 @@ import {GET_ATTACHMENT_ID} from "../actionTypes/AppActionTypes";
 
 
 const initState = {
+    adminPanel: false,
     user: [],
+    search: '',
     page: "1",
     size:"5",
     activeUser: false,
@@ -32,7 +34,6 @@ const reducers = {
     },
     [types.GET_USER_LIST](state, payload) {
         state.user = payload.payload.object
-        state.pages = payload.payload.totalPages
     },
     [types.GET_ONE_USER_LIST](state, payload) {
         state.currentUser = payload.payload

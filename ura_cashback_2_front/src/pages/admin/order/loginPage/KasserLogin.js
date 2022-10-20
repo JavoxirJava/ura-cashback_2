@@ -27,7 +27,7 @@ function KasserLogin(props) {
                         </div>
                         <div className="login-form inputs">
                             <div className="login-form-container">
-                                <Input type="number" placeholder="Номер телефона" id="phoneNumber"
+                                <Input type="text" placeholder="Номер телефона" id="phoneNumber"
                                        className="login-form-input mt-5"/>
                                 <Input type="text" placeholder="Пароль" id="password"
                                        className="login-form-input mt-4"/>

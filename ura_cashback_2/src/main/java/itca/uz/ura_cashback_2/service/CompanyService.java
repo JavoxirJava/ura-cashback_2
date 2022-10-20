@@ -1,12 +1,14 @@
 package itca.uz.ura_cashback_2.service;
 
 import itca.uz.ura_cashback_2.entity.Company;
+import itca.uz.ura_cashback_2.entity.CompanyUserRole;
 import itca.uz.ura_cashback_2.entity.User;
 import itca.uz.ura_cashback_2.payload.ApiResponse;
 import itca.uz.ura_cashback_2.payload.CompanyDto;
 import itca.uz.ura_cashback_2.payload.ResPageable;
 import itca.uz.ura_cashback_2.repository.AttachmentRepository;
 import itca.uz.ura_cashback_2.repository.CompanyRepository;
+import itca.uz.ura_cashback_2.repository.CompanyUserRoleRepository;
 import itca.uz.ura_cashback_2.utils.CommonUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
@@ -21,10 +23,12 @@ public class CompanyService {
 
     final CompanyRepository companyRepository;
     final AttachmentRepository attachmentRepository;
+    final CompanyUserRoleRepository companyUserRoleRepository;
 
-    public CompanyService(CompanyRepository companyRepository, AttachmentRepository attachmentRepository) {
+    public CompanyService(CompanyRepository companyRepository, AttachmentRepository attachmentRepository,CompanyUserRoleRepository companyUserRoleRepository) {
         this.companyRepository = companyRepository;
         this.attachmentRepository = attachmentRepository;
+        this.companyUserRoleRepository = companyUserRoleRepository;
     }
 
     public ApiResponse addCompany(CompanyDto companyDto, Company company) {
@@ -37,7 +41,13 @@ public class CompanyService {
                 company.setKasserPercentage(companyDto.getKassaPercentage());
                 company.setAttachment(attachmentRepository.findById(companyDto.getAttachmentId())
                         .orElseThrow(() -> new ResourceAccessException("GetAttachment")));
-                companyRepository.save(company);
+                Company saveCompany = companyRepository.save(company);
+                //companyUser
+                CompanyUserRole companyUserRole = new CompanyUserRole();
+                companyUserRole.setCompanyId(saveCompany.getId());
+                companyUserRole.setRoleId(2);
+                companyUserRole.setUserId(companyDto.getUserId());
+                companyUserRoleRepository.save(companyUserRole);
                 return new ApiResponse("Successfully saved company", true);
             }
             return new ApiResponse("Attachment already exist", false);
@@ -45,7 +55,7 @@ public class CompanyService {
         return new ApiResponse("Name already exist", false);
     }
 
-    public CompanyDto getOneCompany(UUID id, User user) {
+    public CompanyDto getOneCompany(UUID id ,User user) {
         Company company = getOneCompany(id);
         return new CompanyDto(
                 company.getId(),

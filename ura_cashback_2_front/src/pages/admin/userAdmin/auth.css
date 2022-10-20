@@ -42,10 +42,46 @@
 }
 .iconca1{
     margin-top: 35px;
+    margin-left: -50px;
 }
 .iconca2{
     margin-top: 50px;
+    margin-left: -50px;
 }
-.iconca-45{
+.iconca3{
     margin-top: 45px;
+    margin-left: -50px;
+}
+.iconca4{
+    margin-top: 45px;
+    margin-left: -50px;
+}
+.iconca5{
+    margin-top: 45px;
+    margin-left: -50px;
+}
+.iconca6{
+    margin-top: 45px;
+    margin-left: -50px;
+}
+.register2{
+    padding-right: 0;
+}
+.wrapper{
+    margin-left: 100px;
+    margin-top: -38px;
+}
+.wrapper Button{
+    margin-left: 166px;
+    margin-top: -68px;
+    background-color: #3D56F0;
+}
+.wrapper Input{
+    border: #3D56F0 solid 2px;
+}
+.wrapper Button:hover{
+    background-color: #3D56F0;
+}
+.register ul{
+    padding-left: 0;
 }

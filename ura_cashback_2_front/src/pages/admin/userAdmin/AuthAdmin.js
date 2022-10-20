@@ -2,9 +2,10 @@ import React, {Component} from 'react';
 import {Button, Input, Modal, ModalBody, ModalFooter, ModalHeader, Table} from "reactstrap";
 import {connect} from "react-redux";
 import {getUser, isActiveUser, removeUser, saveUser} from "../../../redux/actions/AppAction";
-// import UserPage from "./UserPage";
 import Navbar from "../../clint/navbar/Navbar";
 import Sidebar from "../../clint/navbar/Sidebar";
+import './auth.css';
+
 
 
 class AuthAdmin extends Component {
@@ -15,21 +16,13 @@ class AuthAdmin extends Component {
 
 
     render() {
+
         document.body.style.marginLeft = "3.7%";
         document.body.style.backgroundColor = "white"
 
-        const {user, page, size, dispatch, showModal, currentUser, deleteShowModal, activeUser, pages} = this.props;
+        const {user,page,size,search, dispatch, showModal,currentUser,deleteShowModal,activeUser} = this.props;
 
 
-        const indexOfLasPost = page * size;
-        const indexOfFirstPosts = indexOfLasPost - size;
-        const currentPosts = user.slice(indexOfFirstPosts, indexOfLasPost);
-
-
-        const pageNumbers = [];
-        for (let i = 1; i <= Math.ceil(user.length / size); i++) {
-            pageNumbers.push(i);
-        }
 
         const paginate = (number) => {
             dispatch({
@@ -113,12 +106,50 @@ class AuthAdmin extends Component {
             })
         }
 
+        const set = (item)=>{
+            const lowerCase = item.target.value.toLowerCase();
+            dispatch({
+                type:"updateState",
+                payload:{
+                    search:lowerCase
+                }
+            })
+        }
+
+        //Search
+        const filter = user.filter((el)=>{
+            if(search === ''){
+                return el;
+            }else {
+                return el.phoneNumber.toLowerCase().includes(search)
+            }
+        })
+
+        const indexOfLasPost = page * size;
+        const indexOfFirstPosts = indexOfLasPost - size;
+        const currentPosts = filter.slice(indexOfFirstPosts,indexOfLasPost);
+
+        const pageNumbers = [];
+        for (let i = 1; i <= Math.ceil(user.length / size); i++) {
+            pageNumbers.push(i);
+        }
+
         return (
             <div className="ms-5 me-5">
                 <Navbar/>
                 <Sidebar/>
                 <div className="mt-3">
                     <Button color="info" outline onClick={openModal}>Add User</Button>
+                    <div className="wrapper">
+                        <div className="search-wrapper">
+                            <label htmlFor="search-form">
+                                <Input type="search" name="search-form" placeholder="Search phone"
+                                       onChange={(item)=> set(item)}/>
+                                <Button><i className="pi pi-search"></i></Button>
+                            </label>
+                        </div>
+                    </div>
+
                     <Table>
                         <thead>
                         <tr>
@@ -167,7 +198,8 @@ class AuthAdmin extends Component {
                     </ul>
                 </nav>
 
-                {/*<UserPage postPrePost={pages} totalPosts={10}/>*/}
+
+
 
 
                 <Modal isOpen={showModal}>
@@ -203,6 +235,7 @@ class AuthAdmin extends Component {
 AuthAdmin.propTypes = {};
 
 export default connect(
-    ({app: {user, page, size, dispatch, showModal, currentUser, deleteShowModal, activeUser, pages}}) =>
-        ({user, page, size, dispatch, showModal, currentUser, deleteShowModal, activeUser, pages}))
+    ({app:{user,page,size,search, dispatch,showModal,currentUser,deleteShowModal,activeUser,pages}})=>
+    ({user,page, size, search,dispatch, showModal,currentUser, deleteShowModal,activeUser,pages}))
 (AuthAdmin);
+
