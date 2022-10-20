@@ -27,10 +27,19 @@ body{
 
     color: #000000;
 }
+/*.logo{*/
+/*    position: absolute;*/
+/*    width: 70px;*/
+/*    height: 68px;*/
+/*    left: 373px;*/
+/*    top: 267px;*/
+
+/*    background: url();*/
+/*}*/
 .companyImg{
     position: absolute;
     width: 106px;
-    height: 106px;
+    height: 115px;
     left: 356px;
     top: 140px;
 
@@ -57,7 +66,7 @@ body{
     position: absolute;
     left: 34px;
     right: 16.10%;
-    top: 21.50%;
+    top: 19.90%;
     bottom: 27.29%;
 }
 .compImg1{
@@ -68,6 +77,13 @@ body{
     height: 52px;
     left: 34px;
     top: 37px;
+}
+.compLogo{
+    position: absolute;
+    width: 70px;
+    height: 68px;
+    left: 373px;
+    top: 180px;
 }
 .compImg2{
     /*width: 30%;*/

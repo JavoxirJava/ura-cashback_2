@@ -6,13 +6,14 @@ import "./company.css";
 import registerCom from "./svg7.png"
 import  logoCash from "./Left.png"
 import registerCom1 from "./Rectangle.png"
-import oval from "./Oval.png"
-import done from "./Shape.png"
+// import oval from "./Oval.png"
+// import done from "./Shape.png"
+import done from "./photo_2022-10-20_11-19-28.jpg"
+import {api} from "../../../api/api";
 
 class CompanyRegister extends Component {
     render() {
         const {currentCompany, attachmentId,active} = this.props;
-
         const sendPhoto = (item) => {
             let obj = new FormData();
             obj.append("file", item.target.files[0]);
@@ -25,7 +26,7 @@ class CompanyRegister extends Component {
             let description = document.getElementById("description").value;
             let clintPercentage = document.getElementById("clintPercentage").value;
             let kassaPercentage = document.getElementById("kassaPercentage").value;
-            let obj = {name, bio, description, clintPercentage, kassaPercentage, attachmentId: attachmentId.payload, active};
+            let obj = {name, bio, description, clintPercentage, kassaPercentage, attachmentId: attachmentId, active};
             this.props.dispatch(saveCompany(obj));
         }
         return (
@@ -42,13 +43,15 @@ class CompanyRegister extends Component {
                     data-aos-easing="ease-in-back" src={logoCash} alt="Loading..."/>
                 <img className="oval"
                     data-aos-duration="1000"
-                    data-aos-easing="ease-in-back" src={oval} alt="Loading..."/>
-                <img className="done"
-                    data-aos-duration="1000"
                     data-aos-easing="ease-in-back" src={done} alt="Loading..."/>
-                <img className="companyImg"
-                     data-aos-duration="1000"
-                     data-aos-easing="ease-in-back" src={registerCom1} alt="Loading..."/>
+                {/*<img className="done"*/}
+                {/*    data-aos-duration="1000"*/}
+                {/*    data-aos-easing="ease-in-back" src={done} alt="Loading..."/>*/}
+                <Input className="companyImg" type="file"   src={registerCom1} multiple
+                       onChange={(item) => sendPhoto(item)}
+                       required accept="image/*" />
+                <img className="compLogo" data-aos-duration="1000"
+                                                               src={api.getAttachment + attachmentId} data-aos-easing="ease-in-back" alt="Loading..."/>
                 <Input className='company-name' name="name" id="name" type='text'
                        defaultValue={currentCompany ? currentCompany.name : ""} placeholder='Enter company name'
                        required/>
@@ -67,14 +70,6 @@ class CompanyRegister extends Component {
                        defaultValue={currentCompany ? currentCompany.kassaPercentage : ""}
                        placeholder='Enter company kassaPercentage'
                        required/>
-                <Row className="mb-2">
-                    <Col>
-                        <Input type="file" multiple className="company-attachment" id="attachment"
-                               onChange={(item) => sendPhoto(item)}
-                               label="Upload your document picture:"
-                               required accept="image/*"/>
-                    </Col>
-                </Row>
                 <Button className="registerComp" color='primary' onClick={addCompany}>✔Register</Button>
                     <img className="compImg2"
                          data-aos-duration="1000"

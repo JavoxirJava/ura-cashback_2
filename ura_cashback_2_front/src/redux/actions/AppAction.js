@@ -18,6 +18,7 @@ import {
 } from "../../api/AppApi";
 import * as types from "../actionTypes/AppActionTypes";
 import {toast} from "react-toastify";
+import {GET_ATTACHMENT_ID} from "../actionTypes/AppActionTypes";
 
 export const getUser = () => (dispatch) => {
     dispatch({
@@ -297,7 +298,7 @@ export const addAttachmentAction = (payload) => (dispatch) => {
         api: addAttachment,
         types: [
             types.REQUEST_START,
-            // types.REQUEST_SUCCESS,
+            types.GET_ATTACHMENT_ID,
             types.REQUEST_ERROR
         ],
         data: payload
@@ -305,7 +306,7 @@ export const addAttachmentAction = (payload) => (dispatch) => {
         dispatch({
             type: 'updateState',
             payload: {
-                attachmentId: res,
+                // attachmentId: res,
             }
         });
         toast.success("Attachment saved successfully!");
