@@ -38,7 +38,6 @@ public class CompanyService {
                 company.setBio(companyDto.getBio());
                 company.setDescription(companyDto.getDescription());
                 company.setClientPercentage(companyDto.getClintPercentage());
-                company.setKasserPercentage(companyDto.getKassaPercentage());
                 company.setAttachment(attachmentRepository.findById(companyDto.getAttachmentId())
                         .orElseThrow(() -> new ResourceAccessException("GetAttachment")));
                 Company saveCompany = companyRepository.save(company);
@@ -63,7 +62,6 @@ public class CompanyService {
                 company.getBio(),
                 company.getDescription(),
                 company.getClientPercentage(),
-                company.getKasserPercentage(),
                 company.getAttachment(),
                 company.isActive());
     }

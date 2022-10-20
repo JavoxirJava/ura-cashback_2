@@ -301,15 +301,15 @@ export const addAttachmentAction = (payload) => (dispatch) => {
             types.REQUEST_ERROR
         ],
         data: payload
-    }).then(() => {
+    }).then(res => {
+        console.log(res, " res")
         dispatch({
             type: 'updateState',
             payload: {
-                // attachmentId: res,
+                attachmentId: res.payload,
             }
         });
         toast.success("Attachment saved successfully!");
-        // dispatch(getValyutaies());
     }).catch(() => {
         toast.error("Error saving attachment!");
     });

@@ -65,7 +65,6 @@ class Company extends Component {
                             <th>Bio</th>
                             <th>Description</th>
                             <th>ClintPercentage</th>
-                            <th>KassaPercentage</th>
                             <th>Active</th>
                         </tr>
                         </thead>
@@ -79,7 +78,6 @@ class Company extends Component {
                                     <td>{item.bio}</td>
                                     <td>{item.description}</td>
                                     <td>{item.clientPercentage}</td>
-                                    <td>{item.kasserPercentage}</td>
                                     <td>
                                         <Row>
                                             <Label check for="active">

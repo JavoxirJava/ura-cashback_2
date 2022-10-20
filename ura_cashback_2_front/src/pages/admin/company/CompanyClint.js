@@ -13,20 +13,20 @@ import {api} from "../../../api/api";
 
 class CompanyRegister extends Component {
     render() {
-        const {currentCompany, attachmentId,active} = this.props;
+        const {currentCompany, currentUser, attachmentId,active} = this.props;
         const sendPhoto = (item) => {
             let obj = new FormData();
             obj.append("file", item.target.files[0]);
             this.props.dispatch(addAttachmentAction(obj));
         }
+        console.log(attachmentId.payload)
 
         const addCompany = () => {
             let name = document.getElementById("name").value;
             let bio = document.getElementById("bio").value;
             let description = document.getElementById("description").value;
             let clintPercentage = document.getElementById("clintPercentage").value;
-            let kassaPercentage = document.getElementById("kassaPercentage").value;
-            let obj = {name, bio, description, clintPercentage, kassaPercentage, attachmentId: attachmentId, active};
+            let obj = {name, bio, description, clintPercentage, attachmentId: attachmentId, userId: currentUser, active};
             this.props.dispatch(saveCompany(obj));
         }
         return (
@@ -44,9 +44,6 @@ class CompanyRegister extends Component {
                 <img className="oval"
                      data-aos-duration="1000"
                      data-aos-easing="ease-in-back" src={done} alt="Loading..."/>
-                {/*<img className="done"*/}
-                {/*    data-aos-duration="1000"*/}
-                {/*    data-aos-easing="ease-in-back" src={done} alt="Loading..."/>*/}
                 <Input className="companyImg" type="file"   src={registerCom1} multiple
                        onChange={(item) => sendPhoto(item)}
                        required accept="image/*" />
@@ -66,10 +63,6 @@ class CompanyRegister extends Component {
                        defaultValue={currentCompany ? currentCompany.clintPercentage : ""}
                        placeholder='Enter company clintPercentage'
                        required/>
-                <Input className='company-kPercentage' name="te" id="kassaPercentage" type='number'
-                       defaultValue={currentCompany ? currentCompany.kassaPercentage : ""}
-                       placeholder='Enter company kassaPercentage'
-                       required/>
                 <Button className="registerComp" color='primary' onClick={addCompany}>✔Register</Button>
                 <img className="compImg2"
                      data-aos-duration="1000"
@@ -83,6 +76,6 @@ class CompanyRegister extends Component {
 CompanyRegister.propTypes = {};
 
 export default connect(
-    ({app: {currentCompany, attachmentId, active}}) =>
-        ({currentCompany, attachmentId, active}))
+    ({app: {currentCompany, currentUser, attachmentId, active}}) =>
+        ({currentCompany, currentUser, attachmentId, active}))
 (CompanyRegister);

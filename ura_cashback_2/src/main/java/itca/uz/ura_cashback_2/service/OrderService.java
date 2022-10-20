@@ -44,7 +44,6 @@ public class OrderService {
         if (orderDto.getCashback() != null) cashback = orderDto.getCashback();
         if (orderDto.getCash_price() != null) cash_price = orderDto.getCash_price();
         if (cashback <= getUserClient.getSalary()) {
-            authService.editUserSalary(getUserAdmin.getSalary() + (cash_price * getCompany.getKasserPercentage() / 100), getUserAdmin);
             if(cashback == 0){
                 order.setCashback(((cash_price * getCompany.getClientPercentage()) / 100 ));
                 authService.editUserSalary(getUserClient.getSalary() + ((cash_price * getCompany.getClientPercentage()) / 100 ),getUserClient);
