@@ -5,7 +5,7 @@ import {Button, Input} from "reactstrap";
 import './auth.css';
 import {saveCompanyUser} from "../../../redux/actions/AppAction";
 import {connect} from "react-redux";
-import CompanyRegister from "../company/CompanyRegister";
+import CompanyRegister from "../company/CompanyClint";
 
 class AuthUserCompany extends Component {
 
