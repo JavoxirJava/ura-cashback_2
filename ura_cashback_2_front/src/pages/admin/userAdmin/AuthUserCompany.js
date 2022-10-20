@@ -5,7 +5,8 @@ import {Button, Input} from "reactstrap";
 import './auth.css';
 import {saveCompanyUser} from "../../../redux/actions/AppAction";
 import {connect} from "react-redux";
-import CompanyRegister from "../company/CompanyRegister";
+import CompanyClint from "../company/CompanyClint";
+
 
 class AuthUserCompany extends Component {
 
@@ -29,7 +30,7 @@ class AuthUserCompany extends Component {
         return (
             <>
                 {showModal ?
-                    <CompanyRegister/>  :
+                    <CompanyClint/>  :
 
                     <div className="row home">
                         <div className='col-6'>
