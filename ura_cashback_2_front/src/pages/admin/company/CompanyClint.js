@@ -3,8 +3,8 @@ import {addAttachmentAction, saveCompany} from "../../../redux/actions/AppAction
 import {Button, Col, Input, Row} from "reactstrap";
 import {connect} from "react-redux";
 import "./company.css";
-import logoCash from "../order/loginPage/image/logo.png";
 import registerCom from "./svg7.png"
+import  logoCash from "./Left.png"
 import registerCom1 from "./Rectangle.png"
 import oval from "./Oval.png"
 import done from "./Shape.png"
