@@ -6,8 +6,6 @@ import "./company.css";
 import registerCom from "./svg7.png"
 import  logoCash from "./Left.png"
 import registerCom1 from "./Rectangle.png"
-// import oval from "./Oval.png"
-// import done from "./Shape.png"
 import done from "./photo_2022-10-20_11-19-28.jpg"
 import {api} from "../../../api/api";
 
@@ -44,9 +42,6 @@ class CompanyRegister extends Component {
                 <img className="oval"
                     data-aos-duration="1000"
                     data-aos-easing="ease-in-back" src={done} alt="Loading..."/>
-                {/*<img className="done"*/}
-                {/*    data-aos-duration="1000"*/}
-                {/*    data-aos-easing="ease-in-back" src={done} alt="Loading..."/>*/}
                 <Input className="companyImg" type="file"   src={registerCom1} multiple
                        onChange={(item) => sendPhoto(item)}
                        required accept="image/*" />

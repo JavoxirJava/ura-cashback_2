@@ -103,6 +103,7 @@ class AuthAdmin extends Component {
                     prePassword
                 } :
                 {firstName, lastName, phoneNumber, email, password, prePassword};
+            console.log(obj)
             this.props.dispatch(saveUser(obj));
             dispatch({
                 type: "updateState",
