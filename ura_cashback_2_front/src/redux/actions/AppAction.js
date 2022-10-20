@@ -1,25 +1,22 @@
 import * as api from "../../api/AppApi";
 import {
     activeUser,
-    addAttachment,
+    addAttachment, addCompanyUser,
     addOrder,
     addUser,
-    userPage,
     deleteOrder,
     editOrder,
     editUser,
+    findByPhoneNumber,
+    findByUser,
+    getOneUsers,
     getOrders,
     getUsers,
-    removeUsers,
-    getOneUsers,
     loginOrder,
-    findByUser,
-    findByPhoneNumber
+    removeUsers
 } from "../../api/AppApi";
 import * as types from "../actionTypes/AppActionTypes";
 import {toast} from "react-toastify";
-import OrderAdd from "../../pages/admin/order/loginPage/OrderAdd";
-import {GET_ATTACHMENT_ID} from "../actionTypes/AppActionTypes";
 
 export const getUser = () => (dispatch) => {
     dispatch({
@@ -304,7 +301,7 @@ export const addAttachmentAction = (payload) => (dispatch) => {
             types.REQUEST_ERROR
         ],
         data: payload
-    }).then(res => {
+    }).then(() => {
         dispatch({
             type: 'updateState',
             payload: {
