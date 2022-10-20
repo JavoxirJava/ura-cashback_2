@@ -19,6 +19,7 @@ import {
 } from "../../api/AppApi";
 import * as types from "../actionTypes/AppActionTypes";
 import {toast} from "react-toastify";
+import OrderAdd from "../../pages/admin/order/loginPage/OrderAdd";
 
 export const getUser = () => (dispatch) => {
     dispatch({
@@ -229,7 +230,8 @@ export const saveOrder = (payload) => (dispatch) => {
         data: payload
     }).then(res => {
         if (res.success) {
-            dispatch(getOrder())
+            dispatch(getOrder());
+            dispatch(loginOrder())
             toast.success(res);
         }else {
             toast.error("Error")

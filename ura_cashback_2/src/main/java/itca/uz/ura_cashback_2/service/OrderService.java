@@ -45,11 +45,13 @@ public class OrderService {
         if (orderDto.getCash_price() != null) cash_price = orderDto.getCash_price();
         if (cashback <= getUserClient.getSalary()) {
             authService.editUserSalary(getUserAdmin.getSalary() + (cash_price * getCompany.getKasserPercentage() / 100), getUserAdmin);
-            authService.editUserSalary(cash_price < 0
-                    ? getUserClient.getSalary() - cashback
-                    : getUserClient.getSalary() + (cash_price * getCompany.getClientPercentage() / 100 - cashback), getUserClient);
+            if(cashback == 0){
+                order.setCashback(((cash_price * getCompany.getClientPercentage()) / 100 ));
+                authService.editUserSalary(getUserClient.getSalary() + ((cash_price * getCompany.getClientPercentage()) / 100 ),getUserClient);
+            }else {
+                authService.editUserSalary(getUserClient.getSalary() - cashback,getUserClient);
+            }
         } else return new ApiResponse("There are not enough funds in your Cashback account", false);
-        order.setCashback(cashback);
         order.setComment(orderDto.getComment());
         order.setClient(getUserClient);
         order.setCash_price(cash_price);

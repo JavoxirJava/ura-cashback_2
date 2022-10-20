@@ -7,13 +7,14 @@ import {saveCompanyUser} from "../../../redux/actions/AppAction";
 import {connect} from "react-redux";
 import CompanyRegister from "../company/CompanyRegister";
 
-class AuthClient extends Component {
+class AuthUserCompany extends Component {
 
     render() {
 
+        const {showModal} = this.props;
 
 
-        const registerClient = ()=>{
+        const registerUserCompany = ()=>{
             const firstName = document.getElementById("firstName").value;
             const lastName = document.getElementById("lastName").value;
             const phoneNumber = document.getElementById("phoneNumber").value;
@@ -27,6 +28,9 @@ class AuthClient extends Component {
 
         return (
             <>
+                {showModal ?
+                    <CompanyRegister/>  :
+
                     <div className="row home">
                         <div className='col-6'>
                             <img className="row img1" src={cashbackLogo} alt="not"/>
@@ -60,18 +64,19 @@ class AuthClient extends Component {
                                     </ul>
                                 </div>
                             </div>
-                            <Button color="info" type="submit" onClick={registerClient} outline>Next</Button>
+                            <Button color="info" type="submit" onClick={registerUserCompany} outline>Next</Button>
                         </div>
                     </div>
+                }
             </>
 
         );
     }
 }
 
-AuthClient.propTypes = {};
+AuthUserCompany.propTypes = {};
 
 export default connect(
     ({app:{dispatch,showModal}})=>
         ({dispatch,showModal}))
-(AuthClient);
+(AuthUserCompany);
