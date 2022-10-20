@@ -6,12 +6,36 @@ body{
     /*width: 30%;*/
     /*margin: -30px -67% -35%;*/
     position: absolute;
-    width: 309px;
-    height: 1512px;
+    width: 300px;
+    height: 750px;
     left: 0;
     top: -7px;
 
-    background: rgba(242, 244, 245, 0.56);
+    background: rgba(246, 246, 246, 0);
+}
+.registerCom{
+    position: absolute;
+    width: 179px;
+    height: 14px;
+    left: 356px;
+    top: 20px;
+
+    font-family: 'GothamPro', serif;
+    font-size: 15px;
+    line-height: 18px;
+    letter-spacing: 0.0625px;
+
+    color: #000000;
+}
+.companyImg{
+    position: absolute;
+    width: 106px;
+    height: 106px;
+    left: 356px;
+    top: 140px;
+
+    background: #E2E2EA;
+    border-radius: 5px;
 }
 .oval{
     position: absolute;
@@ -26,14 +50,14 @@ body{
     height: 140px;
     left: 80px;
     top: 140px;
-    font-size: 14px;
-    color: #171725;
+    font-size: 15px;
+    color: #000000;
 }
 .done{
     position: absolute;
-    left: 1.75%;
+    left: 34px;
     right: 16.10%;
-    top: 19.67%;
+    top: 19.80%;
     bottom: 27.29%;
 }
 .compImg1{
@@ -57,9 +81,34 @@ body{
     mix-blend-mode: normal;
     opacity: 0.8;
 }
+.informationComp{
+    position: absolute;
+    width: 331px;
+    height: 24px;
+    left: 356px;
+    top: 50px;
+
+    font-family: 'GothamPro', serif;
+    font-size: 25px;
+    line-height: 29px;
+    letter-spacing: 0.104167px;
+
+    color: #000000;
+}
+.logotipCom{
+    position: absolute;
+    width: 135px;
+    height: 13px;
+    left: 356px;
+    top: 100px;
+
+    font-family: 'GothamPro', serif;
+    font-size: 14px;
+    line-height: 16px;
+
+    color: #787993;
+}
 .main-div {
-    /*padding-left: 500px;*/
-    /*padding-right: 8px;*/
     margin-bottom: 10px;
     display: inline-block;
     margin-left: 550px;
@@ -67,7 +116,8 @@ body{
 }
 
 .company-name {
-    margin-top:     20%;
+    left: 356px;
+    margin-top:40%;
     padding-bottom: 10px;
 }
 
@@ -95,7 +145,6 @@ body{
     margin-top: 30px;
     padding-bottom: 10px;
 }
-
 .registerComp {
     width: 100px;
     margin-top: 30px;

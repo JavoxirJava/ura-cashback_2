@@ -30,10 +30,13 @@ class CompanyRegister extends Component {
         }
         return (
             <div className="main-div">
-                <h1 className="malumot">Company xaqida malumot</h1>
+                <h1 className="informationComp">Company xaqida malumot</h1>
+                <h1 className="registerCom">Register company</h1>
+                <h1 className="logotipCom">Logotip company</h1>
                 <img className="img"
                     data-aos-duration="1000"
                     data-aos-easing="ease-in-back" src={registerCom1} alt="Loading..."/>
+                <h1 className="malumot">Company xaqida malumot</h1>
                 <img className="compImg1"
                     data-aos-duration="1000"
                     data-aos-easing="ease-in-back" src={logoCash} alt="Loading..."/>
@@ -43,6 +46,9 @@ class CompanyRegister extends Component {
                 <img className="done"
                     data-aos-duration="1000"
                     data-aos-easing="ease-in-back" src={done} alt="Loading..."/>
+                <img className="companyImg"
+                     data-aos-duration="1000"
+                     data-aos-easing="ease-in-back" src={registerCom1} alt="Loading..."/>
                 <Input className='company-name' name="name" id="name" type='text'
                        defaultValue={currentCompany ? currentCompany.name : ""} placeholder='Enter company name'
                        required/>
