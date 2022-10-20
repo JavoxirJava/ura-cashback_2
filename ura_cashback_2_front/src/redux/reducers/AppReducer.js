@@ -1,5 +1,6 @@
 import * as types from "../actionTypes/AppActionTypes";
 import {createReducer} from "../../utils/StoreUtils";
+import {GET_ATTACHMENT_ID} from "../actionTypes/AppActionTypes";
 
 
 const initState = {
@@ -21,7 +22,7 @@ const initState = {
     attachmentId: '',
     currentCompany: '',
     currentUser: '',
-    currentAdmin: ''
+    currentAdmin: '',
 }
 const reducers = {
     [types.REQUEST_SUCCESS](state) {
@@ -48,6 +49,10 @@ const reducers = {
     },
     [types.GET_ORDER_LOGIN](state, payload) {
         state.currentAdmin = payload.payload
+    },
+    [types.GET_ATTACHMENT_ID](state, payload) {
+        console.log(payload.payload);
+        state.attachmentId = payload.payload
     },
 
     updateState(state, {payload}) {
