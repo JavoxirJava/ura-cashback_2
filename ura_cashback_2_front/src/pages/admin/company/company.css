@@ -3,29 +3,112 @@ body{
 }
 
 .img{
-    /*padding-right: 100px;*/
-    /*padding-top: -1px;*/
-    /*margin-bottom: 10px;*/
-    /*margin-right: 200px;*/
-    width: 40%;
-    margin: -130px -95% -35%;
+    /*width: 30%;*/
+    /*margin: -30px -67% -35%;*/
+    position: absolute;
+    width: 300px;
+    height: 750px;
+    left: 0;
+    top: -7px;
 
+    background: rgba(246, 246, 246, 0);
+}
+.registerCom{
+    position: absolute;
+    width: 179px;
+    height: 14px;
+    left: 356px;
+    top: 20px;
+
+    font-family: 'GothamPro', serif;
+    font-size: 15px;
+    line-height: 18px;
+    letter-spacing: 0.0625px;
+
+    color: #000000;
+}
+.companyImg{
+    position: absolute;
+    width: 106px;
+    height: 106px;
+    left: 356px;
+    top: 140px;
+
+    background: #E2E2EA;
+    border-radius: 5px;
+}
+.oval{
+    position: absolute;
+    width: 36px;
+    height: 36px;
+    left: 25px;
+    top: 130px;
+}
+.malumot{
+    position: absolute;
+    width: 200px;
+    height: 140px;
+    left: 80px;
+    top: 140px;
+    font-size: 15px;
+    color: #000000;
+}
+.done{
+    position: absolute;
+    left: 34px;
+    right: 16.10%;
+    top: 21.50%;
+    bottom: 27.29%;
 }
 .compImg1{
-    width: 85%;
-    margin: -130px 50% -150%;
+    /*width: 15%;*/
+    /*margin: -130% 45% -60%;*/
+    position: absolute;
+    width: 95px;
+    height: 52px;
+    left: 34px;
+    top: 37px;
 }
-/*.compImg2{*/
-/*    width: 30%;*/
-/*    margin: -130px 50% -150%;*/
-/*}*/
-/*.compImg3{*/
-/*    width: 45%;*/
-/*    margin: -130px 50% -150%;*/
-/*}*/
+.compImg2{
+    /*width: 30%;*/
+    /*margin: -140% 90% -80%;*/
+    position: absolute;
+    width: 284px;
+    height: 277px;
+    left: 1173px;
+    top: 307px;
+
+    mix-blend-mode: normal;
+    opacity: 0.8;
+}
+.informationComp{
+    position: absolute;
+    width: 331px;
+    height: 24px;
+    left: 356px;
+    top: 50px;
+
+    font-family: 'GothamPro', serif;
+    font-size: 25px;
+    line-height: 29px;
+    letter-spacing: 0.104167px;
+
+    color: #000000;
+}
+.logotipCom{
+    position: absolute;
+    width: 135px;
+    height: 13px;
+    left: 356px;
+    top: 100px;
+
+    font-family: 'GothamPro', serif;
+    font-size: 14px;
+    line-height: 16px;
+
+    color: #787993;
+}
 .main-div {
-    /*padding-left: 500px;*/
-    /*padding-right: 8px;*/
     margin-bottom: 10px;
     display: inline-block;
     margin-left: 550px;
@@ -33,7 +116,8 @@ body{
 }
 
 .company-name {
-    margin-top:     50px;
+    left: 356px;
+    margin-top:40%;
     padding-bottom: 10px;
 }
 
@@ -61,7 +145,6 @@ body{
     margin-top: 30px;
     padding-bottom: 10px;
 }
-
 .registerComp {
     width: 100px;
     margin-top: 30px;
