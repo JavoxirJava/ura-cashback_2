@@ -6,8 +6,6 @@ import "./company.css";
 import registerCom from "./svg7.png"
 import  logoCash from "./Left.png"
 import registerCom1 from "./Rectangle.png"
-// import oval from "./Oval.png"
-// import done from "./Shape.png"
 import done from "./photo_2022-10-20_11-19-28.jpg"
 import {api} from "../../../api/api";
 
