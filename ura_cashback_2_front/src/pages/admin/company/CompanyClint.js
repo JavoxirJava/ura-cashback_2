@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import {addAttachmentAction, saveCompany} from "../../../redux/actions/AppAction";
-import {Button, Col, Input, Row} from "reactstrap";
+import {Button, Input} from "reactstrap";
 import {connect} from "react-redux";
 import "./company.css";
-import registerCom from "./svg7.png"
+import registerCom from "./img_1.png"
 import  logoCash from "./Left.png"
 import registerCom1 from "./Rectangle.png"
 // import oval from "./Oval.png"

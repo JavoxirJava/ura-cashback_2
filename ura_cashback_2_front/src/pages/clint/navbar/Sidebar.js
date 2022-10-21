@@ -2,12 +2,16 @@ import React from 'react';
 import ura from './sidebarImg/ura.png';
 import bell from './sidebarImg/Bell.png';
 import shape from './sidebarImg/Shape.png';
+import company from './sidebarImg/company (1).png';
+import order from './sidebarImg/order.png';
+import user from './sidebarImg/user.png';
 
 import './sidebar.scss';
 import './sidebarImg/sidebar2.css';
 import {connect} from "react-redux";
 import {api} from "../../../api/api";
 import {Link} from "react-router-dom";
+
 
 function Sidebar(props) {
 
@@ -16,6 +20,9 @@ function Sidebar(props) {
     const images = [
         {img: bell, name: "bell", url: "#"},
         {img: shape, name: "shape", url: "#"},
+        {img: company, name: "company", url: "/company"},
+        {img: order, name: "order", url: "/order"},
+        {img: user, name: "user", url: "/user"}
     ]
 
     return (
@@ -44,7 +51,7 @@ function Sidebar(props) {
                                 <div key={i}>
                                     <Link to={item.url}>
                                         <img className="float-lg-start mb-4" src={item.img} alt="not"/>
-                                        <h5 className="mb-4">{item.name}</h5>
+                                        <h5 className="mb-5">{item.name}</h5>
                                     </Link>
                                 </div>
                             )}
