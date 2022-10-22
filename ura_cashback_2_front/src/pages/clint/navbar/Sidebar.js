@@ -1,7 +1,5 @@
 import React from 'react';
 import ura from './sidebarImg/ura.png';
-import bell from './sidebarImg/Bell.png';
-import shape from './sidebarImg/Shape.png';
 import company from './sidebarImg/company (1).png';
 import order from './sidebarImg/order.png';
 import user from './sidebarImg/user.png';
@@ -18,8 +16,6 @@ function Sidebar(props) {
     const {currentUser} = props;
 
     const images = [
-        {img: bell, name: "bell", url: "#"},
-        {img: shape, name: "shape", url: "#"},
         {img: company, name: "company", url: "/company"},
         {img: order, name: "order", url: "/order"},
         {img: user, name: "user", url: "/user"}

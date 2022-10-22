@@ -10,6 +10,7 @@ import KassaClient from "../pages/admin/order/loginPage/KassaClient";
 import Company from "../pages/admin/company/CompanyAdmin";
 import AuthUserCompany from "../pages/admin/userAdmin/AuthUserCompany";
 import CompanyClint from "../pages/admin/company/CompanyClint";
+import Home from "../pages/admin/home/Home";
 
 
 //https://www.w3schools.com/react/showreact.asp?filename=demo2_react_usememo // add uchun menga kk
@@ -18,7 +19,7 @@ function App() {
     return (
         <Provider store={store}>
             <Routes>
-                <Route path='/' element={<KassaClient/>}/>
+                <Route path='/' element={<Home/>}/>
                 <Route path='/user' element={<AuthAdmin/>}/>
                 <Route path='/order' element={<Order/>}/>
                 <Route path='/company' element={<Company/>}/>

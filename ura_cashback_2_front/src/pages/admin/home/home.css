@@ -1,0 +1,189 @@
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+body{
+    background-color: rgba(105, 104, 113, 0);
+}
+a{
+    color: #ffffff;
+}
+.uraStile{
+    content: " ";
+    display: block;
+    width: 27.08vw;
+    height: 14.28vw;
+    position: absolute;
+    top: -30px;
+    left: 0;
+}
+.uraImg{
+    position: absolute;
+    width: 150px;
+    height: 70px;
+    left: 41px;
+    /*: 10px;*/
+    top: 25px;
+    /*font-weight: 500;*/
+    /*box-sizing: inherit;*/
+    /*box-sizing: border-box;*/
+    /*outline: 0;*/
+}
+
+.box{
+    font-size: 40px;
+    line-height: 1.5;
+    font-weight: 700;
+    position: relative;
+    width: 90%;
+    padding-left: 12px;
+    box-sizing: border-box;
+    outline: 0;
+    -webkit-text-size-adjust: 100%;
+    left: -200px;
+    padding-top: 35px;
+    text-align: center;
+}
+.box1{
+    font-size: 18px;
+    padding: 170px 0;
+    width: 500px;
+    margin: 0 auto;
+    line-height: 28px;
+    color: #001d38;
+    display: block;
+    margin-inline-start: 0;
+    margin-inline-end: 0;
+    box-sizing: border-box;
+    outline: 0;
+    text-align: center;
+}
+.nav1{
+
+    width: 100%;
+    font-family: TT Interfaces, serif;
+    font-size: 16px;
+    font-weight: 400;
+    padding: 0;
+    margin: 0;
+    color: #696871;
+    line-height: 1.15;
+    -webkit-text-size-adjust: 100%;
+
+}
+.navlinkHrefBosh{
+    margin-left: -175px;
+    top: 10px;
+    font-size: 17px;
+    text-align: -webkit-match-parent;
+    text-decoration: none;
+    color: #001d38;
+    position: relative;
+    font-weight: 600;
+    overflow: hidden;
+    display: block;
+}
+
+.navlinkHref{
+    /*margin-right: -10px;*/
+    top: 10px;
+    font-size: 17px;
+    text-align: -webkit-match-parent;
+    text-decoration: none;
+    color: #001d38;
+    position: relative;
+    font-weight: 600;
+    overflow: hidden;
+    display: block;
+}
+.navlinkHref:hover{
+    text-decoration: underline ;
+    text-underline-position: right;
+        transform-origin: bottom right;        
+          transition: transform 4.25s ease-out;
+}
+.navlinkHrefBosh:hover{
+    text-decoration: underline ;
+    text-underline-position: right;
+    -ms-text-underline-position: inherit;
+    text-decoration-style: solid ;
+    transform-origin: bottom right;
+    transition: transform 4.25s ease-out;
+    overflow-x: hidden;
+
+    overflow-y: hidden;
+}
+.bepulButton{
+    /*width: 100px;*/
+    top: -30px;
+    left: 600px;
+    margin-left: -1px;
+    position: relative;
+    overflow: hidden;
+    font-size: 1.07vmax;
+    padding: 0.6em 10px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    border: none;
+    font-weight: 700;
+    background: #0041c4;
+    color: #fff!important;
+}
+.bepulButton1{
+    left: -25%;
+    top: 450px;
+    position: relative;
+    overflow: hidden;
+    font-size: 1.07vmax;
+    padding: 1em 30px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    border: none;
+    font-weight: 700;
+    background: #0041c4;
+    color: #fff!important;
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -moz-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-align: center;
+    -webkit-align-items: center;
+    -moz-box-align: center;
+    -ms-flex-align: center;
+    align-items: center;
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
+    width: fit-content;
+    margin: 0 auto;
+    -webkit-transition: all .25s linear;
+    -o-transition: all .25s linear;
+    -moz-transition: all .25s linear;
+    transition: all .25s linear;
+}
+.kirishButton{
+    top: -135px;
+    left: 790px;
+    margin-left: -1px;
+    position: relative;
+    overflow: hidden;
+    font-size: 1.07vmax;
+    outline: none;
+    /*border: none;*/
+    padding: 0.6em 30px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    font-weight: 500;
+    background: #fff;
+    color: #0041c4;
+    border: 2px solid #0041c4;
+}
+.kirishButton:hover{
+    color: #ffffff;
+    border: none;
+    background-color: #0041c4;
+}

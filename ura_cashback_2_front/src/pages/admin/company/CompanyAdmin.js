@@ -4,7 +4,6 @@ import {activeCompany, getCompany,} from "../../../redux/actions/AppAction";
 import {Input, Label, Row, Table} from "reactstrap";
 import {api} from "../../../api/api";
 import '../style.scss';
-import Navbar from "../../clint/navbar/Navbar";
 import Sidebar from "../../clint/navbar/Sidebar";
 
 class Company extends Component {
@@ -53,9 +52,8 @@ class Company extends Component {
 
         return (
             <div>
-                <Navbar/>
                 <Sidebar/>
-                <div className="ms-5 me-5">
+                <div className="ms-5 me-5 comp">
                     <Table>
                         <thead>
                         <tr>
