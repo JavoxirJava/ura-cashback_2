@@ -40,7 +40,6 @@ export const findByUserPhoneNumber = (payload) => (dispatch) => {
         ],
         data: payload
     }).then(res => {
-        console.log(res);
         if (res !== undefined) {
             dispatch({
                 type: "updateState",
@@ -76,6 +75,12 @@ export const saveUser = (payload) => (dispatch) => {
     }).then(res => {
         if (res.success) {
             dispatch(getUser())
+            dispatch({
+                type:"updateState",
+                payload:{
+                    res:true
+                }
+            })
             toast.success("USER saved successfully!");
         } else {
             toast.error("You cannot save User!")
@@ -147,9 +152,14 @@ export const saveCompany = (payload) => (dispatch) => {
         ],
         data: payload
     }).then(res => {
-        if (res.success) {
-            dispatch(getUser())
+        if (res !== undefined) {
             toast.success("Company saved successfully!");
+            dispatch({
+                type:"updateState",
+                payload:{
+                    openCompany: true,
+                }
+            })
         } else {
             toast.error("You cannot save Company!")
         }
@@ -157,16 +167,6 @@ export const saveCompany = (payload) => (dispatch) => {
         toast.error("Error saving company!");
     })
 }
-//         .then(res => {
-//         if (res.success) {
-//             dispatch(getCompany())
-//             toast.success("Company saved successfully!");
-//         } else {
-//             toast.error("You cannot save company!")
-//         }
-//     }).catch(() => {
-//         toast.error("Error saving company!");
-//     })
 
 
 export const activeCompany = (payload) => (dispatch) => {
@@ -207,7 +207,6 @@ export const saveOrder = (payload) => (dispatch) => {
     }).then(res => {
         if (res.success) {
             dispatch(getOrder());
-            dispatch(loginOrder())
             toast.success(res);
         }else {
             toast.error("Error")
@@ -309,6 +308,7 @@ export const addAttachmentAction = (payload) => (dispatch) => {
                 attachmentId: res.payload,
             }
         });
+    }).then(() => {
         toast.success("Attachment saved successfully!");
     }).catch(() => {
         toast.error("Error saving attachment!");

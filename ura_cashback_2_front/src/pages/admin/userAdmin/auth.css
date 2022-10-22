@@ -56,8 +56,16 @@
     margin-top: 45px;
     margin-left: -50px;
 }
-.iconca5{
+.iconca7{
     margin-top: 45px;
+    margin-left: -50px;
+}
+.iconca8{
+    margin-top: 45px;
+    margin-left: -50px;
+}
+.iconca5{
+    margin-top: 110px;
     margin-left: -50px;
 }
 .iconca6{
@@ -84,4 +92,11 @@
 }
 .register ul{
     padding-left: 0;
+}
+.select{
+    width: 550px;
+    padding: 10px;
+    border-top-style: inherit;
+    border-left-style: inherit;
+    border-right-style: inherit;
 }

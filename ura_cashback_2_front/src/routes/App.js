@@ -4,10 +4,13 @@ import {Route, Routes} from "react-router-dom";
 import NotFount from "../pages/clint/notFaunt/NotFount";
 import Order from "../pages/admin/order/Order";
 import KasserLogin from "../pages/admin/order/loginPage/KasserLogin";
+import AuthUserCompany from "../pages/admin/userAdmin/AuthUserCompany";
 import AuthClient from "../pages/admin/userAdmin/AuthUserCompany";
 import AuthAdmin from "../pages/admin/userAdmin/AuthAdmin";
 import KassaClient from "../pages/admin/order/loginPage/KassaClient";
 import Company from "../pages/admin/company/CompanyAdmin";
+import CompanyClint from "../pages/admin/company/CompanyClint";
+import ClientRegister from "../pages/admin/userAdmin/ClientRegister";
 import AuthUserCompany from "../pages/admin/userAdmin/AuthUserCompany";
 import CompanyClint from "../pages/admin/company/CompanyClint";
 import Home from "../pages/admin/home/Home";
@@ -25,8 +28,8 @@ function App() {
                 <Route path='/company' element={<Company/>}/>
                 <Route path='/company/register' element={<CompanyClint/>}/>
                 <Route path='/authUserCompany/register' element={<AuthUserCompany/>}/>
-                <Route path='/authClient' element={<AuthClient/>}/>
                 <Route path='/order/login' element={<KasserLogin/>}/>
+                <Route path='/client' element={<ClientRegister/>}/>
                 <Route path='/*' element={<NotFount/>}/>
             </Routes>
         </Provider>

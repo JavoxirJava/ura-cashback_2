@@ -19,7 +19,7 @@ function Kassa(props) {
     const addOrder = () => {
         setIsOrder(true);
     }
-    console.log(orders)
+
 
     return (
         <>

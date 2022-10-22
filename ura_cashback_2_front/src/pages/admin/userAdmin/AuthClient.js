@@ -1,3 +1,4 @@
+
 import React, {Component} from 'react';
 import cashbackLogo from '../order/loginPage/image/logo.png';
 import registerFoto from '../userAdmin/registerFoto.png';
