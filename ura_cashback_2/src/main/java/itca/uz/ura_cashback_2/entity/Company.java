@@ -24,8 +24,6 @@ Company extends AbsEntity { //Ozod Samandar,
 
     private Double clientPercentage;
 
-    private Double kasserPercentage;
-
     @OneToOne
     private Attachment attachment;
 

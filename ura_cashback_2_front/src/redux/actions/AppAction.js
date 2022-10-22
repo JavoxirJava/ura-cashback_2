@@ -40,7 +40,6 @@ export const findByUserPhoneNumber = (payload) => (dispatch) => {
         ],
         data: payload
     }).then(res => {
-        console.log(res);
         if (res !== undefined) {
             dispatch({
                 type: "updateState",
@@ -76,6 +75,12 @@ export const saveUser = (payload) => (dispatch) => {
     }).then(res => {
         if (res.success) {
             dispatch(getUser())
+            dispatch({
+                type:"updateState",
+                payload:{
+                    res:true
+                }
+            })
             toast.success("USER saved successfully!");
         } else {
             toast.error("You cannot save User!")
@@ -147,9 +152,14 @@ export const saveCompany = (payload) => (dispatch) => {
         ],
         data: payload
     }).then(res => {
-        if (res.success) {
-            dispatch(getUser())
+        if (res !== undefined) {
             toast.success("Company saved successfully!");
+            dispatch({
+                type:"updateState",
+                payload:{
+                    openCompany: true,
+                }
+            })
         } else {
             toast.error("You cannot save Company!")
         }
@@ -197,7 +207,6 @@ export const saveOrder = (payload) => (dispatch) => {
     }).then(res => {
         if (res.success) {
             dispatch(getOrder());
-            dispatch(loginOrder())
             toast.success(res);
         }else {
             toast.error("Error")
@@ -292,14 +301,7 @@ export const addAttachmentAction = (payload) => (dispatch) => {
         ],
         data: payload
     }).then(() => {
-        dispatch({
-            type: 'updateState',
-            payload: {
-                // attachmentId: res,
-            }
-        });
         toast.success("Attachment saved successfully!");
-        // dispatch(getValyutaies());
     }).catch(() => {
         toast.error("Error saving attachment!");
     });

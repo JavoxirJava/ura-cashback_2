@@ -129,7 +129,6 @@ class Order extends Component {
                                                 <h5>lastName: {currentUser.lastName}</h5>
                                                 <h5>p-Number: {currentUser.phoneNumber}</h5>
                                                 <h5>email: {currentUser.email}</h5>
-                                                <h5>salary: {currentUser.salary}</h5>
                                             </div>
                                         }
                                     </Col>

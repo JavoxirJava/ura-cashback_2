@@ -1,10 +1,12 @@
 import * as types from "../actionTypes/AppActionTypes";
 import {createReducer} from "../../utils/StoreUtils";
-import {GET_ATTACHMENT_ID} from "../actionTypes/AppActionTypes";
+
 
 
 const initState = {
+    openCompany: false,
     adminPanel: false,
+    res:false,
     user: [],
     search: '',
     page: "1",
@@ -51,7 +53,6 @@ const reducers = {
         state.currentAdmin = payload.payload
     },
     [types.GET_ATTACHMENT_ID](state, payload) {
-        console.log(payload.payload);
         state.attachmentId = payload.payload
     },
 

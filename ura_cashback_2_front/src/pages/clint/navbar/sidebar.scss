@@ -5,16 +5,19 @@
     background: #1D2359;
 
     &:hover {
-      cursor: pointer; //alias
-      width: 17% !important;
-      transition: 0.3s !important;
+      //cursor: pointer; //alias
+      //width: 17% !important;
+      //transition: 0.3s !important;
     }
+  }
+  img{
+    margin-left: -10px;
   }
 }
 
 .sidebar-overflow {
-  overflow: hidden;
-  height: 540px;
+  //overflow: hidden;
+  //height: 540px;
 
   a {
     text-decoration: none !important;
@@ -23,10 +26,12 @@
   img {
     margin-left: 5% !important;
     margin-right: 10% !important;
+    width: 24px;
+    color: white;
 
     &:hover {
       color: #928f8f;
-      //background-color: #928f8f;
+      //background-color: white;
       cursor: alias;
     }
   }
