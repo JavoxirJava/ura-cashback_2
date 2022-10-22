@@ -22,6 +22,7 @@ public class CompanyDto {
 
     private Double clintPercentage;
 
+
     private Attachment attachment;
     private UUID attachmentId;
 
@@ -30,12 +31,13 @@ public class CompanyDto {
     private boolean active;
 
 
-    public CompanyDto(UUID id, String name, String bio, String description, Double clintPercentage, Attachment attachment, boolean active) {
+    public CompanyDto(UUID id, String name, String bio, String description, Double clintPercentage, Double kassaPercentage, Attachment attachment, boolean active) {
         this.id = id;
         this.name = name;
         this.bio = bio;
         this.description = description;
         this.clintPercentage = clintPercentage;
+        this.kassaPercentage = kassaPercentage;
         this.attachment = attachment;
         this.active = active;
     }

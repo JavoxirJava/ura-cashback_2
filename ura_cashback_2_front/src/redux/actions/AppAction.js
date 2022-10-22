@@ -300,6 +300,14 @@ export const addAttachmentAction = (payload) => (dispatch) => {
             types.REQUEST_ERROR
         ],
         data: payload
+    }).then(res => {
+        console.log(res, " res")
+        dispatch({
+            type: 'updateState',
+            payload: {
+                attachmentId: res.payload,
+            }
+        });
     }).then(() => {
         toast.success("Attachment saved successfully!");
     }).catch(() => {

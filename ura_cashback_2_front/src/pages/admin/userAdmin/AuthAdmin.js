@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {Button, Input, Modal, ModalBody, ModalFooter, ModalHeader, Table} from "reactstrap";
 import {connect} from "react-redux";
 import {getUser, isActiveUser, removeUser, saveUser} from "../../../redux/actions/AppAction";
-import Navbar from "../../clint/navbar/Navbar";
 import Sidebar from "../../clint/navbar/Sidebar";
 import './auth.css';
 
@@ -96,6 +95,7 @@ class AuthAdmin extends Component {
                     prePassword
                 } :
                 {firstName, lastName, phoneNumber, email, password, prePassword};
+            console.log(obj)
             this.props.dispatch(saveUser(obj));
             dispatch({
                 type: "updateState",
@@ -135,7 +135,6 @@ class AuthAdmin extends Component {
 
         return (
             <div className="ms-5 me-5">
-                <Navbar/>
                 <Sidebar/>
                 <div className="mt-3">
                     <Button color="info" outline onClick={openModal}>Add User</Button>

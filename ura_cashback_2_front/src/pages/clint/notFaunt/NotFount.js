@@ -1,15 +1,11 @@
 import React from 'react';
 import './notFaunt.css';
-import Navbar from "../navbar/Navbar";
-import Sidebar from "../navbar/Sidebar";
 
 function NotFount() {
     document.body.style.marginLeft = "3.7%";
     document.body.style.backgroundColor = "white"
     return (
         <>
-            <Navbar/>
-            <Sidebar/>
             <section className="page_404">
                 <div className="container">
                     <div className="row">
