@@ -50,7 +50,13 @@ export const loginCompany = (payload) => (dispatch) =>{
         ],
         data: payload
     }).then(res =>{
-        console.log(res, " res")
+        dispatch({
+            type:'updateState',
+            payload:{
+                companyOrder: res.payload.orders,
+                companyClient: res.payload.clients
+            }
+        })
     })
 }
 
