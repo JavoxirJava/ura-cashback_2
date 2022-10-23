@@ -30,6 +30,7 @@ public class CompanyDto {
     private UUID attachmentId;
 
     private UUID userId;
+    private User user;
 
     private List<Order> orders;
 

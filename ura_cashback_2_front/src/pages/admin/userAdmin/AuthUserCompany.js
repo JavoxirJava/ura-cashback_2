@@ -7,7 +7,6 @@ import {saveCompanyUser} from "../../../redux/actions/AppAction";
 import {connect} from "react-redux";
 import CompanyClint from "../company/CompanyClint";
 
-import CompanyRegister from "../company/CompanyClint";
 
 class AuthUserCompany extends Component {
 

@@ -6,8 +6,8 @@ import data from "bootstrap/js/src/dom/data";
 export const getUsers = () => {
     return HttpClient.doGet(api.users);
 }
-export const getCabinetCompany=() =>{
-    return HttpClient.doPost(api.users + "/company/login")
+export const getCabinetCompany=(data) =>{
+    return HttpClient.doPost(api.users + "/company/login", data)
 }
 export const getOneUsers = (data) => {
     return HttpClient.doGet(api.users + "/" + data);

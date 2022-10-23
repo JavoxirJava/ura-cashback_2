@@ -169,6 +169,50 @@ body{
 .comp{
    margin-top: 70px;
 }
+.loginCompany{
+    margin-top: 100px;
+}
+.loginCompany h2{
+    text-align: center;
+}
+.iconcaCom1{
+    margin-top: 30px;
+    margin-left: -70px;
+}
+.iconcaCom2{
+    margin-top: 80px;
+    margin-left: -70px;
+}
+.home{
+    background: rgba(193, 199, 208, 0.388767)
+}
+.loginCom{
+    background-color: white;
+    border-radius: 20px;
+}
+.loginCom Input{
+    margin-top: 15px;
+    padding: 2%;
+    border-top-style: inherit;
+    border-left-style: inherit;
+    border-right-style: inherit;
+    border-bottom-style: groove;
+    border-radius: 0;
+}
+.loginCom Button {
+    margin-top: 7%;
+    margin-left: 40%;
+    padding-left: 7%;
+    border-radius: 20px;
+    padding-right: 7%;
+}
+.regCom{
+    background-color: white;
+    margin-left: 400px;
+    padding: 10px 20px;
+    border-radius: 20px;
+    color: #111111;
+}
 .iconca3{
     margin-top: 40px;
     margin-left: -50px;

@@ -52,12 +52,12 @@ class AuthClient extends Component {
                                 </div>
                                 <div className="col-2">
                                     <ul>
-                                        <li className="row iconca1"><i className="pi pi-user"></i></li>
-                                        <li className="row iconca2"><i className="pi pi-user"></i></li>
-                                        <li className="row iconca3"><i className="pi pi-phone"></i></li>
-                                        <li className="row iconca4"><i className="pi pi-at"></i></li>
-                                        <li className="row iconca5"><i className="pi pi-lock"></i></li>
-                                        <li className="row iconca6"><i className="pi pi-lock"></i></li>
+                                        <li className="row iconca1"><i className="pi pi-user"/></li>
+                                        <li className="row iconca2"><i className="pi pi-user"/></li>
+                                        <li className="row iconca3"><i className="pi pi-phone"/></li>
+                                        <li className="row iconca4"><i className="pi pi-at"/></li>
+                                        <li className="row iconca5"><i className="pi pi-lock"/></li>
+                                        <li className="row iconca6"><i className="pi pi-lock"/></li>
                                     </ul>
                                 </div>
                             </div>
