@@ -1,12 +1,14 @@
 import React from 'react';
 import ura from '../clint/navbar/sidebarImg/ura.png';
 import order from '../clint/navbar/sidebarImg/order.png';
-import user from '../clint/navbar/sidebarImg/user.png';
 import '../clint/navbar/sidebar.scss';
 import '../clint/navbar/sidebarImg/sidebar2.css';
 import {connect} from "react-redux";
 import {Link} from "react-router-dom";
 import {api} from "../../api/api";
+import clients from '../companyCabinet/user.png';
+import programm from '../companyCabinet/programmer.png'
+import settings from '../companyCabinet/setting.png'
 
 
 function Sidebar(props) {
@@ -15,7 +17,9 @@ function Sidebar(props) {
 
     const images = [
         {img: order, name: "order", url: "/cabinetOrder"},
-        {img: user, name: "user", url: "/cabinetUser"}
+        {img: clients, name: "clients", url: "/company/clients"},
+        {img: programm, name: "kassa", url: "/company/kassa"},
+        {img: settings, name: "settings", url: "/company/settings"},
     ]
 
     return (
