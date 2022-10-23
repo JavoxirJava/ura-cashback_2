@@ -16,7 +16,6 @@ public class Order extends AbsEntity {//Javohir ,Asliddin  yoo mayyo shottayam n
 
     private Double cashback;
 
-    private String comment;
 
     @ManyToOne
     private User client;

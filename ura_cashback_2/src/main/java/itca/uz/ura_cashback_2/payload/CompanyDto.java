@@ -32,7 +32,7 @@ public class CompanyDto {
     private UUID userId;
     private User user;
 
-    private List<Order> orders;
+    private List<OrderDto> orders;
 
     private List<User> kassa;
 

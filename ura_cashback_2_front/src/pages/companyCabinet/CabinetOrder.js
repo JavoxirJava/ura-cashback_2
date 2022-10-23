@@ -15,16 +15,18 @@ import {
 } from "reactstrap";
 import {connect} from "react-redux";
 import CompanySidebar from "./CompanySidebar";
+import {companyCabinet} from "../../redux/actions/AppAction";
 
 class CabinetOrder extends Component {
 
     // componentDidMount() {
-    //     this.props.dispatch(getOrder())
+    //     this.props.dispatch(companyCabinet())
     // }
 
     state = {
         infoModal: false,
         currentUserOrder: {},
+        admin: {}
     }
 
     render() {
@@ -32,13 +34,14 @@ class CabinetOrder extends Component {
         document.body.style.marginLeft = "3.7%";
         document.body.style.backgroundColor = "white";
 
-        const {orders, deleteModal, currentItem, dispatch, currentUser} = this.props;
+        const {companyOrder, deleteModal, currentItem, dispatch} = this.props;
 
-        // const infoModal = (user, admin) => {
-        //     this.setState({currentUserOrder: user});
-        //     this.props.dispatch(getOneUser(admin));
-        //     openInfoModal();
-        // }
+
+        const infoModal = (admin, client) => {
+            this.setState({currentUserOrder: client});
+            this.setState({admin: admin})
+            openInfoModal();
+        }
 
         const openInfoModal = () => {
             this.setState({infoModal: !this.state.infoModal});
@@ -73,6 +76,7 @@ class CabinetOrder extends Component {
         //     }
         //     this.props.dispatch(saveOrder(obj))
         // }
+        console.log(companyOrder)
 
         return (
             <div>
@@ -84,21 +88,18 @@ class CabinetOrder extends Component {
                             <th>Status</th>
                             <th>Cash price</th>
                             <th>Cashback</th>
-                            <th>Comment</th>
                             <th colSpan="2">Action</th>
                         </tr>
                         </thead>
-                        {orders.length != null &&
-                            orders.map((item, i) =>
+                        {companyOrder.length != null &&
+                            companyOrder.map((item, i) =>
                                 <tbody key={i}>
                                 <tr>
                                     <td>Accepted</td>
                                     <td>{item.cash_price}</td>
                                     <td>{item.cashback}</td>
-                                    <td>{item.comment}</td>
-                                    {/*<td><Button color="primary" outline*/}
-                                    {/*            onClick={() => infoModal(item.client, item.createdBy)}>full*/}
-                                    {/*    info</Button></td>*/}
+                                    <td><Button color="primary" outline
+                                                onClick={() => infoModal(item.admin, item.client)}>full info</Button></td>
                                     <td><Button color="danger" outline
                                                 onClick={() => openDeleteModal(item)}>Delete</Button></td>
                                 </tr>
@@ -120,13 +121,13 @@ class CabinetOrder extends Component {
                             <div>
                                 <Row>
                                     <Col className="border-end">
-                                        {currentUser.id &&
+                                        {this.state.admin.id &&
                                             <div className="ms-3">
                                                 <h4 className="text-center mb-3">Admin</h4>
-                                                <h5>firstName: {currentUser.firstName}</h5>
-                                                <h5>lastName: {currentUser.lastName}</h5>
-                                                <h5>p-Number: {currentUser.phoneNumber}</h5>
-                                                <h5>email: {currentUser.email}</h5>
+                                                <h5>firstName: {this.state.admin.firstName}</h5>
+                                                <h5>lastName: {this.state.admin.lastName}</h5>
+                                                <h5>p-Number: {this.state.admin.phoneNumber}</h5>
+                                                <h5>email: {this.state.admin.email}</h5>
                                             </div>
                                         }
                                     </Col>
@@ -164,6 +165,6 @@ class CabinetOrder extends Component {
 CabinetOrder.propTypes = {};
 
 export default connect(
-    ({app: {orders, showModal, deleteModal, currentItem, currentUser}}) =>
-        ({orders, showModal, deleteModal, currentItem, currentUser}))
+    ({app: {companyOrder, showModal, deleteModal, currentItem}}) =>
+        ({companyOrder, showModal, deleteModal, currentItem}))
 (CabinetOrder);

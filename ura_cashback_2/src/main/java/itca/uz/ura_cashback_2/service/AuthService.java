@@ -165,17 +165,29 @@ public class AuthService{
             companyDto.setUser(user);
             List<User> kassaList = new ArrayList<>();
             List<User> clintList = new ArrayList<>();
-            List<Order> orderList = new ArrayList<>();
+            List<OrderDto> orderList = new ArrayList<>();
             for (CompanyUserRole companyUserRole1 : companyUserRoleRepository.findByCompanyIdEqualsAndRoleIdEquals(company.getId(), roleRepository.findRoleByRoleName(RoleName.ROLE_ADMIN).getId())) {
                 User admin = authRepository.findByIdEquals(companyUserRole1.getUserId());
-                List<Order> orders = orderRepository.findByCreatedByEquals(admin.getId());
-                orderList.addAll(orders);
+                for(Order orders :orderRepository.findByCreatedByEquals(admin.getId())){
+                    OrderDto orderDto = new OrderDto();
+                    orderDto.setAdmin(authRepository.findById(orders.getCreatedBy()).get());
+                    orderDto.setClient(orders.getClient());
+                    orderDto.setCashback(orders.getCashback());
+                    orderDto.setCash_price(orders.getCash_price());
+                    orderList.add(orderDto);
+                }
                 kassaList.add(admin);
             }
             for (CompanyUserRole companyUserRole1 : companyUserRoleRepository.findByCompanyIdEqualsAndRoleIdEquals(company.getId(), roleRepository.findRoleByRoleName(RoleName.ROLE_KASSA).getId())) {
                 User kassa = authRepository.findByIdEquals(companyUserRole1.getUserId());
-                List<Order> orders = orderRepository.findByCreatedByEquals(kassa.getId());
-                orderList.addAll(orders);
+                for(Order orders :orderRepository.findByCreatedByEquals(kassa.getId())){
+                    OrderDto orderDto = new OrderDto();
+                    orderDto.setAdmin(authRepository.findById(orders.getCreatedBy()).get());
+                    orderDto.setClient(orders.getClient());
+                    orderDto.setCashback(orders.getCashback());
+                    orderDto.setCash_price(orders.getCash_price());
+                    orderList.add(orderDto);
+                }
                 kassaList.add(kassa);
             }
             for (CompanyUserRole companyUserRole2 : companyUserRoleRepository.findByCompanyIdEqualsAndRoleIdEquals(company.getId(), roleRepository.findRoleByRoleName(RoleName.ROLE_USER).getId())) {
