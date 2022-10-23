@@ -3,7 +3,7 @@ import cashbackLogo from '../order/loginPage/image/logo.png';
 import registerFoto from '../userAdmin/registerFoto.png';
 import {Button, Input} from "reactstrap";
 import './auth.css';
-import {saveCompanyUser} from "../../../redux/actions/AppAction";
+import {saveCompanyAdmin} from "../../../redux/actions/AppAction";
 import {connect} from "react-redux";
 import CompanyClint from "../company/CompanyClint";
 
@@ -33,7 +33,7 @@ class AuthUserCompany extends Component {
                 const phoneNumber = document.getElementById("phoneNumber").value;
                 const email = document.getElementById("email").value;
                 let obj = {firstName,lastName,phoneNumber,email,password,prePassword};
-                this.props.dispatch(saveCompanyUser(obj))
+                this.props.dispatch(saveCompanyAdmin(obj))
             }else {
                 this.setState({resRegex: !this.state.resRegex})
             }

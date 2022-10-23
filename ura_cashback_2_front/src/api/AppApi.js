@@ -15,8 +15,14 @@ export const getOneUsers = (data) => {
 export const addUser = (data) => {
     return HttpClient.doPost(api.users, data);
 }
+export const addCompanyAdmin = (data) =>{
+    return HttpClient.doPost(api.users + "/companyAdmin", data);
+}
 export const addCompanyUser = (data) =>{
     return HttpClient.doPost(api.users + "/companyUser", data);
+}
+export const addCompanyKassa= (data) =>{
+    return HttpClient.doPost(api.users + "/companyKassa", data);
 }
 export const editUser = (data) => {
     return HttpClient.doPut(api.users + "/" + data.id, data);

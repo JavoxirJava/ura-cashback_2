@@ -1,7 +1,7 @@
 import * as api from "../../api/AppApi";
 import {
     activeUser,
-    addAttachment, addCompanyUser,
+    addAttachment, addCompanyAdmin, addCompanyKassa, addCompanyUser,
     addOrder,
     addUser,
     deleteOrder,
@@ -50,7 +50,6 @@ export const loginCompany = (payload) => (dispatch) =>{
         ],
         data: payload
     }).then(res =>{
-        console.log(res)
         if(res !== null) {
             dispatch({
                 type: 'updateState',
@@ -123,9 +122,55 @@ export const saveUser = (payload) => (dispatch) => {
         toast.error("Error saving User!");
     })
 }
+export const saveCompanyAdmin = (payload) => (dispatch) =>{
+    dispatch({
+        api: addCompanyAdmin,
+        types:[
+            types.REQUEST_START,
+            types.REQUEST_SUCCESS,
+            types.REQUEST_ERROR
+        ],
+        data : payload
+    }).then(res =>{
+            dispatch({
+                type: 'updateState',
+                payload:{
+                    showModal: true,
+                    currentUser: res
+                }
+            })
+            toast.success("Successfully save")
+    })
+}
+
 export const saveCompanyUser = (payload) => (dispatch) =>{
     dispatch({
         api: addCompanyUser,
+        types:[
+            types.REQUEST_START,
+            types.REQUEST_SUCCESS,
+            types.REQUEST_ERROR
+        ],
+        data : payload
+    }).then(res =>{
+        if(res !== undefined){
+            toast.success("Successfully save")
+            dispatch({
+                type: 'updateState',
+                payload:{
+                    showModal: true,
+                    currentUser: res.payload
+                }
+            })
+        }else {
+            toast.error("Error")
+        }
+    })
+}
+
+export const saveCompanyKassa = (payload) => (dispatch) =>{
+    dispatch({
+        api: addCompanyKassa,
         types:[
             types.REQUEST_START,
             types.REQUEST_SUCCESS,

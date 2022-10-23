@@ -202,6 +202,19 @@ public class AuthService{
         return null;
     }
 
+    public ApiResponse editPassword(ReqPassword reqPassword){
+        User user = authRepository.findByIdEquals(reqPassword.getUserId());
+        if (user.getPassword().equals(reqPassword.getJoriyPassword())){
+            if (reqPassword.getPassword().equals(reqPassword.getPrePassword())){
+                user.setPassword(reqPassword.getPassword());
+                authRepository.save(user);
+                return new ApiResponse("SuccessFully", true);
+            }
+            return new ApiResponse("password and prePassword equals", false);
+        }
+        return new ApiResponse("Password not found", false);
+    }
+
     public ApiResponse loginSuperAdmin(ReqLogin reqLogin){
         User superAdmin = authRepository.findByPhoneNumberEqualsAndPasswordEquals(reqLogin.getPhoneNumber(), reqLogin.getPassword());
         CompanyUserRole companyUserRole = companyUserRoleRepository.findByUserIdEqualsAndRoleIdEquals(superAdmin.getId(), roleRepository.findRoleByRoleName(RoleName.ROLE_SUPER_ADMIN).getId());

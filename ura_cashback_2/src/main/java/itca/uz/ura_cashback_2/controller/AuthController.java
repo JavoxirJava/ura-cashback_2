@@ -1,10 +1,7 @@
 package itca.uz.ura_cashback_2.controller;
 
 import itca.uz.ura_cashback_2.entity.User;
-import itca.uz.ura_cashback_2.payload.ApiResponse;
-import itca.uz.ura_cashback_2.payload.AuthDto;
-import itca.uz.ura_cashback_2.payload.CompanyDto;
-import itca.uz.ura_cashback_2.payload.ReqLogin;
+import itca.uz.ura_cashback_2.payload.*;
 import itca.uz.ura_cashback_2.repository.AuthRepository;
 import itca.uz.ura_cashback_2.service.AuthService;
 import itca.uz.ura_cashback_2.utils.AppConstant;
@@ -54,7 +51,10 @@ public class AuthController {
     public HttpEntity<?> loginSuperAdmin(@RequestBody ReqLogin reqLogin){
         return ResponseEntity.ok(authService.loginSuperAdmin(reqLogin));
     }
-
+    @PostMapping("/admin/password")
+    public HttpEntity<?> passwordEdit(@RequestBody ReqPassword reqPassword){
+        return ResponseEntity.ok(authService.editPassword(reqPassword));
+    }
 
     @PutMapping("/companyAdmin/{id}")
     public HttpEntity<?> editCompanyAdmin(@PathVariable UUID id, @RequestBody AuthDto authDto){

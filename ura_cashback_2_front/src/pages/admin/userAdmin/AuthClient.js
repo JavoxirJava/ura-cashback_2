@@ -4,9 +4,8 @@ import cashbackLogo from '../order/loginPage/image/logo.png';
 import registerFoto from '../userAdmin/registerFoto.png';
 import {Button, Input} from "reactstrap";
 import './auth.css';
-import {saveCompanyUser} from "../../../redux/actions/AppAction";
+import {saveCompanyKassa} from "../../../redux/actions/AppAction";
 import {connect} from "react-redux";
-import companyClint from "../company/CompanyClint";
 
 class AuthClient extends Component {
 
@@ -22,7 +21,7 @@ class AuthClient extends Component {
             const password = document.getElementById("password").value;
             const prePassword = document.getElementById("prePassword").value;
             let obj = {firstName,lastName,phoneNumber,email,password,prePassword};
-            this.props.dispatch(saveCompanyUser(obj))
+            this.props.dispatch(saveCompanyKassa(obj))
         }
 
 
