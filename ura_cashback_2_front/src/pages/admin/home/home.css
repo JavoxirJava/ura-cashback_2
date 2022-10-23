@@ -178,12 +178,12 @@ a{
     -moz-border-radius: 5px;
     border-radius: 5px;
     font-weight: 500;
-    background: #fff;
+    background: #003bff;
     color: #0041c4;
-    border: 2px solid #0041c4;
+    border: 2px solid #ffffff;
 }
 .kirishButton:hover{
     color: #ffffff;
     border: none;
-    background-color: #0041c4;
+    background-color: #003bff;
 }

@@ -5,6 +5,7 @@ import {createReducer} from "../../utils/StoreUtils";
 
 const initState = {
     openCompany: false,
+    cabinetCompany:[],
     adminPanel: false,
     res:false,
     user: [],
@@ -37,7 +38,11 @@ const reducers = {
     [types.GET_USER_LIST](state, payload) {
         state.user = payload.payload.object
     },
-    [types.GET_ONE_USER_LIST](state, payload) {
+    [types.GET_USER_LIST](state, payload){
+        state.cabinetCompany = payload.payload
+        console.log(state.cabinetCompany)
+    },
+    [types.GET_USER_LIST](state, payload) {
         state.currentUser = payload.payload
     },
     [types.REQUEST_SUCCESS](state) {

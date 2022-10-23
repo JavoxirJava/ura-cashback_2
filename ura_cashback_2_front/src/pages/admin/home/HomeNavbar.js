@@ -25,8 +25,8 @@ function HomeNavbar(props) {
             </Nav>
             <div>
                 <Button className="bepulButton" color='primary'><a color="white" href="/authUserCompany/register">Bepul urinib kuring. </a></Button>
-                <Button className="bepulButton1" color='primary'>Bepul urinib kuring. </Button>
-                <Button className="kirishButton" color='primary'>Kirish </Button>
+                <Button className="bepulButton1" color='primary'><a color="white" href="/authUserCompany/register">Bepul urinib kuring. </a></Button>
+                <Button className="kirishButton" color='primary'><a color="primary" href="/company/login">Kirish </a></Button>
             </div>
         </>
     );

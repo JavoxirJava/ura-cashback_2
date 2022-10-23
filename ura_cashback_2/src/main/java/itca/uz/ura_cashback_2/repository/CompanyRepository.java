@@ -12,6 +12,8 @@ public interface CompanyRepository extends JpaRepository<Company, UUID> {
 
     boolean existsCompanyByAttachmentIdEquals(UUID attachment_id);
 
+    Company findByIdEquals(UUID id);
+
 //    @Query(value = "select * from company where id=(select company_id from users_company where users_id=
 //    (select user_id from user_role where role_id = (select id from roles where role_name = 'ROLE_ADMIN') and user_id=:id))")
     @Query(value = "select * from company where id=(select company_id from users_company where users_id=" +

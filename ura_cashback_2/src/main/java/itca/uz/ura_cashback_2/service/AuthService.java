@@ -1,20 +1,18 @@
 package itca.uz.ura_cashback_2.service;
 
 
-import itca.uz.ura_cashback_2.entity.User;
-import itca.uz.ura_cashback_2.payload.ApiResponse;
-import itca.uz.ura_cashback_2.payload.AuthDto;
-import itca.uz.ura_cashback_2.payload.ResPageable;
-import itca.uz.ura_cashback_2.repository.AttachmentRepository;
-import itca.uz.ura_cashback_2.repository.AuthRepository;
-import itca.uz.ura_cashback_2.repository.CompanyRepository;
-import itca.uz.ura_cashback_2.repository.RoleRepository;
+import itca.uz.ura_cashback_2.entity.*;
+import itca.uz.ura_cashback_2.entity.enums.RoleName;
+import itca.uz.ura_cashback_2.payload.*;
+import itca.uz.ura_cashback_2.repository.*;
 import itca.uz.ura_cashback_2.utils.CommonUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.ResourceAccessException;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 
@@ -25,12 +23,16 @@ public class AuthService{
     final AttachmentRepository attachmentRepository;
     final CompanyRepository companyRepository;
     final RoleRepository roleRepository;
+    final CompanyUserRoleRepository companyUserRoleRepository;
+    final OrderRepository orderRepository;
 
-    public AuthService(AuthRepository authRepository, AttachmentRepository attachmentRepository, CompanyRepository companyRepository, RoleRepository roleRepository) {
+    public AuthService(AuthRepository authRepository, AttachmentRepository attachmentRepository, CompanyRepository companyRepository, RoleRepository roleRepository, CompanyUserRoleRepository companyUserRoleRepository, OrderRepository orderRepository) {
         this.authRepository = authRepository;
         this.attachmentRepository = attachmentRepository;
         this.companyRepository = companyRepository;
         this.roleRepository = roleRepository;
+        this.companyUserRoleRepository = companyUserRoleRepository;
+        this.orderRepository = orderRepository;
     }
 
     public ApiResponse addOrEditRegisterClient(User user,AuthDto authDto) {
@@ -43,11 +45,14 @@ public class AuthService{
                     user.setEmail(authDto.getEmail());
                     user.setPassword(authDto.getPassword());
                     user.setSalary(0.0);
-                    try {
-                        authRepository.save(user);
-                    } catch (Exception e) {
-                        authRepository.save(user);
-                    }
+                    User save = authRepository.save(user);
+
+                    CompanyUserRole companyUserRole = new CompanyUserRole();
+                    companyUserRole.setCompanyId(authDto.getCompanyId());
+                    companyUserRole.setRoleId(roleRepository.findRoleByRoleName(RoleName.ROLE_USER).getId());
+                    companyUserRole.setUserId(save.getId());
+                    companyUserRoleRepository.save(companyUserRole);
+
                     return new ApiResponse("User saved", true);
                 }
                 return new ApiResponse("Password and PrePassword are not the same", false);
@@ -63,25 +68,55 @@ public class AuthService{
     }
 
 
-    public UUID addCompanyUser(AuthDto authDto){
+    public ApiResponse addOrEditCompanyAdmin(AuthDto authDto, User user){
         if (authDto.getPhoneNumber().length() == 13) {
             if (!authRepository.existsByPhoneNumberEqualsIgnoreCaseAndEmailEqualsIgnoreCase(authDto.getPhoneNumber(), authDto.getEmail())) {
                 if (authDto.getPassword().equals(authDto.getPrePassword())) {
-                    User user = new User();
                     user.setFirstName(authDto.getFirstName());
                     user.setLastName(authDto.getLastName());
                     user.setPhoneNumber(authDto.getPhoneNumber());
                     user.setEmail(authDto.getEmail());
                     user.setPassword(authDto.getPassword());
-                    user.setSalary(0.0);
                     User saveUser = authRepository.save(user);
-                    return saveUser.getId();
+
+                    CompanyUserRole companyUserRole = new CompanyUserRole();
+                    companyUserRole.setCompanyId(authDto.getCompanyId());
+                    companyUserRole.setRoleId(roleRepository.findRoleByRoleName(RoleName.ROLE_ADMIN).getId());
+                    companyUserRole.setUserId(saveUser.getId());
+                    companyUserRoleRepository.save(companyUserRole);
+                    return new ApiResponse("User saqlandi", true);
                 }
+                return new ApiResponse("password and prePassword equals", false);
             }
         }
-        return null;
+        return new ApiResponse("Phone number length not equals", false);
     }
 
+    public ApiResponse addOrEditKassa(User user,AuthDto authDto) {
+        if (authDto.getPhoneNumber().length() == 13) {
+            if (!authRepository.existsByPhoneNumberEqualsIgnoreCaseAndEmailEqualsIgnoreCase(authDto.getPhoneNumber(), authDto.getEmail())) {
+                if (authDto.getPassword().equals(authDto.getPrePassword())) {
+                    user.setFirstName(authDto.getFirstName());
+                    user.setLastName(authDto.getLastName());
+                    user.setPhoneNumber(authDto.getPhoneNumber());
+                    user.setEmail(authDto.getEmail());
+                    user.setPassword(authDto.getPassword());
+                    User save = authRepository.save(user);
+
+                    CompanyUserRole companyUserRole = new CompanyUserRole();
+                    companyUserRole.setCompanyId(authDto.getCompanyId());
+                    companyUserRole.setRoleId(roleRepository.findRoleByRoleName(RoleName.ROLE_KASSA).getId());
+                    companyUserRole.setUserId(save.getId());
+                    companyUserRoleRepository.save(companyUserRole);
+
+                    return new ApiResponse("Kassa saved", true);
+                }
+                return new ApiResponse("Password and PrePassword are not the same", false);
+            }
+            return new ApiResponse("User is all ready exist", false);
+        }
+        return new ApiResponse("Phone number error",false);
+    }
     public ApiResponse activeUser(UUID id){
         User user = authRepository.findById(id).orElseThrow(() -> new ResourceAccessException("getUser"));
         user.setActive(!user.isActive());
@@ -115,4 +150,37 @@ public class AuthService{
     }
 
 
+    public CompanyDto loginCompany(ReqLogin reqLogin){
+        CompanyDto companyDto = new CompanyDto();
+        User user = authRepository.findByPhoneNumberEqualsAndPasswordEquals(reqLogin.getPhoneNumber(), reqLogin.getPassword());
+        CompanyUserRole companyUserRole = companyUserRoleRepository.findByUserIdEquals(user.getId());
+        Role role = roleRepository.findByIdEquals(companyUserRole.getRoleId());
+        if (role.getRoleName().equals(RoleName.ROLE_ADMIN)){
+            Company company = companyRepository.findByIdEquals(companyUserRole.getCompanyId());
+            companyDto.setId(company.getId());
+            companyDto.setName(company.getName());
+            companyDto.setBio(company.getBio());
+            companyDto.setDescription(company.getDescription());
+            companyDto.setAttachmentId(company.getAttachment().getId());
+            companyDto.setUserId(user.getId());
+            List<User> kassaList = new ArrayList<>();
+            List<User> clintList = new ArrayList<>();
+            List<Order> orderList = new ArrayList<>();
+            for (CompanyUserRole companyUserRole1 : companyUserRoleRepository.findByCompanyIdEqualsAndRoleIdEquals(company.getId(), roleRepository.findRoleByRoleName(RoleName.ROLE_KASSA).getId())) {
+                User kassa1 = authRepository.findByIdEquals(companyUserRole1.getUserId());
+                List<Order> orders = orderRepository.findByCreatedByEquals(kassa1.getId());
+                orderList.addAll(orders);
+                kassaList.add(kassa1);
+            }
+            for (CompanyUserRole companyUserRole2 : companyUserRoleRepository.findByCompanyIdEqualsAndRoleIdEquals(company.getId(), roleRepository.findRoleByRoleName(RoleName.ROLE_USER).getId())) {
+                User clint = authRepository.findByIdEquals(companyUserRole2.getUserId());
+                clintList.add(clint);
+            }
+            companyDto.setKassa(kassaList);
+            companyDto.setClint(clintList);
+            companyDto.setOrders(orderList);
+            return companyDto;
+        }
+        return null;
+    }
 }
