@@ -12,8 +12,8 @@ import ClientRegister from "../pages/admin/userAdmin/ClientRegister";
 import Home from "../pages/admin/home/Home";
 import LoginCompany from "../pages/admin/company/LoginCompany";
 import Cabinet from "../pages/companyCabinet/Cabinet";
-import LoginCompany from "../pages/admin/company/login/LoginCompany";
-import Cabinet from "../pages/cabinet/Cabinet";
+
+
 
 
 //https://www.w3schools.com/react/showreact.asp?filename=demo2_react_usememo // add uchun menga kk
@@ -24,13 +24,11 @@ function App() {
             <Routes>
                 <Route path='/home' element={<Home/>}/>
                 <Route path='/cabinet' element={<Cabinet/>}/>
-                <Route path='/login' element={<LoginCompany/>}/>
                 <Route path='/' element={<Home/>}/>
                 <Route path='/company/login' element={<LoginCompany/>}/>
                 <Route path='/user' element={<AuthAdmin/>}/>
                 <Route path='/order' element={<Order/>}/>
                 <Route path='/company' element={<Company/>}/>
-                <Route path='/cabinet' element={<Cabinet/>}/>
                 <Route path='/company/register' element={<CompanyClint/>}/>
                 <Route path='/authUserCompany/register' element={<AuthUserCompany/>}/>
                 <Route path='/order/login' element={<KasserLogin/>}/>

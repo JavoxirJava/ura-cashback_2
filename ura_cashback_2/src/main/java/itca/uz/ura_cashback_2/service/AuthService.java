@@ -162,15 +162,21 @@ public class AuthService{
             companyDto.setBio(company.getBio());
             companyDto.setDescription(company.getDescription());
             companyDto.setAttachmentId(company.getAttachment().getId());
-            companyDto.setUserId(user.getId());
+            companyDto.setUser(user);
             List<User> kassaList = new ArrayList<>();
             List<User> clintList = new ArrayList<>();
             List<Order> orderList = new ArrayList<>();
-            for (CompanyUserRole companyUserRole1 : companyUserRoleRepository.findByCompanyIdEqualsAndRoleIdEquals(company.getId(), roleRepository.findRoleByRoleName(RoleName.ROLE_KASSA).getId())) {
-                User kassa1 = authRepository.findByIdEquals(companyUserRole1.getUserId());
-                List<Order> orders = orderRepository.findByCreatedByEquals(kassa1.getId());
+            for (CompanyUserRole companyUserRole1 : companyUserRoleRepository.findByCompanyIdEqualsAndRoleIdEquals(company.getId(), roleRepository.findRoleByRoleName(RoleName.ROLE_ADMIN).getId())) {
+                User admin = authRepository.findByIdEquals(companyUserRole1.getUserId());
+                List<Order> orders = orderRepository.findByCreatedByEquals(admin.getId());
                 orderList.addAll(orders);
-                kassaList.add(kassa1);
+                kassaList.add(admin);
+            }
+            for (CompanyUserRole companyUserRole1 : companyUserRoleRepository.findByCompanyIdEqualsAndRoleIdEquals(company.getId(), roleRepository.findRoleByRoleName(RoleName.ROLE_KASSA).getId())) {
+                User kassa = authRepository.findByIdEquals(companyUserRole1.getUserId());
+                List<Order> orders = orderRepository.findByCreatedByEquals(kassa.getId());
+                orderList.addAll(orders);
+                kassaList.add(kassa);
             }
             for (CompanyUserRole companyUserRole2 : companyUserRoleRepository.findByCompanyIdEqualsAndRoleIdEquals(company.getId(), roleRepository.findRoleByRoleName(RoleName.ROLE_USER).getId())) {
                 User clint = authRepository.findByIdEquals(companyUserRole2.getUserId());

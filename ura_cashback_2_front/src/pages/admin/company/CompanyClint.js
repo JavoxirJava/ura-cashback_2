@@ -3,14 +3,10 @@ import {addAttachmentAction, saveCompany} from "../../../redux/actions/AppAction
 import {Button, Input} from "reactstrap";
 import {connect} from "react-redux";
 import "./company.css";
-import registerCom from "./img/img_1.png"
-import  logoCash from "./img/Left.png"
-import registerCom1 from "./img/Rectangle.png"
-import done from "./img/photo_2022-10-20_11-19-28.jpg"
-import registerCom from "./img_1.png"
-import logoCash from "./Left.png"
-import registerCom1 from "./Rectangle.png"
-import done from "./photo_2022-10-20_11-19-28.jpg"
+import registerCom from '../company/img/img_1.png'
+import logoCash from "../company/img/Left.png"
+import registerCom1 from "../company/img/Rectangle.png"
+import done from "../company/img/photo_2022-10-20_11-19-28.jpg"
 import {api} from "../../../api/api";
 
 class CompanyRegister extends Component {

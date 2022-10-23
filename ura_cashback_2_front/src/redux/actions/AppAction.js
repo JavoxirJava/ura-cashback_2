@@ -39,6 +39,20 @@ export const companyCabinet = () => (dispatch) => {
         ]
     })
 }
+export const loginCompany = (payload) => (dispatch) =>{
+    dispatch({
+        api: getCabinetCompany,
+        types: [
+            types.REQUEST_START,
+            types.REQUEST_SUCCESS,
+            types.REQUEST_ERROR,
+            types.GET_USER_LIST
+        ],
+        data: payload
+    }).then(res =>{
+        console.log(res, " res")
+    })
+}
 
 export const findByUserPhoneNumber = (payload) => (dispatch) => {
     dispatch({

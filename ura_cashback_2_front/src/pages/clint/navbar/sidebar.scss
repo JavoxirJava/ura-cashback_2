@@ -5,9 +5,9 @@
     background: #1D2359;
 
     &:hover {
-      //cursor: pointer; //alias
-      //width: 17% !important;
-      //transition: 0.3s !important;
+      cursor: pointer; //alias
+      width: 17% !important;
+      transition: 0.3s !important;
     }
   }
   img{
@@ -16,8 +16,8 @@
 }
 
 .sidebar-overflow {
-  //overflow: hidden;
-  //height: 540px;
+  overflow: hidden;
+  height: 540px;
 
   a {
     text-decoration: none !important;
@@ -31,7 +31,7 @@
 
     &:hover {
       color: #928f8f;
-      //background-color: white;
+      background-color: white;
       cursor: alias;
     }
   }

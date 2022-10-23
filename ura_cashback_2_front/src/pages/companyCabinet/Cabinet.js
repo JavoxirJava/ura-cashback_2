@@ -6,6 +6,9 @@ class Cabinet extends Component {
     render() {
         return (
             <div>
+                <div className="container">
+                    <h2>Salom</h2>
+                </div>
             <CompanySidebar/>
             </div>
         );

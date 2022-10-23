@@ -2,9 +2,12 @@ import React, {Component} from 'react';
 import cashbackLogo from "../order/loginPage/image/logo.png";
 import registerFoto from "../userAdmin/registerFoto.png";
 import {Button, Input} from "reactstrap";
+import {loginCompany} from "../../../redux/actions/AppAction";
+import {connect} from "react-redux";
 
 
 class LoginCompany extends Component {
+
 
     state={
         openPassword: false,
@@ -13,16 +16,20 @@ class LoginCompany extends Component {
 
     render() {
 
+        const {dispatch} = this.props;
+
         const flag = /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).{8,}$/;
         const regex = new RegExp(flag);
 
         const login = ()=>{
             let password = document.getElementById("password").value;
-            if(password.match(regex) !== null){
+            // if(password.match(regex) !== null){
                 let phoneNumber = document.getElementById("phoneNumber").value;
-            }else {
-                this.setState({resRegex: !this.state.resRegex})
-            }
+                let obj = {phoneNumber,password};
+                this.props.dispatch(loginCompany(obj));
+            // }else {
+            //     this.setState({resRegex: !this.state.resRegex})
+            // }
         }
 
         const password = ()=>{
@@ -68,4 +75,7 @@ class LoginCompany extends Component {
 
 LoginCompany.propTypes = {};
 
-export default LoginCompany;
+export default connect(
+    ({app:{dispatch}}) =>
+        ({dispatch})
+) (LoginCompany);
