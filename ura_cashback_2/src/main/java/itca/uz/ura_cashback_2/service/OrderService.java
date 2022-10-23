@@ -52,7 +52,6 @@ public class OrderService {
                 authService.editUserSalary((getUserClient.getSalary() - cashback) +(((cash_price / 100) * getCompany.getClientPercentage())) ,getUserClient);
             }
         } else return new ApiResponse("There are not enough funds in your Cashback account", false);
-        order.setComment(orderDto.getComment());
         order.setClient(getUserClient);
         order.setCash_price(cash_price);
         order.setCreatedBy(getUserAdmin.getId());

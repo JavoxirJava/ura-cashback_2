@@ -6,6 +6,8 @@ import {createReducer} from "../../utils/StoreUtils";
 const initState = {
     openCompany: false,
     cabinetCompany:[],
+    companyOrder:[],
+    companyClient:[],
     adminPanel: false,
     res:false,
     user: [],
@@ -39,8 +41,7 @@ const reducers = {
         state.user = payload.payload.object
     },
     [types.GET_USER_LIST](state, payload){
-        state.cabinetCompany = payload.payload
-        console.log(state.cabinetCompany)
+        state.cabinetCompany = payload.payload;
     },
     [types.GET_USER_LIST](state, payload) {
         state.currentUser = payload.payload

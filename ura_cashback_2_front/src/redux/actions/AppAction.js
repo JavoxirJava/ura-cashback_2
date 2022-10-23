@@ -50,7 +50,17 @@ export const loginCompany = (payload) => (dispatch) =>{
         ],
         data: payload
     }).then(res =>{
-        console.log(res, " res")
+        console.log(res)
+        if(res !== null) {
+            dispatch({
+                type: 'updateState',
+                payload: {
+                    companyOrder: res.payload.orders,
+                    companyClient: res.payload.clients,
+                    openCompany: true
+                }
+            })
+        }
     })
 }
 

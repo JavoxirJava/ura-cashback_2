@@ -1,5 +1,6 @@
 package itca.uz.ura_cashback_2.payload;
 
+import itca.uz.ura_cashback_2.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,8 +12,10 @@ import java.util.UUID;
 @Data
 public class OrderDto {
     private UUID adminId;
-    private String comment;
+    private User admin;
     private UUID clientId;
+    private User client;
     private Double cash_price;
     private Double cashback;
+
 }

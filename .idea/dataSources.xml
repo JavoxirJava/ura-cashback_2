@@ -8,5 +8,14 @@
       <jdbc-url>jdbc:postgresql://localhost:5432/app_ura_cashback_2</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
+    <data-source source="LOCAL" name="ura_cashback_2/Hibernate" uuid="37f0ce8c-4e8f-496e-a1af-cad3e859c8f6">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <imported>true</imported>
+      <remarks>Hibernate</remarks>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://localhost:5432/app_ura_cashback_2</jdbc-url>
+      <working-dir>$ProjectFileDir$</working-dir>
+    </data-source>
   </component>
 </project>
