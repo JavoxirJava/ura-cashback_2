@@ -2,8 +2,8 @@ package itca.uz.ura_cashback_2.controller;
 
 import itca.uz.ura_cashback_2.entity.Order;
 import itca.uz.ura_cashback_2.payload.ApiResponse;
-import itca.uz.ura_cashback_2.payload.LoginDto;
 import itca.uz.ura_cashback_2.payload.OrderDto;
+import itca.uz.ura_cashback_2.payload.ReqLogin;
 import itca.uz.ura_cashback_2.service.OrderService;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpStatus;
@@ -51,7 +51,7 @@ public class OrderController {
     }
 
     @PutMapping("/login")
-    public HttpEntity<?> isLogin(@RequestBody LoginDto loginDto) {
+    public HttpEntity<?> isLogin(@RequestBody ReqLogin loginDto) {
         return ResponseEntity.ok(orderService.login(loginDto));
     }
 

@@ -8,7 +8,7 @@ import {
     editOrder,
     editUser,
     findByPhoneNumber,
-    findByUser,
+    findByUser, getCabinetCompany,
     getOneUsers,
     getOrders,
     getUsers,
@@ -29,6 +29,16 @@ export const getUser = () => (dispatch) => {
     })
 }
 
+export const companyCabinet = () => (dispatch) => {
+    dispatch({
+        api: getCabinetCompany,
+        types: [
+            types.REQUEST_START,
+            types.GET_USER_LIST,
+            types.REQUEST_ERROR
+        ]
+    })
+}
 
 export const findByUserPhoneNumber = (payload) => (dispatch) => {
     dispatch({

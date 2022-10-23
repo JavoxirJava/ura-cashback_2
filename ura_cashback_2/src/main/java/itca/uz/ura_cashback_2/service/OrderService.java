@@ -5,8 +5,8 @@ import itca.uz.ura_cashback_2.entity.Order;
 import itca.uz.ura_cashback_2.entity.User;
 import itca.uz.ura_cashback_2.entity.enums.RoleName;
 import itca.uz.ura_cashback_2.payload.ApiResponse;
-import itca.uz.ura_cashback_2.payload.LoginDto;
 import itca.uz.ura_cashback_2.payload.OrderDto;
+import itca.uz.ura_cashback_2.payload.ReqLogin;
 import itca.uz.ura_cashback_2.repository.AuthRepository;
 import itca.uz.ura_cashback_2.repository.CompanyRepository;
 import itca.uz.ura_cashback_2.repository.OrderRepository;
@@ -60,7 +60,7 @@ public class OrderService {
         return new ApiResponse("successfully saved order", true);
     }
 
-    public User login(LoginDto loginDto) {
+    public User login(ReqLogin loginDto) {
         User getUser = authRepository.findByPhoneNumberEqualsAndPasswordEquals(loginDto.getPhoneNumber(), loginDto.getPassword());
         Company getCompany = companyUserRoleService.getCompanyFindByUser(getUser.getId(), roleRepository.findRoleByRoleName(RoleName.ROLE_KASSA).getId());
         if (getCompany.getId() != null) return getUser;

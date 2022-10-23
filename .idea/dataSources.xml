@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="ura_cashback_2@localhost" uuid="06fba363-dae6-45ab-ba9b-3242dfe7edd3">
+    <data-source source="LOCAL" name="ura_cashback_2@localhost" uuid="6fca585c-a77d-462a-babc-ab44eec166d4">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>

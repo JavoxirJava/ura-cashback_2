@@ -3,6 +3,8 @@ package itca.uz.ura_cashback_2.controller;
 import itca.uz.ura_cashback_2.entity.User;
 import itca.uz.ura_cashback_2.payload.ApiResponse;
 import itca.uz.ura_cashback_2.payload.AuthDto;
+import itca.uz.ura_cashback_2.payload.CompanyDto;
+import itca.uz.ura_cashback_2.payload.ReqLogin;
 import itca.uz.ura_cashback_2.repository.AuthRepository;
 import itca.uz.ura_cashback_2.service.AuthService;
 import itca.uz.ura_cashback_2.utils.AppConstant;
@@ -33,15 +35,33 @@ public class AuthController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
-    @PostMapping("/companyUser")
-    public HttpEntity<?> addCompanyUser(@RequestBody AuthDto authDto){
-        return ResponseEntity.ok(authService.addCompanyUser(authDto));
+    @PostMapping("/companyAdmin")
+    public HttpEntity<?> addCompanyAdmin(@RequestBody AuthDto authDto){
+        return ResponseEntity.ok(authService.addOrEditCompanyAdmin(authDto, new User()));
     }
 
-    @PutMapping("/{id}")
-    public HttpEntity<?> editAuth(@PathVariable UUID id, @RequestBody AuthDto authDto){
+    @PostMapping("/companyKassa")
+    public HttpEntity<?> addCompanyKassa(@RequestBody AuthDto authDto){
+        return ResponseEntity.ok(authService.addOrEditKassa(new User(), authDto));
+    }
+
+    @PostMapping("/company/login")
+    public HttpEntity<?> addCompanyKassa(@RequestBody ReqLogin reqLogin){
+        return ResponseEntity.ok( authService.loginCompany(reqLogin));
+    }
+
+
+    @PutMapping("/companyAdmin/{id}")
+    public HttpEntity<?> editCompanyAdmin(@PathVariable UUID id, @RequestBody AuthDto authDto){
         User user = authRepository.findById(id).orElseThrow(() -> new ResourceAccessException("getUser"));
-        ApiResponse apiResponse = authService.addOrEditRegisterClient(user, authDto);
+        ApiResponse apiResponse = authService.addOrEditCompanyAdmin(authDto, user);
+        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
+    }
+
+    @PutMapping("/companyKassa/{id}")
+    public HttpEntity<?> editCompanyKassa(@PathVariable UUID id, @RequestBody AuthDto authDto){
+        User user = authRepository.findById(id).orElseThrow(() -> new ResourceAccessException("getUser"));
+        ApiResponse apiResponse = authService.addOrEditKassa(user, authDto);
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 

@@ -8,4 +8,6 @@ import org.springframework.web.bind.annotation.CrossOrigin;
 @CrossOrigin
 public interface RoleRepository extends JpaRepository<Role, Integer> {
     Role findRoleByRoleName(RoleName roleUser);
+
+    Role findByIdEquals(Integer id);
 }
