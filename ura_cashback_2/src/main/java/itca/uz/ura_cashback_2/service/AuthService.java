@@ -183,4 +183,14 @@ public class AuthService{
         }
         return null;
     }
+
+    public ApiResponse loginSuperAdmin(ReqLogin reqLogin){
+        User superAdmin = authRepository.findByPhoneNumberEqualsAndPasswordEquals(reqLogin.getPhoneNumber(), reqLogin.getPassword());
+        CompanyUserRole companyUserRole = companyUserRoleRepository.findByUserIdEqualsAndRoleIdEquals(superAdmin.getId(), roleRepository.findRoleByRoleName(RoleName.ROLE_SUPER_ADMIN).getId());
+        Role role = roleRepository.findByIdEquals(companyUserRole.getRoleId());
+        if (role.getRoleName().equals(RoleName.ROLE_SUPER_ADMIN)){
+            return new ApiResponse("success", true);
+        }
+        return new ApiResponse("Super admin not found", false);
+    }
 }

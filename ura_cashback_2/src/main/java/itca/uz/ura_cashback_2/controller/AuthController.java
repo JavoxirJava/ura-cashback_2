@@ -46,8 +46,13 @@ public class AuthController {
     }
 
     @PostMapping("/company/login")
-    public HttpEntity<?> addCompanyKassa(@RequestBody ReqLogin reqLogin){
+    public HttpEntity<?> loginCompany(@RequestBody ReqLogin reqLogin){
         return ResponseEntity.ok( authService.loginCompany(reqLogin));
+    }
+
+    @PostMapping("/admin/login")
+    public HttpEntity<?> loginSuperAdmin(@RequestBody ReqLogin reqLogin){
+        return ResponseEntity.ok(authService.loginSuperAdmin(reqLogin));
     }
 
 

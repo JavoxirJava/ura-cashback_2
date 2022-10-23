@@ -53,7 +53,11 @@ public class Dataloader implements CommandLineRunner {
                     true,
                     "SuperAdmin123"
             ));
-
+            companyUserRoleRepository.save(new CompanyUserRole(
+                    save.getId(),
+                    null,
+                    1
+            ));
         }
     }
 }
