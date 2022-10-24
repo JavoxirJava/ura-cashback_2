@@ -1,12 +1,16 @@
 import * as api from "../../api/AppApi";
 import {
     activeUser,
-    addAttachment, addCompanyAdmin, addCompanyKassa, addCompanyUser,
+    addAttachment,
+    addCompanyAdmin,
+    addCompanyKassa,
+    addCompanyUser,
     addOrder,
     deleteOrder,
     editOrder,
     findByPhoneNumber,
-    findByUser, getCabinetCompany,
+    findByUser,
+    getCabinetCompany,
     getOneUsers,
     getOrders,
     getUsers,
@@ -45,8 +49,6 @@ export const loginCompany = (payload) => (dispatch) =>{
                 payload: {
                     companyOrder: res.payload.orders,
                     companyClient: res.payload.clint,
-                    openCompany: true
-                    companyClient: res.payload.clients,
                     companyKassa: res.payload.kassa,
                     openCompany: true,
                 }

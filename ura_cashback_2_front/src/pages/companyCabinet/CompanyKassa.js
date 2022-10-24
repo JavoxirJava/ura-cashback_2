@@ -6,7 +6,7 @@ import add from '../companyCabinet/img/add2.png';
 import edit from '../companyCabinet/img/edit2.png';
 import delit from '../companyCabinet/img/delete2.png';
 import './cabinet.css'
-import {saveUser} from "../../redux/actions/AppAction";
+import {saveCompanyKassa} from "../../redux/actions/AppAction";
 
 
 class CompanyKassa extends Component {
@@ -46,7 +46,7 @@ class CompanyKassa extends Component {
                 const phoneNumber = document.getElementById("phoneNumber").value;
                 const email = document.getElementById("email").value;
                 let obj = {firstName,lastName,phoneNumber,email,password,prePassword, companyId: companyId.value};
-                this.props.dispatch(saveUser(obj))
+                this.props.dispatch(saveCompanyKassa(obj))
             }else {
                 this.setState({resRegex: !this.state.resRegex})
             }
