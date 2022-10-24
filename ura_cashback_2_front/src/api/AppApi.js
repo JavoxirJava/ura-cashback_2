@@ -27,6 +27,9 @@ export const editUser = (data) => {
 export const removeUsers = (data) =>{
     return HttpClient.doDelete(api.users + "/" + data);
 }
+export const deleteCompanyKassa=(data) =>{
+    return HttpClient.doDelete(api.users + "/" + data);
+}
 export const activeUser = (data) => {
     return HttpClient.doPut(api.users + "/active/" + data);
 }

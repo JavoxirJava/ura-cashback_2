@@ -162,6 +162,19 @@ export const saveCompanyKassa = (payload) => (dispatch) =>{
         }
     })
 }
+export const removeCompanyKassa = (payload) => (dispatch)=>{
+    dispatch({
+        api: deleteCompanyKassa,
+        types:[
+            types.REQUEST_START,
+            types.REQUEST_SUCCESS,
+            types.REQUEST_ERROR
+        ],
+        data: payload.id
+    }).then(res=>{
+        toast.success("Successfully delete")
+    })
+}
 
 export const removeUser = (payload) => (dispatch) => {
     dispatch({
@@ -171,7 +184,7 @@ export const removeUser = (payload) => (dispatch) => {
             types.REQUEST_SUCCESS,
             types.REQUEST_ERROR
         ],
-        data: payload.id
+        data: payload
     }).then(res => {
         dispatch(getUser())
         toast.success(res);
