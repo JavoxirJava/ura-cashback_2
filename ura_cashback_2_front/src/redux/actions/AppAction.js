@@ -294,6 +294,7 @@ export const loginOrderAction = (payload) => (dispatch) => {
                 type: "updateState",
                 payload: {
                     showModal: true,
+
                 }
             });
         } else toast.error("Kasser not fount");

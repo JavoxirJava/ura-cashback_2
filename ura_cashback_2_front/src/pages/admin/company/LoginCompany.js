@@ -36,6 +36,7 @@ class LoginCompany extends Component {
         const password = ()=>{
             this.setState({openPassword: !this.state.openPassword})
         }
+        console.log(openCompany)
 
         return (
             <>
