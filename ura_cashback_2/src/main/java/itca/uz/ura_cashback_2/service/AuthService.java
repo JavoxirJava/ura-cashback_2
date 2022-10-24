@@ -68,7 +68,7 @@ public class AuthService{
     }
 
 
-    public ApiResponse addOrEditCompanyAdmin(AuthDto authDto, User user){
+    public UUID addOrEditCompanyAdmin(AuthDto authDto, User user){
         if (authDto.getPhoneNumber().length() == 13) {
             if (!authRepository.existsByPhoneNumberEqualsIgnoreCaseAndEmailEqualsIgnoreCase(authDto.getPhoneNumber(), authDto.getEmail())) {
                 if (authDto.getPassword().equals(authDto.getPrePassword())) {
@@ -78,18 +78,11 @@ public class AuthService{
                     user.setEmail(authDto.getEmail());
                     user.setPassword(authDto.getPassword());
                     User saveUser = authRepository.save(user);
-
-                    CompanyUserRole companyUserRole = new CompanyUserRole();
-                    companyUserRole.setCompanyId(authDto.getCompanyId());
-                    companyUserRole.setRoleId(roleRepository.findRoleByRoleName(RoleName.ROLE_ADMIN).getId());
-                    companyUserRole.setUserId(saveUser.getId());
-                    companyUserRoleRepository.save(companyUserRole);
-                    return new ApiResponse("User saqlandi", true);
+                    return saveUser.getId();
                 }
-                return new ApiResponse("password and prePassword equals", false);
             }
         }
-        return new ApiResponse("Phone number length not equals", false);
+        return null;
     }
 
     public ApiResponse addOrEditKassa(User user,AuthDto authDto) {

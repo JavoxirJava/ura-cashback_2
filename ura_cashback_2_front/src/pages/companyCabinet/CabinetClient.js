@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import CompanySidebar from "./CompanySidebar";
 import {connect} from "react-redux";
-import {Button, Input, Table} from "reactstrap";
+import {Table} from "reactstrap";
+import "../admin/style.scss"
 
 class CabinetClient extends Component {
 
@@ -12,44 +13,41 @@ class CabinetClient extends Component {
 
         const {companyClient} = this.props;
 
+
+
         return (
             <div>
                 <CompanySidebar/>
-                <Table>
-                    <thead>
-                    <tr>
-                        <th>#</th>
-                        <th>Name</th>
-                        <th>Last Name</th>
-                        <th>Phone</th>
-                        <th>Email</th>
-                        <th>Salary</th>
-                        <th>Password</th>
-                        {/*<th>Active</th>*/}
-                    </tr>
-                    </thead>
-                    {companyClient.length != null &&
-                        companyClient.map((item, i) =>
-                            <tbody key={i}>
-                            <tr>
-                                <td>{i + 1}</td>
-                                <td>{item.firstName}</td>
-                                <td>{item.lastName}</td>
-                                <td>{item.phoneNumber}</td>
-                                <td>{item.email}</td>
-                                <td>{item.salary}</td>
-                                <td>{item.password}</td>
-                                {/*<td>{item.active ?*/}
-                                {/*    <Input type="checkbox" checked={item.active} onClick={() => changeActiveUser(item)}*/}
-                                {/*           onChange={changeActive}/> :*/}
-                                {/*    <Input type="checkbox" checked={item.active} onClick={() => changeActiveUser(item)}*/}
-                                {/*           onChange={changeActive}/>}*/}
-                                {/*</td>*/}
-                            </tr>
-                            </tbody>
-                        )
-                    }
-                </Table>
+                <div>
+                    <Table>
+                        <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Last Name</th>
+                            <th>Phone</th>
+                            <th>Email</th>
+                            <th>Salary</th>
+                            <th>Password</th>
+                        </tr>
+                        </thead>
+                        {companyClient.length != null &&
+                            companyClient.map((item, i) =>
+                                <tbody key={i}>
+                                <tr>
+                                    <td>{i + 1}</td>
+                                    <td>{item.firstName}</td>
+                                    <td>{item.lastName}</td>
+                                    <td>{item.phoneNumber}</td>
+                                    <td>{item.email}</td>
+                                    <td>{item.salary}</td>
+                                    <td>{item.password}</td>
+                                </tr>
+                                </tbody>
+                            )
+                        }
+                    </Table>
+                </div>
             </div>
         );
     }
@@ -58,6 +56,6 @@ class CabinetClient extends Component {
 CabinetClient.propTypes = {};
 
 export default connect(
-    ({app: {companyClient }}) =>
-        ({companyClient }))
+    ({app: {companyClient, activeUser}}) =>
+        ({companyClient, activeUser}))
 (CabinetClient);

@@ -20,7 +20,7 @@ const initState = {
     company: [],
     oneOrder: {},
     imgId: {},
-    active: false,
+    active: true,
     showModal: false,
     deleteShowModal: false,
     editModal: false,

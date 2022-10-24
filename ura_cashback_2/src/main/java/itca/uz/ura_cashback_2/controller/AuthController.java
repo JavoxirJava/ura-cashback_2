@@ -59,8 +59,7 @@ public class AuthController {
     @PutMapping("/companyAdmin/{id}")
     public HttpEntity<?> editCompanyAdmin(@PathVariable UUID id, @RequestBody AuthDto authDto){
         User user = authRepository.findById(id).orElseThrow(() -> new ResourceAccessException("getUser"));
-        ApiResponse apiResponse = authService.addOrEditCompanyAdmin(authDto, user);
-        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
+        return ResponseEntity.ok(authService.addOrEditCompanyAdmin(authDto, user));
     }
 
     @PutMapping("/companyKassa/{id}")

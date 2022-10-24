@@ -3,10 +3,8 @@ import {
     activeUser,
     addAttachment, addCompanyAdmin, addCompanyKassa, addCompanyUser,
     addOrder,
-    addUser,
     deleteOrder,
     editOrder,
-    editUser,
     findByPhoneNumber,
     findByUser, getCabinetCompany,
     getOneUsers,
@@ -51,11 +49,12 @@ export const loginCompany = (payload) => (dispatch) =>{
         data: payload
     }).then(res =>{
         if(res !== null) {
+            console.log(res)
             dispatch({
                 type: 'updateState',
                 payload: {
                     companyOrder: res.payload.orders,
-                    companyClient: res.payload.clients,
+                    companyClient: res.payload.clint,
                     openCompany: true
                 }
             })
@@ -96,32 +95,6 @@ export const getOneUser = (payload) => (dispatch) => {
     });
 }
 
-export const saveUser = (payload) => (dispatch) => {
-    dispatch({
-        api: payload.id ? editUser : addUser,
-        types: [
-            types.REQUEST_START,
-            types.REQUEST_SUCCESS,
-            types.REQUEST_ERROR
-        ],
-        data: payload
-    }).then(res => {
-        if (res.success) {
-            dispatch(getUser())
-            dispatch({
-                type:"updateState",
-                payload:{
-                    res:true
-                }
-            })
-            toast.success("USER saved successfully!");
-        } else {
-            toast.error("You cannot save User!")
-        }
-    }).catch(() => {
-        toast.error("Error saving User!");
-    })
-}
 export const saveCompanyAdmin = (payload) => (dispatch) =>{
     dispatch({
         api: addCompanyAdmin,
@@ -132,11 +105,12 @@ export const saveCompanyAdmin = (payload) => (dispatch) =>{
         ],
         data : payload
     }).then(res =>{
+        console.log(res, "user id")
             dispatch({
                 type: 'updateState',
                 payload:{
                     showModal: true,
-                    currentUser: res
+                    currentUser: res.payload
                 }
             })
             toast.success("Successfully save")
@@ -380,7 +354,6 @@ export const addAttachmentAction = (payload) => (dispatch) => {
         ],
         data: payload
     }).then(res => {
-        console.log(res, " res")
         dispatch({
             type: 'updateState',
             payload: {
