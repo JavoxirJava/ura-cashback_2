@@ -1,16 +1,15 @@
 package itca.uz.ura_cashback_2.service;
 
 import itca.uz.ura_cashback_2.entity.Company;
+import itca.uz.ura_cashback_2.entity.CompanyUserRole;
 import itca.uz.ura_cashback_2.entity.Order;
 import itca.uz.ura_cashback_2.entity.User;
 import itca.uz.ura_cashback_2.entity.enums.RoleName;
 import itca.uz.ura_cashback_2.payload.ApiResponse;
 import itca.uz.ura_cashback_2.payload.OrderDto;
 import itca.uz.ura_cashback_2.payload.ReqLogin;
-import itca.uz.ura_cashback_2.repository.AuthRepository;
-import itca.uz.ura_cashback_2.repository.CompanyRepository;
-import itca.uz.ura_cashback_2.repository.OrderRepository;
-import itca.uz.ura_cashback_2.repository.RoleRepository;
+import itca.uz.ura_cashback_2.repository.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.ResourceAccessException;
 
@@ -25,22 +24,24 @@ public class OrderService {
     final CompanyUserRoleService companyUserRoleService;
     final RoleRepository roleRepository;
     final AuthService authService;
+    final CompanyUserRoleRepository companyUserRoleRepository;
 
     public OrderService(OrderRepository orderRepository, AuthRepository authRepository, CompanyRepository companyRepository,
-                        CompanyUserRoleService companyUserRoleService, RoleRepository roleRepository, AuthService authService) {
+                        CompanyUserRoleService companyUserRoleService, RoleRepository roleRepository, AuthService authService, CompanyUserRoleRepository companyUserRoleRepository) {
         this.orderRepository = orderRepository;
         this.authRepository = authRepository;
         this.companyRepository = companyRepository;
         this.companyUserRoleService = companyUserRoleService;
         this.roleRepository = roleRepository;
         this.authService = authService;
+        this.companyUserRoleRepository = companyUserRoleRepository;
     }
 
     public ApiResponse addOrder(Order order, OrderDto orderDto) {
         double cashback = 0, cash_price = 0;
         User getUserClient = authService.getOneUser(orderDto.getClientId());
         User getUserAdmin = authService.getOneUser(orderDto.getAdminId());
-        Company getCompany = companyUserRoleService.getCompanyFindByUser(getUserAdmin.getId(), roleRepository.findRoleByRoleName(RoleName.ROLE_KASSA).getId());
+        Company getCompany = companyUserRoleService.getCompanyFindByUser(getUserAdmin.getId(), roleRepository.findRoleByRoleName(RoleName.ROLE_ADMIN).getId());
         if (orderDto.getCashback() != null) cashback = orderDto.getCashback();
         if (orderDto.getCash_price() != null) cash_price = orderDto.getCash_price();
         if (cashback <= getUserClient.getSalary()) {
@@ -61,8 +62,11 @@ public class OrderService {
 
     public User login(ReqLogin loginDto) {
         User getUser = authRepository.findByPhoneNumberEqualsAndPasswordEquals(loginDto.getPhoneNumber(), loginDto.getPassword());
-        Company getCompany = companyUserRoleService.getCompanyFindByUser(getUser.getId(), roleRepository.findRoleByRoleName(RoleName.ROLE_KASSA).getId());
-        if (getCompany.getId() != null) return getUser;
+        CompanyUserRole companyUserRole = companyUserRoleRepository.findByUserIdEqualsAndRoleIdEquals(getUser.getId(), roleRepository.findRoleByRoleName(RoleName.ROLE_ADMIN).getId());
+        if(companyUserRole.getCompanyId().equals(loginDto.getCompanyId())){
+            if (companyUserRole.getId() != null) return getUser;
+            return null;
+        }
         return null;
     }
 

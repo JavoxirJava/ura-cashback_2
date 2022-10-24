@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
-import {getCompany, saveCompanyUser} from "../../../redux/actions/AppAction";
+import {getCompany, saveUser} from "../../../redux/actions/AppAction";
 import cashbackLogo from "../order/loginPage/image/logo.png";
 import registerFoto from "./registerFoto.png";
 import {Button, Input} from "reactstrap";
@@ -37,7 +37,7 @@ class ClientRegister extends Component {
                 const email = document.getElementById("email").value;
                 const companyId = document.getElementById("companyId");
                 let obj = {firstName,lastName,phoneNumber,email,password,prePassword, companyId: companyId.value};
-                this.props.dispatch(saveCompanyUser(obj))
+                this.props.dispatch(saveUser(obj))
             }else {
                 this.setState({resRegex: !this.state.resRegex})
             }
@@ -51,7 +51,7 @@ class ClientRegister extends Component {
         const prePassword = ()=>{
             this.setState({openPrePassword: !this.state.openPrePassword})
         }
-
+        console.log(company)
 
         return (
             <>
@@ -75,10 +75,10 @@ class ClientRegister extends Component {
                                     <Input className="mb-2" type="text" id="phoneNumber" placeholder="Phone number"
                                            required/>
                                     <Input className="mb-2" type="email" id="email" placeholder="Email" required/>
-                                    <select className="mb-2 select">
+                                    <select className="mb-2 select" id="companyId">
                                         <option>Company</option>
                                         {company.map((item,i)=>
-                                            <option key={i} value={item.id} id="companyId" >{item.name}</option>
+                                            <option key={i} value={item.id}  >{item.name}</option>
                                         )}
                                     </select>
                                     <Input className="mb-2" type={this.state.openPassword ? "text" : "password"} id="password" placeholder="Password"
@@ -93,9 +93,9 @@ class ClientRegister extends Component {
                                         <li className="row iconca2"><i className="pi pi-user"/></li>
                                         <li className="row iconca3"><i className="pi pi-phone"/></li>
                                         <li className="row iconca4"><i className="pi pi-at"/></li>
-                                        <li className="row iconca5" onClick={()=> password()}>
+                                        <li className="row iconca7" onClick={()=> password()}>
                                             {this.state.openPassword ? <i className="pi pi-eye-slash"/> : <i className="pi pi-eye"/>}</li>
-                                        <li className="row iconca6" onClick={()=> prePassword()}>
+                                        <li className="row iconca8" onClick={()=> prePassword()}>
                                             {this.state.openPrePassword ? <i className="pi pi-eye-slash" /> : <i className="pi pi-eye"/> }</li>
                                     </ul>
                                 </div>

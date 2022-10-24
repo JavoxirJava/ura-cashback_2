@@ -8,6 +8,8 @@ const initState = {
     cabinetCompany:[],
     companyOrder:[],
     companyClient:[],
+    companyKassa:[],
+    companyId: '',
     adminPanel: false,
     res:false,
     user: [],
@@ -40,20 +42,17 @@ const reducers = {
     [types.GET_USER_LIST](state, payload) {
         state.user = payload.payload.object
     },
-    [types.GET_USER_LIST](state, payload){
-        state.cabinetCompany = payload.payload;
-    },
     [types.GET_USER_LIST](state, payload) {
         state.currentUser = payload.payload
+    },
+    [types.GET_USER_COMPANY](state,payload){
+        state.companyId = payload.payload.id
     },
     [types.REQUEST_SUCCESS](state) {
         state.showModal = false
     },
     [types.GET_COMPANY_LIST](state, payload) {
         state.company = payload.payload
-    },
-    [types.GET_ROLE_LIST](state, payload) {
-        state.roles = payload.payload._embedded.list
     },
     [types.GET_ORDER_LOGIN](state, payload) {
         state.currentAdmin = payload.payload

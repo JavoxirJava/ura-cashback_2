@@ -7,12 +7,13 @@ import Kassa from "./Kassa";
 
 function KasserLogin(props) {
 
-    const {dispatch, showModal} = props;
+    const {dispatch, showModal, companyId} = props;
+    console.log(companyId, "company id")
 
     const orderLogin = () => {
         const phoneNumber = document.getElementById("phoneNumber").value;
         const password = document.getElementById("password").value;
-        dispatch(loginOrderAction({phoneNumber, password}));
+        dispatch(loginOrderAction({phoneNumber, password,companyId}));
     }
 
     return (
@@ -50,6 +51,6 @@ function KasserLogin(props) {
 
 KasserLogin.propTypes = {};
 
-export default connect(({app: {dispatch, currentUser, showModal}}) =>
-    ({dispatch, currentUser, showModal}))
+export default connect(({app: {dispatch,companyId, currentUser, showModal}}) =>
+    ({dispatch, currentUser, companyId, showModal}))
 (KasserLogin);

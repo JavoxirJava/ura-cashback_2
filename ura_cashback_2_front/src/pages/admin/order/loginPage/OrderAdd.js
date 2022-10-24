@@ -9,6 +9,8 @@ import Kassa from "./Kassa";
 function OrderAdd(props) {
 
     const {dispatch, currentUser, currentAdmin} = props;
+    console.log(currentAdmin, "currentAdmin")
+    console.log(currentUser, "currentUser")
 
     const [back, setBack] = useState(true);
     const [open, setOpen] = useState(false);
@@ -35,10 +37,10 @@ function OrderAdd(props) {
         if(!open){
             let cashback = document.getElementById("cashback").value;
             let obj = setPrice(cashPrice - cashback);
-            console.log(obj, "true")
+            dispatch(saveOrder(obj))
         }else {
             let obj2 = setPrice(cashPrice - currentUser.salary);
-            console.log(obj2, "else")
+            dispatch(saveOrder(obj2))
         }
 
     }

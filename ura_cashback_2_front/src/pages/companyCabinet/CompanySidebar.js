@@ -6,9 +6,11 @@ import '../clint/navbar/sidebarImg/sidebar2.css';
 import {connect} from "react-redux";
 import {Link} from "react-router-dom";
 import {api} from "../../api/api";
-import clients from '../companyCabinet/user.png';
-import programm from '../companyCabinet/programmer.png'
-import settings from '../companyCabinet/setting.png'
+import clients from './img/clients.png';
+import programm from './img/accountant.png'
+import settings from './img/setting.png'
+import calculator from './img/calculator .png'
+import parol from './img/parol.png'
 
 
 function Sidebar(props) {
@@ -20,6 +22,8 @@ function Sidebar(props) {
         {img: clients, name: "clients", url: "/cabinetClient"},
         {img: programm, name: "kassa", url: "/company/kassa"},
         {img: settings, name: "settings", url: "/company/settings"},
+        {img: calculator, name: "operation", url: "/company/kassa/login"},
+        {img: parol, name: "password", url: "/company/password"},
     ]
 
     return (
@@ -30,7 +34,6 @@ function Sidebar(props) {
                         <h5 className="offcanvas-title">
                             <img className="mt-3 mb-5" src={ura} alt="Ura!"/>
                         </h5>
-                        {/*<button type="button" className="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>*/}
                     </div>
                     <div className="offcanvas-body">
                         {currentUser === 0 ?

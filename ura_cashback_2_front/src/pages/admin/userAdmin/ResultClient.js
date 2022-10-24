@@ -4,7 +4,7 @@ function ResultClient(){
 
     return(
         <div>
-            <h1>Successfully register</h1>
+            <h1 style={{textAlign:"center"}}>Successfully register</h1>
         </div>
     );
 };

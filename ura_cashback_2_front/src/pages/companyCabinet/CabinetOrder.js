@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import "../admin/order/orderC.css"
 import {
     Button,
     Col,
@@ -15,7 +14,7 @@ import {
 } from "reactstrap";
 import {connect} from "react-redux";
 import CompanySidebar from "./CompanySidebar";
-import {companyCabinet} from "../../redux/actions/AppAction";
+import {companyCabinet, delOrder} from "../../redux/actions/AppAction";
 
 class CabinetOrder extends Component {
 
@@ -34,7 +33,7 @@ class CabinetOrder extends Component {
         document.body.style.marginLeft = "3.7%";
         document.body.style.backgroundColor = "white";
 
-        const {companyOrder, deleteModal, currentItem, dispatch} = this.props;
+        const {companyOrder, deleteModal, dispatch} = this.props;
 
 
         const infoModal = (admin, client) => {
@@ -48,17 +47,13 @@ class CabinetOrder extends Component {
         }
 
         const openDeleteModal = (item) => {
-            dispatch({
-                type: 'updateState',
-                payload: {
-                    deleteModal: !deleteModal,
-                    currentItem: item
-                }
-            });
+            this.props.dispatch(delOrder(item.id));
+            window.location.reload();
         };
 
-        // const deleteOrders = () => {
-        //     this.props.dispatch(delOrder(currentItem));
+        // const deleteOrders = (item) => {
+        //     console.log(item)
+        //     this.props.dispatch(delOrder());
         //     openDeleteModal("");
         // }
         //
@@ -76,7 +71,6 @@ class CabinetOrder extends Component {
         //     }
         //     this.props.dispatch(saveOrder(obj))
         // }
-        console.log(companyOrder)
 
         return (
             <div>
@@ -165,6 +159,6 @@ class CabinetOrder extends Component {
 CabinetOrder.propTypes = {};
 
 export default connect(
-    ({app: {companyOrder, showModal, deleteModal, currentItem}}) =>
-        ({companyOrder, showModal, deleteModal, currentItem}))
+    ({app: {companyOrder, showModal, deleteModal}}) =>
+        ({companyOrder, showModal, deleteModal}))
 (CabinetOrder);
