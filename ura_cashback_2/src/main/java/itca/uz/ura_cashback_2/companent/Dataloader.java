@@ -41,9 +41,10 @@ public class Dataloader implements CommandLineRunner {
     @Override
     public void run(String... args) {
         if (initMode.equals("create-drop") || initMode.equals("create")) {
-            roleRepository.save(new Role(RoleName.ROLE_USER));
-            roleRepository.save(new Role(RoleName.ROLE_KASSA));
             roleRepository.save(new Role(RoleName.ROLE_SUPER_ADMIN));
+            roleRepository.save(new Role(RoleName.ROLE_ADMIN));
+            roleRepository.save(new Role(RoleName.ROLE_KASSA));
+            roleRepository.save(new Role(RoleName.ROLE_USER));
             User save = authRepository.save(new User(
                     "SuperAdmin",
                     "SuperAdmin",
@@ -53,7 +54,11 @@ public class Dataloader implements CommandLineRunner {
                     true,
                     "SuperAdmin123"
             ));
-
+            companyUserRoleRepository.save(new CompanyUserRole(
+                    save.getId(),
+                    null,
+                    1
+            ));
         }
     }
 }

@@ -33,6 +33,7 @@ class CompanyRegister extends Component {
                 userId: currentUser,
                 active
             };
+            console.log(obj)
             this.props.dispatch(saveCompany(obj));
         }
         return (

@@ -1,12 +1,10 @@
 import * as api from "../../api/AppApi";
 import {
     activeUser,
-    addAttachment, addCompanyUser,
+    addAttachment, addCompanyAdmin, addCompanyKassa, addCompanyUser,
     addOrder,
-    addUser,
     deleteOrder,
     editOrder,
-    editUser,
     findByPhoneNumber,
     findByUser, getCabinetCompany,
     getOneUsers,
@@ -40,12 +38,14 @@ export const loginCompany = (payload) => (dispatch) =>{
         ],
         data: payload
     }).then(res =>{
-        console.log(res)
         if(res !== null) {
+            console.log(res)
             dispatch({
                 type: 'updateState',
                 payload: {
                     companyOrder: res.payload.orders,
+                    companyClient: res.payload.clint,
+                    openCompany: true
                     companyClient: res.payload.clients,
                     companyKassa: res.payload.kassa,
                     openCompany: true,
@@ -89,35 +89,56 @@ export const getOneUser = (payload) => (dispatch) => {
     });
 }
 
-export const saveUser = (payload) => (dispatch) => {
+export const saveCompanyAdmin = (payload) => (dispatch) =>{
     dispatch({
-        api: payload.id ? editUser : addUser,
-        types: [
+        api: addCompanyAdmin,
+        types:[
             types.REQUEST_START,
             types.REQUEST_SUCCESS,
             types.REQUEST_ERROR
         ],
-        data: payload
-    }).then(res => {
-        if (res.success) {
-            dispatch(getUser())
+        data : payload
+    }).then(res =>{
+        console.log(res, "user id")
             dispatch({
-                type:"updateState",
+                type: 'updateState',
                 payload:{
-                    res:true
+                    showModal: true,
+                    currentUser: res.payload
                 }
             })
-            toast.success("USER saved successfully!");
-        } else {
-            toast.error("You cannot save User!")
-        }
-    }).catch(() => {
-        toast.error("Error saving User!");
+            toast.success("Successfully save")
     })
 }
+
 export const saveCompanyUser = (payload) => (dispatch) =>{
     dispatch({
         api: addCompanyUser,
+        types:[
+            types.REQUEST_START,
+            types.REQUEST_SUCCESS,
+            types.REQUEST_ERROR
+        ],
+        data : payload
+    }).then(res =>{
+        if(res !== undefined){
+            toast.success("Successfully save")
+            dispatch({
+                type: 'updateState',
+                payload:{
+                    showModal: true,
+                    currentUser: res.payload
+                }
+            })
+        }else {
+            toast.error("Error")
+        }
+    })
+}
+
+export const saveCompanyKassa = (payload) => (dispatch) =>{
+    dispatch({
+        api: addCompanyKassa,
         types:[
             types.REQUEST_START,
             types.REQUEST_SUCCESS,
@@ -326,7 +347,6 @@ export const addAttachmentAction = (payload) => (dispatch) => {
         ],
         data: payload
     }).then(res => {
-        console.log(res, " res")
         dispatch({
             type: 'updateState',
             payload: {

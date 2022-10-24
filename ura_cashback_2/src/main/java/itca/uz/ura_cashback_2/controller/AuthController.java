@@ -1,10 +1,7 @@
 package itca.uz.ura_cashback_2.controller;
 
 import itca.uz.ura_cashback_2.entity.User;
-import itca.uz.ura_cashback_2.payload.ApiResponse;
-import itca.uz.ura_cashback_2.payload.AuthDto;
-import itca.uz.ura_cashback_2.payload.CompanyDto;
-import itca.uz.ura_cashback_2.payload.ReqLogin;
+import itca.uz.ura_cashback_2.payload.*;
 import itca.uz.ura_cashback_2.repository.AuthRepository;
 import itca.uz.ura_cashback_2.service.AuthService;
 import itca.uz.ura_cashback_2.utils.AppConstant;
@@ -46,16 +43,23 @@ public class AuthController {
     }
 
     @PostMapping("/company/login")
-    public HttpEntity<?> addCompanyKassa(@RequestBody ReqLogin reqLogin){
+    public HttpEntity<?> loginCompany(@RequestBody ReqLogin reqLogin){
         return ResponseEntity.ok( authService.loginCompany(reqLogin));
     }
 
+    @PostMapping("/admin/login")
+    public HttpEntity<?> loginSuperAdmin(@RequestBody ReqLogin reqLogin){
+        return ResponseEntity.ok(authService.loginSuperAdmin(reqLogin));
+    }
+    @PostMapping("/admin/password")
+    public HttpEntity<?> passwordEdit(@RequestBody ReqPassword reqPassword){
+        return ResponseEntity.ok(authService.editPassword(reqPassword));
+    }
 
     @PutMapping("/companyAdmin/{id}")
     public HttpEntity<?> editCompanyAdmin(@PathVariable UUID id, @RequestBody AuthDto authDto){
         User user = authRepository.findById(id).orElseThrow(() -> new ResourceAccessException("getUser"));
-        ApiResponse apiResponse = authService.addOrEditCompanyAdmin(authDto, user);
-        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
+        return ResponseEntity.ok(authService.addOrEditCompanyAdmin(authDto, user));
     }
 
     @PutMapping("/companyKassa/{id}")

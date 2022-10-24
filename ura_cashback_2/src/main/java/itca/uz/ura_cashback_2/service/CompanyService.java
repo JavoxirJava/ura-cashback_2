@@ -3,13 +3,16 @@ package itca.uz.ura_cashback_2.service;
 import itca.uz.ura_cashback_2.entity.Company;
 import itca.uz.ura_cashback_2.entity.CompanyUserRole;
 import itca.uz.ura_cashback_2.entity.User;
+import itca.uz.ura_cashback_2.entity.enums.RoleName;
 import itca.uz.ura_cashback_2.payload.ApiResponse;
 import itca.uz.ura_cashback_2.payload.CompanyDto;
 import itca.uz.ura_cashback_2.payload.ResPageable;
 import itca.uz.ura_cashback_2.repository.AttachmentRepository;
 import itca.uz.ura_cashback_2.repository.CompanyRepository;
 import itca.uz.ura_cashback_2.repository.CompanyUserRoleRepository;
+import itca.uz.ura_cashback_2.repository.RoleRepository;
 import itca.uz.ura_cashback_2.utils.CommonUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.ResourceAccessException;
@@ -24,11 +27,13 @@ public class CompanyService {
     final CompanyRepository companyRepository;
     final AttachmentRepository attachmentRepository;
     final CompanyUserRoleRepository companyUserRoleRepository;
+    final RoleRepository roleRepository;
 
-    public CompanyService(CompanyRepository companyRepository, AttachmentRepository attachmentRepository,CompanyUserRoleRepository companyUserRoleRepository) {
+    public CompanyService(CompanyRepository companyRepository, AttachmentRepository attachmentRepository, CompanyUserRoleRepository companyUserRoleRepository, RoleRepository roleRepository) {
         this.companyRepository = companyRepository;
         this.attachmentRepository = attachmentRepository;
         this.companyUserRoleRepository = companyUserRoleRepository;
+        this.roleRepository = roleRepository;
     }
 
     public ApiResponse addCompany(CompanyDto companyDto, Company company) {
@@ -44,7 +49,7 @@ public class CompanyService {
                 //companyUser
                 CompanyUserRole companyUserRole = new CompanyUserRole();
                 companyUserRole.setCompanyId(saveCompany.getId());
-                companyUserRole.setRoleId(2);
+                companyUserRole.setRoleId(roleRepository.findRoleByRoleName(RoleName.ROLE_ADMIN).getId());
                 companyUserRole.setUserId(companyDto.getUserId());
                 companyUserRoleRepository.save(companyUserRole);
                 return new ApiResponse("Successfully saved company", true);

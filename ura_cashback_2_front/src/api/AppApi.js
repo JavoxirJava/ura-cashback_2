@@ -12,11 +12,14 @@ export const getCabinetCompany=(data) =>{
 export const getOneUsers = (data) => {
     return HttpClient.doGet(api.users + "/" + data);
 }
-export const addUser = (data) => {
+export const addCompanyUser = (data) => {
     return HttpClient.doPost(api.users, data);
 }
-export const addCompanyUser = (data) =>{
-    return HttpClient.doPost(api.users + "/companyUser", data);
+export const addCompanyAdmin = (data) =>{
+    return HttpClient.doPost(api.users + "/companyAdmin", data);
+}
+export const addCompanyKassa= (data) =>{
+    return HttpClient.doPost(api.users + "/companyKassa", data);
 }
 export const editUser = (data) => {
     return HttpClient.doPut(api.users + "/" + data.id, data);
