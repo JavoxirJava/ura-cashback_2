@@ -6,7 +6,7 @@ import add from '../companyCabinet/img/add2.png';
 import edit from '../companyCabinet/img/edit2.png';
 import delit from '../companyCabinet/img/delete2.png';
 import './cabinet.css'
-import {saveUser} from "../../redux/actions/AppAction";
+import {removeCompanyKassa, saveCompanyKassa} from "../../redux/actions/AppAction";
 
 
 class CompanyKassa extends Component {
@@ -40,20 +40,22 @@ class CompanyKassa extends Component {
             const password = document.getElementById("password").value;
             const prePassword = document.getElementById("prePassword").value;
 
-            if(password.match(regex) !== null && prePassword.match(regex) !== null){
+            // if(password.match(regex) !== null && prePassword.match(regex) !== null){
                 const firstName = document.getElementById("firstName").value;
                 const lastName = document.getElementById("lastName").value;
                 const phoneNumber = document.getElementById("phoneNumber").value;
                 const email = document.getElementById("email").value;
-                let obj = {firstName,lastName,phoneNumber,email,password,prePassword, companyId: companyId.value};
-                this.props.dispatch(saveUser(obj))
-            }else {
-                this.setState({resRegex: !this.state.resRegex})
-            }
+                let obj = {firstName,lastName,phoneNumber,email,password,prePassword, companyId};
+                this.props.dispatch(saveCompanyKassa(obj))
+            console.log(obj)
+            // }else {
+            //     this.setState({resRegex: !this.state.resRegex})
+            // }
         }
 
         const deleteCompanyKassr = (item)=>{
             console.log(item)
+            this.props.dispatch(removeCompanyKassa(item.id))
         }
 
 
@@ -81,8 +83,8 @@ class CompanyKassa extends Component {
                         <td>{item.lastName}</td>
                         <td>{item.email}</td>
                         <td>{item.phoneNumber}</td>
-                        <td><img  onClick={()=> openModal(item)} src={edit}/></td>
-                        <td><img  onClick={()=> deleteModal(item)} src={delit}/></td>
+                        <td><img  onClick={()=>{openModal(); registerCompanyKassr(item)}} src={edit}/></td>
+                        <td><img   onClick={()=>{deleteModal(); deleteCompanyKassr(item)}} src={delit}/></td>
                     </tr>
                     )}
                     </tbody>

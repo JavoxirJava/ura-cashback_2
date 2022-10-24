@@ -1,12 +1,16 @@
 import * as api from "../../api/AppApi";
 import {
     activeUser,
-    addAttachment, addCompanyAdmin, addCompanyKassa, addCompanyUser,
-    addOrder,
+    addAttachment,
+    addCompanyAdmin,
+    addCompanyKassa,
+    addCompanyUser,
+    addOrder, deleteCompanyKassa,
     deleteOrder,
     editOrder,
     findByPhoneNumber,
-    findByUser, getCabinetCompany,
+    findByUser,
+    getCabinetCompany,
     getOneUsers,
     getOrders,
     getUsers,
@@ -45,8 +49,6 @@ export const loginCompany = (payload) => (dispatch) =>{
                 payload: {
                     companyOrder: res.payload.orders,
                     companyClient: res.payload.clint,
-                    openCompany: true
-                    companyClient: res.payload.clients,
                     companyKassa: res.payload.kassa,
                     openCompany: true,
                 }
@@ -160,6 +162,19 @@ export const saveCompanyKassa = (payload) => (dispatch) =>{
         }
     })
 }
+export const removeCompanyKassa = (payload) => (dispatch)=>{
+    dispatch({
+        api: deleteCompanyKassa,
+        types:[
+            types.REQUEST_START,
+            types.REQUEST_SUCCESS,
+            types.REQUEST_ERROR
+        ],
+        data: payload.id
+    }).then(res=>{
+        toast.success("Successfully delete")
+    })
+}
 
 export const removeUser = (payload) => (dispatch) => {
     dispatch({
@@ -169,7 +184,7 @@ export const removeUser = (payload) => (dispatch) => {
             types.REQUEST_SUCCESS,
             types.REQUEST_ERROR
         ],
-        data: payload.id
+        data: payload
     }).then(res => {
         dispatch(getUser())
         toast.success(res);

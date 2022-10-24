@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
-import {getCompany, saveUser} from "../../../redux/actions/AppAction";
+import {getCompany, saveCompanyUser} from "../../../redux/actions/AppAction";
 import cashbackLogo from "../order/loginPage/image/logo.png";
 import registerFoto from "./registerFoto.png";
 import {Button, Input} from "reactstrap";
@@ -37,7 +37,7 @@ class ClientRegister extends Component {
                 const email = document.getElementById("email").value;
                 const companyId = document.getElementById("companyId");
                 let obj = {firstName,lastName,phoneNumber,email,password,prePassword, companyId: companyId.value};
-                this.props.dispatch(saveUser(obj))
+                this.props.dispatch(saveCompanyUser(obj))
             }else {
                 this.setState({resRegex: !this.state.resRegex})
             }
