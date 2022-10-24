@@ -11,6 +11,7 @@ import {saveUser} from "../../redux/actions/AppAction";
 
 class CompanyKassa extends Component {
 
+
     state={
         openPassword:false,
         openPrePassword:false,
