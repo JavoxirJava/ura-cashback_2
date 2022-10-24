@@ -84,11 +84,6 @@ public class AuthController {
     }
 
 
-//    @PostMapping("/login")
-//    public HttpEntity<?>  login(@RequestBody ReqLogin reqLogin){
-//        User user = authRepository.findByPhoneNumberEquals(reqLogin.getPhoneNumber()).orElseThrow(() -> new ResourceAccessException("getUser"));
-//        return ResponseEntity.ok(generatedToken);
-//    }
 
     @PutMapping("/active/{id}")
     public HttpEntity<?> activeUser(@PathVariable UUID id){

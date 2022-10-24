@@ -7,7 +7,7 @@ export const getUsers = () => {
     return HttpClient.doGet(api.users);
 }
 export const getCabinetCompany=(data) =>{
-    return HttpClient.doPost(api.users + "/company/login", data)
+    return HttpClient.doPost(api.users + "/company/login" , data)
 }
 export const getOneUsers = (data) => {
     return HttpClient.doGet(api.users + "/" + data);
@@ -48,7 +48,6 @@ export const deleteOrder = (data) => {
 }
 export const loginOrder = (data) => {
     return HttpClient.doPut(api.order + "/login", data);
-    // return HttpClient.doPut("http://localhost/api/order/login", data);
 }
 export const findByUser = (data) => {
     return HttpClient.doGet(api.order + "/" + data);
@@ -71,10 +70,8 @@ export const addAttachment = (data) => {
     return HttpClient.doPost(api.attachment, data);
 }
 //*****************************************************************=> Role
-export const getRoles = () => {
-    return HttpClient.doGet(api.role);
-}
-export const getUserCompanyList = (data) => {
-    return HttpClient.doGet(api.users + "/company/" + data);
-}
+
+// export const getUserCompanyList = (data) => {
+//     return HttpClient.doGet(api.users + "/company/" + data);
+// }
 

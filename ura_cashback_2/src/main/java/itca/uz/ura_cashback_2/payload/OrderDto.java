@@ -11,6 +11,8 @@ import java.util.UUID;
 @AllArgsConstructor
 @Data
 public class OrderDto {
+    private UUID id;
+    private UUID createdBy;
     private UUID adminId;
     private User admin;
     private UUID clientId;

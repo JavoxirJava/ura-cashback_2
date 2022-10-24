@@ -170,6 +170,8 @@ public class AuthService{
                 User admin = authRepository.findByIdEquals(companyUserRole1.getUserId());
                 for(Order orders :orderRepository.findByCreatedByEquals(admin.getId())){
                     OrderDto orderDto = new OrderDto();
+                    orderDto.setId(orders.getId());
+                    orderDto.setCreatedBy(orders.getCreatedBy());
                     orderDto.setAdmin(authRepository.findById(orders.getCreatedBy()).get());
                     orderDto.setClient(orders.getClient());
                     orderDto.setCashback(orders.getCashback());
@@ -182,6 +184,8 @@ public class AuthService{
                 User kassa = authRepository.findByIdEquals(companyUserRole1.getUserId());
                 for(Order orders :orderRepository.findByCreatedByEquals(kassa.getId())){
                     OrderDto orderDto = new OrderDto();
+                    orderDto.setId(orders.getId());
+                    orderDto.setCreatedBy(orders.getCreatedBy());
                     orderDto.setAdmin(authRepository.findById(orders.getCreatedBy()).get());
                     orderDto.setClient(orders.getClient());
                     orderDto.setCashback(orders.getCashback());

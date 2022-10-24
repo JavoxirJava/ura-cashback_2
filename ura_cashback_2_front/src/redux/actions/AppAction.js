@@ -18,6 +18,7 @@ import {
 import * as types from "../actionTypes/AppActionTypes";
 import {toast} from "react-toastify";
 
+
 export const getUser = () => (dispatch) => {
     dispatch({
         api: getUsers,
@@ -29,24 +30,13 @@ export const getUser = () => (dispatch) => {
     })
 }
 
-export const companyCabinet = () => (dispatch) => {
-    dispatch({
-        api: getCabinetCompany,
-        types: [
-            types.REQUEST_START,
-            types.GET_USER_LIST,
-            types.REQUEST_ERROR
-        ]
-    })
-}
 export const loginCompany = (payload) => (dispatch) =>{
     dispatch({
         api: getCabinetCompany,
         types: [
             types.REQUEST_START,
-            types.REQUEST_SUCCESS,
+            types.GET_USER_COMPANY,
             types.REQUEST_ERROR,
-            types.GET_USER_LIST
         ],
         data: payload
     }).then(res =>{
@@ -57,7 +47,8 @@ export const loginCompany = (payload) => (dispatch) =>{
                 payload: {
                     companyOrder: res.payload.orders,
                     companyClient: res.payload.clients,
-                    openCompany: true
+                    companyKassa: res.payload.kassa,
+                    openCompany: true,
                 }
             })
         }
@@ -79,6 +70,7 @@ export const findByUserPhoneNumber = (payload) => (dispatch) => {
                 type: "updateState",
                 payload: {
                     activeUser: true,
+                    currentUser: res.payload
                 }
             });
         } else toast.warning("user not fount");
@@ -289,9 +281,8 @@ export const delOrder = (payload) => (dispatch) => {
             types.REQUEST_SUCCESS,
             types.REQUEST_ERROR
         ],
-        data: payload.id
+        data: payload
     }).then(() => {
-        dispatch(getOrder())
         toast.success("County deleted successfully!");
     }).catch(() => {
         toast.error("Error delete order!");
