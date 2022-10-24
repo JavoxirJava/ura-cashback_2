@@ -8,6 +8,7 @@ import logoCash from "../company/img/Left.png"
 import registerCom1 from "../company/img/Rectangle.png"
 import done from "../company/img/photo_2022-10-20_11-19-28.jpg"
 import {api} from "../../../api/api";
+import LoginCompany from "./LoginCompany";
 
 class CompanyRegister extends Component {
     render() {
@@ -35,6 +36,7 @@ class CompanyRegister extends Component {
             };
             console.log(obj)
             this.props.dispatch(saveCompany(obj));
+            window.location.push("http://localhost:3000/company/login")
         }
         return (
             <>
