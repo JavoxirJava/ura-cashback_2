@@ -39,23 +39,21 @@ public class OrderService {
 
     public ApiResponse addOrder(Order order, OrderDto orderDto) {
         double cashback = 0, cash_price = 0;
-        User getUserClient = authService.getOneUser(orderDto.getClientId());
-        User getUserAdmin = authService.getOneUser(orderDto.getAdminId());
-        Company getCompany = companyUserRoleService.getCompanyFindByUser(getUserAdmin.getId(), roleRepository.findRoleByRoleName(RoleName.ROLE_ADMIN).getId());
+        User getClient = authService.getOneUser(orderDto.getClientId());
+        User getAdmin = authService.getOneUser(orderDto.getAdminId());
+        Company getCompany = companyUserRoleService.getCompanyFindByUser(getAdmin.getId(), roleRepository.findRoleByRoleName(RoleName.ROLE_ADMIN).getId());
         if (orderDto.getCashback() != null) cashback = orderDto.getCashback();
         if (orderDto.getCash_price() != null) cash_price = orderDto.getCash_price();
-        if (cashback <= getUserClient.getSalary()) {
-            if(cashback == 0){
-                order.setCashback(((cash_price / 100) * getCompany.getClientPercentage()));
-                authService.editUserSalary(getUserClient.getSalary() + ((cash_price / 100) * getCompany.getClientPercentage()),getUserClient);
-            }else {
-                order.setCashback(((cash_price / 100) * getCompany.getClientPercentage()));
-                authService.editUserSalary((getUserClient.getSalary() - cashback) +(((cash_price / 100) * getCompany.getClientPercentage())) ,getUserClient);
-            }
+        if (cashback <= getClient.getSalary()) {
+            order.setCashback(((cash_price / 100) * getCompany.getClientPercentage()));
+            double salary = cashback == 0
+                    ? getClient.getSalary() + ((cash_price / 100) * getCompany.getClientPercentage())
+                    : (getClient.getSalary() - cashback) + (((cash_price / 100) * getCompany.getClientPercentage()));
+            authService.editUserSalary(salary ,getClient);
         } else {return new ApiResponse("There are not enough funds in your Cashback account", false);}
-        order.setClient(getUserClient);
+        order.setClient(getClient);
         order.setCash_price(cash_price);
-        order.setCreatedBy(getUserAdmin.getId());
+        order.setCreatedBy(getAdmin.getId());
         orderRepository.save(order);
         return new ApiResponse("successfully saved order", true);
     }

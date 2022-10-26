@@ -59,17 +59,11 @@ class Order extends Component {
         }
 
         const saveOrders = () => {
-            let obj;
             let comment = document.getElementById("comment").value;
             let cash_price = document.getElementById("cash_price").value;
             let cashback = document.getElementById("cashback").value;
             let id = currentItem.id ? currentItem.id : null;
-
-            if (currentItem.id) {
-                obj = {id, comment, cash_price, cashback}
-            } else {
-                obj = {comment, cash_price, cashback}
-            }
+            let obj = currentItem.id ?{id, comment, cash_price, cashback} : {comment, cash_price, cashback};
             this.props.dispatch(saveOrder(obj))
         }
 
