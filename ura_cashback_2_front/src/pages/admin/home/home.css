@@ -8,6 +8,7 @@ body{
 }
 a{
     color: #ffffff;
+    text-decoration: none;
 }
 .uraStile{
     content: " ";
@@ -115,6 +116,7 @@ a{
     overflow-y: hidden;
 }
 .bepulButton{
+    float: left;
     /*width: 100px;*/
     top: -30px;
     left: 600px;
@@ -165,7 +167,7 @@ a{
     transition: all .25s linear;
 }
 .kirishButton{
-    top: -135px;
+    top: -90px;
     left: 790px;
     margin-left: -1px;
     position: relative;
@@ -178,12 +180,22 @@ a{
     -moz-border-radius: 5px;
     border-radius: 5px;
     font-weight: 500;
-    background: #003bff;
-    color: #0041c4;
-    border: 2px solid #ffffff;
+    border: 2px solid blue;
 }
-.kirishButton:hover{
-    color: #ffffff;
-    border: none;
-    background-color: #003bff;
+.bepulButton a {
+    text-decoration: none;
+}
+.bepulButton a:hover {
+    transition: .5s;
+    margin-left: -10px;
+    color: white;
+}
+.link-button {
+    color: blue;
+}
+.link-button:hover {
+    color: white;
+}
+.bepulButton1 a:hover{
+    color: white;
 }

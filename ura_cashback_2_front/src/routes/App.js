@@ -23,10 +23,10 @@ function App() {
     return (
         <Provider store={store}>
             <Routes>
+                <Route path='/' element={<Home/>}/>
                 <Route path='/cabinetOrder' element={<CabinetOrder/>}/>
                 <Route path='/company/settings' element={<CompanySettings/>}/>
                 <Route path='/cabinetClient' element={<CabinetClient/>}/>
-                <Route path='/' element={<Home/>}/>
                 <Route path='/company/kassa' element={<CompanyKassa/>}/>
                 <Route path='/company/login' element={<LoginCompany/>}/>
                 <Route path='/user' element={<AuthAdmin/>}/>
@@ -34,7 +34,7 @@ function App() {
                 <Route path='/company' element={<Company/>}/>
                 <Route path='/company/register' element={<CompanyClint/>}/>
                 <Route path='/authUserCompany/register' element={<AuthUserCompany/>}/>
-                <Route path='/company/kassa/login' element={<KasserLogin/>}/>
+                <Route path='/kassa/' element={<KasserLogin/>}/>
                 <Route path='/client' element={<ClientRegister/>}/>
                 <Route path='/*' element={<NotFount/>}/>
             </Routes>

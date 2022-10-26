@@ -15,5 +15,4 @@ public class ReqLogin {
 
     private String password;
 
-    private UUID companyId;
 }

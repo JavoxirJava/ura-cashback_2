@@ -1,14 +1,17 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
+import CompanySidebar from "./CompanySidebar";
 import {Button, Input, Modal, ModalBody, ModalFooter, ModalHeader, Table} from "reactstrap";
 import add from '../companyCabinet/img/add2.png';
 import edit from '../companyCabinet/img/edit2.png';
 import delit from '../companyCabinet/img/delete2.png';
 import './cabinet.css'
+import '../admin/userAdmin/auth.css';
+
+import {saveCompanyKassa} from "../../redux/actions/AppAction";
 
 
 class CompanyKassa extends Component {
-
 
     state={
         openPassword:false,
@@ -27,6 +30,13 @@ class CompanyKassa extends Component {
         const deleteModal = ()=>{
             this.setState({deleteModal: !this.state.deleteModal})
         }
+        const password = ()=>{
+            this.setState({openPassword: !this.state.openPassword})
+        }
+
+        const prePassword = ()=>{
+            this.setState({openPrePassword: !this.state.openPrePassword})
+        }
 
         const {dispatch, companyId, companyKassa} = this.props;
 
@@ -38,27 +48,22 @@ class CompanyKassa extends Component {
             const password = document.getElementById("password").value;
             const prePassword = document.getElementById("prePassword").value;
 
-            // if(password.match(regex) !== null && prePassword.match(regex) !== null){
+            if(password.match(regex) !== null && prePassword.match(regex) !== null){
                 const firstName = document.getElementById("firstName").value;
                 const lastName = document.getElementById("lastName").value;
                 const phoneNumber = document.getElementById("phoneNumber").value;
                 const email = document.getElementById("email").value;
                 let obj = {firstName,lastName,phoneNumber,email,password,prePassword, companyId: companyId.value};
                 this.props.dispatch(saveCompanyKassa(obj))
+                console.log(obj)
+
             }else {
                 this.setState({resRegex: !this.state.resRegex})
             }
-                let obj = {firstName,lastName,phoneNumber,email,password,prePassword, companyId};
-                this.props.dispatch(saveCompanyKassa(obj))
-            console.log(obj)
-            // }else {
-            //     this.setState({resRegex: !this.state.resRegex})
-            // }
         }
 
         const deleteCompanyKassr = (item)=>{
             console.log(item)
-            this.props.dispatch(removeCompanyKassa(item.id))
         }
 
 
@@ -86,8 +91,8 @@ class CompanyKassa extends Component {
                         <td>{item.lastName}</td>
                         <td>{item.email}</td>
                         <td>{item.phoneNumber}</td>
-                        <td><img  onClick={()=>{openModal(); registerCompanyKassr(item)}} src={edit}/></td>
-                        <td><img   onClick={()=>{deleteModal(); deleteCompanyKassr(item)}} src={delit}/></td>
+                        <td><img  onClick={()=> openModal(item)} src={edit}/></td>
+                        <td><img  onClick={()=> deleteModal(item)} src={delit}/></td>
                     </tr>
                     )}
                     </tbody>
@@ -95,7 +100,7 @@ class CompanyKassa extends Component {
                 </div>
 
                 <Modal isOpen={this.state.openModal}>
-                    <ModalHeader>Add Kassr</ModalHeader>
+                    <ModalHeader>Kassir qo'shish</ModalHeader>
                     <ModalBody>
                         <Input className="mb-2" type="text" id="firstName" placeholder="First name"
                                required/>
@@ -107,6 +112,14 @@ class CompanyKassa extends Component {
                                required/>
                         <Input className="mb-2" type="password" id="prePassword" placeholder="Pre password"
                                required/>
+                        {/*<div className="col-2">*/}
+                        {/*    <ul>*/}
+                        {/*        <li className="row iconca7" onClick={()=> password()}>*/}
+                        {/*            {this.state.openPassword ? <i className="pi pi-eye-slash"/> : <i className="pi pi-eye"/>}</li>*/}
+                        {/*        <li className="row iconca8" onClick={()=> prePassword()}>*/}
+                        {/*            {this.state.openPrePassword ? <i className="pi pi-eye-slash" /> : <i className="pi pi-eye"/> }</li>*/}
+                        {/*    </ul>*/}
+                        {/*</div>*/}
                         {this.state.resRegex ? <p style={{color:"red"}}>Password error a-z and A-Z and 0-9 password length = 8</p> : ""}
                     </ModalBody>
                     <ModalFooter>
@@ -117,14 +130,12 @@ class CompanyKassa extends Component {
 
 
                 <Modal isOpen={this.state.deleteModal}>
-                    <ModalHeader>Delete kassr</ModalHeader>
+                    <ModalHeader>Kassirni uchirish</ModalHeader>
                     <ModalFooter>
                         <Button color="secondary" onClick={deleteModal}>Close</Button>
                         <Button color="danger" onClick={deleteCompanyKassr}>Delete</Button>
                     </ModalFooter>
                 </Modal>
-
-
             </div>
         );
     }

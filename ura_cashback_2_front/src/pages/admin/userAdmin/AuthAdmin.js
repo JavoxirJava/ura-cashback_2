@@ -21,8 +21,6 @@ class AuthAdmin extends Component {
 
         const {user,page,size,search, dispatch, showModal,currentUser,deleteShowModal,activeUser} = this.props;
 
-        console.log(getUser())
-
         const paginate = (number) => {
             dispatch({
                 type: "updateState",

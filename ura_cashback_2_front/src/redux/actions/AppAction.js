@@ -5,7 +5,7 @@ import {
     addCompanyAdmin,
     addCompanyKassa,
     addCompanyUser,
-    addOrder,
+    addOrder, deleteCompanyKassa,
     deleteOrder,
     editOrder,
     findByPhoneNumber,
@@ -153,7 +153,7 @@ export const saveCompanyKassa = (payload) => (dispatch) =>{
             dispatch({
                 type: 'updateState',
                 payload:{
-                    showModal: true,
+                    openModal: true,
                     currentUser: res.payload
                 }
             })

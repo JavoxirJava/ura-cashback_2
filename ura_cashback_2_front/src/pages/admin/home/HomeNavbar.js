@@ -1,9 +1,9 @@
 import React from 'react';
-import {Nav, NavItem, NavLink} from 'reactstrap';
-import Button from "react-redux-toastr/lib/Button";
+import {Button, Nav, NavItem, NavLink} from 'reactstrap';
 import "./home.css";
+import {Link} from "react-router-dom";
 
-function HomeNavbar(props) {
+function HomeNavbar() {
     return (
         <>
             <Nav className="nav1">
@@ -23,10 +23,11 @@ function HomeNavbar(props) {
                     <NavLink className='navlinkHref'  href="">Biz bilan bog'lanish</NavLink>
                 </NavItem>
             </Nav>
-            <div>
+            <div >
                 <Button className="bepulButton" color='primary'><a color="white" href="/authUserCompany/register">Bepul urinib kuring. </a></Button>
                 <Button className="bepulButton1" color='primary'><a color="white" href="/authUserCompany/register">Bepul urinib kuring. </a></Button>
-                <Button className="kirishButton" color='primary'><a color="primary" href="/company/login">Kirish </a></Button>
+                <Button className="kirishButton" outline color='primary'><Link to="/company/login" className="link-button">Kirish</Link></Button>
+
             </div>
         </>
     );
