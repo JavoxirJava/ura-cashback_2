@@ -70,9 +70,9 @@ function OrderAdd(props) {
                         <Input type="text" value={price} id="cash_price" className="mt-3 mb-5 fw-semibold p-3 ms-1 me-1"/> :
                             <Input type="text"  placeholder="cash_price"  id="cash_price" className="mt-3 mb-5 fw-semibold p-3 ms-1 me-1"/>
                         }
-                        {open ?
-                        <Input type="text" value={currentUser.salary} id="cashback" className="mt-5 mb-5 fw-semibold p-3 ms-1 me-1"/>  :
-                            <Input type="number"   placeholder="cashback"  id="cashback" className="mt-5 mb-5 fw-semibold p-3 ms-1 me-1"/>
+                        {open
+                            ? <Input type="text" value={currentUser.salary} id="cashback" className="mt-5 mb-5 fw-semibold p-3 ms-1 me-1"/>
+                            : <Input type="number"   placeholder="cashback"  id="cashback" className="mt-5 mb-5 fw-semibold p-3 ms-1 me-1"/>
                         }
                         <Button style={{
                             backgroundColor: "#5468FF",

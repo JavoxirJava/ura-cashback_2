@@ -9,7 +9,7 @@ import {getOrderFindByUser} from "../../../../redux/actions/AppAction";
 
 function Kassa(props) {
 
-    const {companyOrder, dispatch, currentAdmin} = props;
+    const {orders, dispatch, currentAdmin} = props;
     const [isOrder, setIsOrder] = useState(false);
 
     useEffect(() => {
@@ -19,8 +19,6 @@ function Kassa(props) {
     const addOrder = () => {
         setIsOrder(true);
     }
-    console.log(companyOrder)
-
 
 
     return (
@@ -44,8 +42,8 @@ function Kassa(props) {
                                         <th>Cashback</th>
                                     </tr>
                                     </thead>
-                                    {companyOrder.length != null &&
-                                        companyOrder.map((item, i) =>
+                                    {orders.length != null &&
+                                        orders.map((item, i) =>
                                             <tbody key={i}>
                                             <tr>
                                                 <td>{item.client.firstName}</td>
@@ -76,7 +74,7 @@ function Kassa(props) {
 Kassa.propTypes = {};
 
 export default connect(
-    ({app: {companyOrder, dispatch, currentAdmin}}) =>
-    ({companyOrder, dispatch, currentAdmin}))
+    ({app: {orders, dispatch, currentAdmin}}) =>
+    ({orders, dispatch, currentAdmin}))
 (Kassa);
 
