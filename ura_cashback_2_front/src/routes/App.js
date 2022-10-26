@@ -34,7 +34,7 @@ function App() {
                 <Route path='/company' element={<Company/>}/>
                 <Route path='/company/register' element={<CompanyClint/>}/>
                 <Route path='/authUserCompany/register' element={<AuthUserCompany/>}/>
-                <Route path='/company/kassa/login' element={<KasserLogin/>}/>
+                <Route path='/kassa/' element={<KasserLogin/>}/>
                 <Route path='/client' element={<ClientRegister/>}/>
                 <Route path='/*' element={<NotFount/>}/>
             </Routes>

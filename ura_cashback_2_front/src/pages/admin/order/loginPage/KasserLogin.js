@@ -7,13 +7,12 @@ import Kassa from "./Kassa";
 
 function KasserLogin(props) {
 
-    const {dispatch, showModal, companyId} = props;
-    console.log(companyId, "company id")
+    const {dispatch, showModal} = props;
 
     const orderLogin = () => {
         const phoneNumber = document.getElementById("phoneNumber").value;
         const password = document.getElementById("password").value;
-        dispatch(loginOrderAction({phoneNumber, password,companyId}));
+        dispatch(loginOrderAction({phoneNumber, password}));
     }
 
     return (
@@ -22,7 +21,7 @@ function KasserLogin(props) {
                 <Kassa/>
                 : <div className="login">
                     <div className="login-page">
-                        <h4 className="text-center">Кассир</h4>
+                        <h4 className="text-center">Kassir</h4>
                         <div className="big-logo-box">
                             <img src={logo} alt="URA cashback"/>
                         </div>

@@ -58,12 +58,12 @@ public class OrderService {
         return new ApiResponse("successfully saved order", true);
     }
 
-    public User login(ReqLogin loginDto) {
-        User getUser = authRepository.findByPhoneNumberEqualsAndPasswordEquals(loginDto.getPhoneNumber(), loginDto.getPassword());
-        CompanyUserRole companyUserRole = companyUserRoleRepository.findByUserIdEqualsAndRoleIdEquals(getUser.getId(), roleRepository.findRoleByRoleName(RoleName.ROLE_ADMIN).getId());
-        if(companyUserRole.getCompanyId().equals(loginDto.getCompanyId())){
-            if (companyUserRole.getId() != null) return getUser;
-            return null;
+    public User login(ReqLogin reqLogin) {
+        User user = authRepository.findByPhoneNumberEqualsAndPasswordEquals(reqLogin.getPhoneNumber(), reqLogin.getPassword());
+        CompanyUserRole companyUserRole = companyUserRoleRepository.findByUserIdEqualsAndRoleIdEquals(user.getId(), roleRepository.findRoleByRoleName(RoleName.ROLE_KASSA).getId());
+        CompanyUserRole companyUserRole1 = companyUserRoleRepository.findByUserIdEqualsAndRoleIdEquals(user.getId(), roleRepository.findRoleByRoleName(RoleName.ROLE_ADMIN).getId());
+        if (companyUserRole != null || companyUserRole1 != null) {
+            return user;
         }
         return null;
     }
