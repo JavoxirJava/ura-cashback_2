@@ -9,7 +9,6 @@ import itca.uz.ura_cashback_2.payload.ApiResponse;
 import itca.uz.ura_cashback_2.payload.OrderDto;
 import itca.uz.ura_cashback_2.payload.ReqLogin;
 import itca.uz.ura_cashback_2.repository.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.ResourceAccessException;
 
@@ -48,7 +47,7 @@ public class OrderService {
             order.setCashback(((cash_price / 100) * getCompany.getClientPercentage()));
             double salary = cashback == 0
                     ? getClient.getSalary() + ((cash_price / 100) * getCompany.getClientPercentage())
-                    : (getClient.getSalary() - cashback) + (((cash_price / 100) * getCompany.getClientPercentage()));
+                    : (getClient.getSalary() - cashback) + (((cash_price - cashback / 100) * getCompany.getClientPercentage()));
             authService.editUserSalary(salary ,getClient);
         } else {return new ApiResponse("There are not enough funds in your Cashback account", false);}
         order.setClient(getClient);
