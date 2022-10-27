@@ -43,10 +43,10 @@ export const loginCompany = (payload) => (dispatch) =>{
         data: payload
     }).then(res =>{
         if(res !== null) {
-            console.log(res)
             dispatch({
                 type: 'updateState',
                 payload: {
+                    companyId: res.payload.id,
                     companyOrder: res.payload.orders,
                     companyClient: res.payload.clint,
                     companyKassa: res.payload.kassa,
@@ -101,7 +101,6 @@ export const saveCompanyAdmin = (payload) => (dispatch) =>{
         ],
         data : payload
     }).then(res =>{
-        console.log(res, "user id")
             dispatch({
                 type: 'updateState',
                 payload:{
