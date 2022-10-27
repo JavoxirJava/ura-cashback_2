@@ -78,7 +78,6 @@ class Order extends Component {
                             <th>Status</th>
                             <th>Cash price</th>
                             <th>Cashback</th>
-                            <th>Comment</th>
                             <th colSpan="2">Action</th>
                         </tr>
                         </thead>
@@ -89,7 +88,6 @@ class Order extends Component {
                                     <td>Accepted</td>
                                     <td>{item.cash_price}</td>
                                     <td>{item.cashback}</td>
-                                    <td>{item.comment}</td>
                                     <td><Button color="primary" outline
                                                 onClick={() => infoModal(item.client, item.createdBy)}>full
                                         info</Button></td>

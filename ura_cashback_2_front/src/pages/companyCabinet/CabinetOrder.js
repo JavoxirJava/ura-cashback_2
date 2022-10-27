@@ -33,7 +33,7 @@ class CabinetOrder extends Component {
         document.body.style.marginLeft = "3.7%";
         document.body.style.backgroundColor = "white";
 
-        const {companyOrder, deleteModal, dispatch} = this.props;
+        const {comMalumot, deleteModal, dispatch} = this.props;
 
 
         const infoModal = (admin, client) => {
@@ -85,8 +85,8 @@ class CabinetOrder extends Component {
                             <th colSpan="2">Action</th>
                         </tr>
                         </thead>
-                        {companyOrder.length != null &&
-                            companyOrder.map((item, i) =>
+                        {comMalumot.payload.orders.length != null &&
+                            comMalumot.payload.orders.map((item, i) =>
                                 <tbody key={i}>
                                 <tr>
                                     <td>Accepted</td>
@@ -159,6 +159,6 @@ class CabinetOrder extends Component {
 CabinetOrder.propTypes = {};
 
 export default connect(
-    ({app: {companyOrder, showModal, deleteModal}}) =>
-        ({companyOrder, showModal, deleteModal}))
+    ({app: {comMalumot, showModal, deleteModal}}) =>
+        ({comMalumot, showModal, deleteModal}))
 (CabinetOrder);

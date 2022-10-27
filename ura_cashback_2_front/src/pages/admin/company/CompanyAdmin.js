@@ -6,7 +6,7 @@ import {api} from "../../../api/api";
 import '../style.scss';
 import Sidebar from "../../clint/navbar/Sidebar";
 
-class Company extends Component {
+class CompanyAdmin extends Component {
 
     componentDidMount() {
         this.props.dispatch(getCompany());
@@ -104,11 +104,10 @@ class Company extends Component {
         );
     }
 }
-
-Company.propTypes = {};
+CompanyAdmin.propTypes = {};
 
 export default connect(
     ({app: {company, page, size, active}}) =>
         ({company, page, size, active}))
-(Company);
+(CompanyAdmin);
 

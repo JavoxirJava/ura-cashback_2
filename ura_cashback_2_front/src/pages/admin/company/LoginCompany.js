@@ -19,7 +19,7 @@ class LoginCompany extends Component {
 
         const {dispatch,openCompany} = this.props;
 
-        const flag = /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).{8,}$/;
+        const flag = /^(?=.*[0-9]).{8,}$/;
         const regex = new RegExp(flag);
 
         const login = ()=>{
@@ -54,7 +54,7 @@ class LoginCompany extends Component {
                         </div>
                         <div className="col-6 loginCom">
                             <div className="row loginCompany">
-                                <h2>Krish</h2>
+                                <h2>Kirish</h2>
                                 <div className="col-10 pe-0">
                                     <Input className="mb-5" type="text" id="phoneNumber" placeholder="Phone number"
                                            required/>
@@ -62,7 +62,7 @@ class LoginCompany extends Component {
                                            id="password" placeholder="Password"
                                            required/>
                                     {this.state.resRegex ?
-                                        <p style={{color: "red"}}>Password error a-z and A-Z and 0-9 password length =
+                                        <p style={{color: "red"}}>Password error 0-9 password length =
                                             8</p> : ""}
                                 </div>
                                 <div className="col-2">
@@ -74,7 +74,7 @@ class LoginCompany extends Component {
                                     </ul>
                                 </div>
                             </div>
-                            <Button color="info" type="submit" outline onClick={() => login()}>Krish</Button>
+                            <Button color="info" type="submit" outline onClick={() => login()}>Kirish</Button>
                         </div>
                     </div>
                 }

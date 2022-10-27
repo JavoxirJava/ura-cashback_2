@@ -6,7 +6,7 @@ import Order from "../pages/admin/order/Order";
 import KasserLogin from "../pages/admin/order/loginPage/KasserLogin";
 import AuthUserCompany from "../pages/admin/userAdmin/AuthUserCompany";
 import AuthAdmin from "../pages/admin/userAdmin/AuthAdmin";
-import Company from "../pages/admin/company/CompanyAdmin";
+import CompanyAdmin from "../pages/admin/company/CompanyAdmin";
 import CompanyClint from "../pages/admin/company/CompanyClint";
 import ClientRegister from "../pages/admin/userAdmin/ClientRegister";
 import Home from "../pages/admin/home/Home";
@@ -15,6 +15,7 @@ import CabinetOrder from "../pages/companyCabinet/CabinetOrder";
 import CompanyKassa from "../pages/companyCabinet/CompanyKassa";
 import CabinetClient from "../pages/companyCabinet/CabinetClient";
 import CompanySettings from "../pages/companyCabinet/CompanySettings";
+import AdminPanel from "../pages/admin/company/AdminPanel";
 
 
 //https://www.w3schools.com/react/showreact.asp?filename=demo2_react_usememo // add uchun menga kk
@@ -23,20 +24,44 @@ function App() {
     return (
         <Provider store={store}>
             <Routes>
+                //
                 <Route path='/' element={<Home/>}/>
+                //
+
+                //SuperAdminPanel
+                <Route path='/admin' element={AdminPanel}/>
+                <Route path='/company' element={CompanyAdmin}/>
+                <Route path='/user' element={<AuthAdmin/>}/>
+                <Route path='/order' element={<Order/>}/>
+                <Route path='/*' element={<NotFount/>}/>
+                //
+
+                //registerCompanyAdmin
+                <Route path='/authUserCompany/register' element={<AuthUserCompany/>}/>
+                <Route path='/company/register' element={<CompanyClint/>}/>
+                //
+
+                //cabinet
                 <Route path='/cabinetOrder' element={<CabinetOrder/>}/>
                 <Route path='/company/settings' element={<CompanySettings/>}/>
                 <Route path='/cabinetClient' element={<CabinetClient/>}/>
                 <Route path='/company/kassa' element={<CompanyKassa/>}/>
-                <Route path='/company/login' element={<LoginCompany/>}/>
-                <Route path='/user' element={<AuthAdmin/>}/>
-                <Route path='/order' element={<Order/>}/>
-                <Route path='/company' element={<Company/>}/>
-                <Route path='/company/register' element={<CompanyClint/>}/>
-                <Route path='/authUserCompany/register' element={<AuthUserCompany/>}/>
-                <Route path='/kassa/' element={<KasserLogin/>}/>
+                //
+
+
+                //client register
                 <Route path='/client' element={<ClientRegister/>}/>
-                <Route path='/*' element={<NotFount/>}/>
+                //
+
+                //login
+                <Route path='/company/login' element={<LoginCompany/>}/>
+                //
+
+                //kassa
+                <Route path='/kassa/' element={<KasserLogin/>}/>
+                //
+
+
             </Routes>
         </Provider>
     );

@@ -74,7 +74,7 @@ class CompanyRegister extends Component {
                            placeholder='Enter company clintPercentage'
                            required/>
                     <Button className="registerComp" color='primary' type="submit"
-                            onClick={addCompany}>✔Register</Button>
+                            onClick={addCompany}> <a href={'http://localhost:3000/company/login'}>✔Register</a></Button>
                     <img className="compImg2"
                          data-aos-duration="1000"
                          data-aos-easing="ease-in-back" src={registerCom} alt="Loading..."/>

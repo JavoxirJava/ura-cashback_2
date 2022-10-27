@@ -43,13 +43,10 @@ export const loginCompany = (payload) => (dispatch) =>{
         data: payload
     }).then(res =>{
         if(res !== null) {
+            localStorage.setItem("company malumot", JSON.stringify(res))
             dispatch({
                 type: 'updateState',
                 payload: {
-                    companyId: res.payload.id,
-                    companyOrder: res.payload.orders,
-                    companyClient: res.payload.clint,
-                    companyKassa: res.payload.kassa,
                     openCompany: true,
                 }
             })
@@ -215,12 +212,6 @@ export const saveCompany = (payload) => (dispatch) => {
     }).then(res => {
         if (res !== undefined) {
             toast.success("Company saved successfully!");
-            dispatch({
-                type:"updateState",
-                payload:{
-                    openCompany: true,
-                }
-            })
         } else {
             toast.error("You cannot save Company!")
         }
@@ -317,9 +308,9 @@ export const delOrder = (payload) => (dispatch) => {
             types.REQUEST_SUCCESS,
             types.REQUEST_ERROR
         ],
-        data: payload
-    }).then(() => {
-        toast.success("County deleted successfully!");
+        data: payload,
+    }).then(key => {
+        toast.success("Order deleted successfully!");
     }).catch(() => {
         toast.error("Error delete order!");
     })

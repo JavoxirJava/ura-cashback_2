@@ -38,7 +38,7 @@ class CompanyKassa extends Component {
         //     this.setState({openPrePassword: !this.state.openPrePassword})
         // }
 
-        const { dispatch, companyId, companyKassa} = this.props;
+        const { dispatch, comMalumot} = this.props;
 
         const flag = /^(?=.*[0-9]).{8,}$/;
         const regex = new RegExp(flag);
@@ -52,7 +52,7 @@ class CompanyKassa extends Component {
                 const lastName = document.getElementById("lastName").value;
                 const phoneNumber = document.getElementById("phoneNumber").value;
                 const email = document.getElementById("email").value;
-                let obj = {firstName,lastName,phoneNumber,email,password,prePassword, companyId};
+                let obj = {firstName,lastName,phoneNumber,email,password,prePassword, companyId: comMalumot.payload.id};
                 this.props.dispatch(saveCompanyKassa(obj))
                 openModal()
 
@@ -83,7 +83,7 @@ class CompanyKassa extends Component {
                     </tr>
                     </thead>
                     <tbody>
-                    {companyKassa.map((item,i)=>
+                    {comMalumot.payload.kassa.map((item,i)=>
                     <tr key={i}>
                         <td>{i + 1}</td>
                         <td>{item.firstName}</td>
@@ -143,6 +143,6 @@ class CompanyKassa extends Component {
 CompanyKassa.propTypes = {};
 
 export default connect(
-    ({app:{dispatch,companyId, companyKassa}})=>
-        ({dispatch,companyId, companyKassa}))
+    ({app:{dispatch,comMalumot}})=>
+        ({dispatch,comMalumot}))
 (CompanyKassa);
