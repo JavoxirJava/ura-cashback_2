@@ -30,18 +30,17 @@ class CompanyKassa extends Component {
         const deleteModal = ()=>{
             this.setState({deleteModal: !this.state.deleteModal})
         }
-        const password = ()=>{
-            this.setState({openPassword: !this.state.openPassword})
-        }
+        // const password = ()=>{
+        //     this.setState({openPassword: !this.state.openPassword})
+        // }
+        //
+        // const prePassword = ()=>{
+        //     this.setState({openPrePassword: !this.state.openPrePassword})
+        // }
 
-        const prePassword = ()=>{
-            this.setState({openPrePassword: !this.state.openPrePassword})
-        }
+        const { dispatch, companyId, companyKassa} = this.props;
 
-        const {dispatch, companyId, companyKassa} = this.props;
-
-
-        const flag = /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).{8,}$/;
+        const flag = /^(?=.*[0-9]).{8,}$/;
         const regex = new RegExp(flag);
 
         const registerCompanyKassr = ()=>{
@@ -53,9 +52,9 @@ class CompanyKassa extends Component {
                 const lastName = document.getElementById("lastName").value;
                 const phoneNumber = document.getElementById("phoneNumber").value;
                 const email = document.getElementById("email").value;
-                let obj = {firstName,lastName,phoneNumber,email,password,prePassword, companyId: companyId.value};
+                let obj = {firstName,lastName,phoneNumber,email,password,prePassword, companyId};
                 this.props.dispatch(saveCompanyKassa(obj))
-                console.log(obj)
+                openModal()
 
             }else {
                 this.setState({resRegex: !this.state.resRegex})
@@ -120,7 +119,7 @@ class CompanyKassa extends Component {
                         {/*            {this.state.openPrePassword ? <i className="pi pi-eye-slash" /> : <i className="pi pi-eye"/> }</li>*/}
                         {/*    </ul>*/}
                         {/*</div>*/}
-                        {this.state.resRegex ? <p style={{color:"red"}}>Password error a-z and A-Z and 0-9 password length = 8</p> : ""}
+                        {this.state.resRegex ? <p style={{color:"red"}}>Password error 0-9 password length = 8</p> : ""}
                     </ModalBody>
                     <ModalFooter>
                         <Button color="danger" onClick={openModal}>Close</Button>
