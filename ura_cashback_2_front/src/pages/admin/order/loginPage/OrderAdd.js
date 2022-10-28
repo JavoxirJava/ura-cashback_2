@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {connect} from "react-redux";
 import {Link} from "react-router-dom";
 import image from "./image/logo.png";
-import {Button, Input} from "reactstrap";
+import {Button, Input, Label, Row} from "reactstrap";
 import {saveOrder} from "../../../../redux/actions/AppAction";
 import Kassa from "./Kassa";
 
@@ -37,14 +37,13 @@ function OrderAdd(props) {
         if(!open){
             let cashback = document.getElementById("cashback").value;
             let obj = setPrice(cashPrice - cashback);
-            dispatch(saveOrder(obj))
+            dispatch(saveOrder(obj));
         }else {
             let obj2 = setPrice(cashPrice - currentUser.salary);
-            dispatch(saveOrder(obj2))
+            dispatch(saveOrder(obj2));
         }
 
     }
-
 
     return (
         <>
@@ -65,15 +64,23 @@ function OrderAdd(props) {
                         </div>
                         <p>Name: {currentUser.firstName} {currentUser.lastName}</p>
                         <p>userCashback: {currentUser.salary}</p>
-                        <Button className="ms-1" style={{marginTop:"20px"}} outline color="info" onClick={()=> openModal()}>All cashback</Button>
-                        {resPrice ?
-                        <Input type="number" value={price} id="cash_price" className="mt-3 mb-5 fw-semibold p-3 ms-1 me-1"/> :
-                            <Input type="number"  placeholder="cash_price"  id="cash_price" className="mt-3 mb-5 fw-semibold p-3 ms-1 me-1"/>
+                        {resPrice
+                            ? <Input type="number" value={price} id="cash_price" className="mt-3 mb-5 fw-semibold p-3 ms-1 me-1"/>
+                            : <Input type="number"  placeholder="cash_price"  id="cash_price" className="mt-3 mb-5 fw-semibold p-3 ms-1 me-1"/>
                         }
                         {open
-                            ? <Input type="text" value={currentUser.salary} id="cashback" className="mt-5 mb-5 fw-semibold p-3 ms-1 me-1"/>
-                            : <Input type="number"   placeholder="cashback"  id="cashback" className="mt-5 mb-5 fw-semibold p-3 ms-1 me-1"/>
+                            ? <Input max={currentUser.salary} type="number" value={currentUser.salary} id="cashback" className="mt-5 mb-5 fw-semibold p-3 ms-1 me-1 w-75 float-start"/>
+                            : <Input max={currentUser.salary} type="number" placeholder="cashback"  id="cashback" className="mt-5 mb-5 fw-semibold p-3 ms-1 me-1 w-75 float-start"/>
                         }
+                        <Row>
+                            <Label check for="active">
+                                <div className="form-check form-switch" style={{marginTop: "60%"}}>
+                                    <Input className="mt-5" type="checkbox" defaultChecked={open} onChange={openModal}/>
+                                </div>
+                            </Label>
+                        </Row>
+                        <input type="range" placeholder="nimadur" max={2}/>
+
                         <Button style={{
                             backgroundColor: "#5468FF",
                             height: "50px",
