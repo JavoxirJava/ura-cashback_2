@@ -47,9 +47,10 @@ export const loginCompany = (payload) => (dispatch) =>{
             dispatch({
                 type: 'updateState',
                 payload: {
-                    openCompany: true,
-                }
+                    openLogin: true
+                },
             })
+            toast.success("Successfully save")
         }
     })
 }
@@ -211,6 +212,12 @@ export const saveCompany = (payload) => (dispatch) => {
         data: payload
     }).then(res => {
         if (res !== undefined) {
+            dispatch({
+                type: 'updateState',
+                payload:{
+                    openLogin: true
+                }
+            })
             toast.success("Company saved successfully!");
         } else {
             toast.error("You cannot save Company!")

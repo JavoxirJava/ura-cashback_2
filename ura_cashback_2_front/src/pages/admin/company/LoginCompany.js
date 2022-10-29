@@ -17,7 +17,7 @@ class LoginCompany extends Component {
 
     render() {
 
-        const {dispatch,openCompany} = this.props;
+        const {dispatch,openLogin} = this.props;
 
         const flag = /^(?=.*[0-9]).{8,}$/;
         const regex = new RegExp(flag);
@@ -36,11 +36,11 @@ class LoginCompany extends Component {
         const password = ()=>{
             this.setState({openPassword: !this.state.openPassword})
         }
-        console.log(openCompany)
+        console.log(openLogin)
 
         return (
             <>
-                {openCompany ?
+                {openLogin ?
                     <CabinetOrder/> :
                     <div className="row home">
                         <div className='col-6'>
@@ -86,6 +86,6 @@ class LoginCompany extends Component {
 LoginCompany.propTypes = {};
 
 export default connect(
-    ({app:{dispatch, openCompany}}) =>
-        ({dispatch,openCompany}))
+    ({app:{dispatch, openLogin}}) =>
+        ({dispatch,openLogin}))
 (LoginCompany);

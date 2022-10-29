@@ -6,7 +6,8 @@ import {createReducer} from "../../utils/StoreUtils";
 
 
 const initState = {
-    openCompany: false,
+    openLogin: false,
+    openCabinet: false,
     // companyOrder:[],
     //     // companyClient:[],
     //     // companyKassa:[],
