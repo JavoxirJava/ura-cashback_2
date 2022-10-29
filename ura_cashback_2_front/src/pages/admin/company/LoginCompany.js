@@ -18,9 +18,9 @@ class LoginCompany extends Component {
 
     render() {
 
-        const {dispatch,openCompany} = this.props;
+        const {dispatch,openLogin} = this.props;
 
-        const flag = /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).{8,}$/;
+        const flag = /^(?=.*[0-9]).{8,}$/;
         const regex = new RegExp(flag);
 
         const login = ()=>{
@@ -37,9 +37,12 @@ class LoginCompany extends Component {
         const password = ()=>{
             this.setState({openPassword: !this.state.openPassword})
         }
+        console.log(openLogin)
 
         return (
             <>
+                {openLogin ?
+                    <CabinetOrder/> :
                 {openCompany ?
                     <CabinetOperation/> :
                     <div className="row home">
@@ -62,7 +65,7 @@ class LoginCompany extends Component {
                                            id="password" placeholder="Password"
                                            required/>
                                     {this.state.resRegex ?
-                                        <p style={{color: "red"}}>Password error a-z and A-Z and 0-9 password length =
+                                        <p style={{color: "red"}}>Password error 0-9 password length =
                                             8</p> : ""}
                                 </div>
                                 <div className="col-2">
@@ -74,7 +77,7 @@ class LoginCompany extends Component {
                                     </ul>
                                 </div>
                             </div>
-                            <Button color="info" type="submit" outline onClick={() => login()}>Krish</Button>
+                            <Button color="info" type="submit" outline onClick={() => login()}>Kirish</Button>
                         </div>
                     </div>
                 }
@@ -86,6 +89,6 @@ class LoginCompany extends Component {
 LoginCompany.propTypes = {};
 
 export default connect(
-    ({app:{dispatch, openCompany}}) =>
-        ({dispatch,openCompany}))
+    ({app:{dispatch, openLogin}}) =>
+        ({dispatch,openLogin}))
 (LoginCompany);

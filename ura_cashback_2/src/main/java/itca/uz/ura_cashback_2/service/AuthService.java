@@ -80,6 +80,7 @@ public class AuthService{
                     user.setPhoneNumber(authDto.getPhoneNumber());
                     user.setEmail(authDto.getEmail());
                     user.setPassword(authDto.getPassword());
+                    user.setSalary(0.0);
                     User saveUser = authRepository.save(user);
                     return saveUser.getId();
                 }
@@ -97,6 +98,7 @@ public class AuthService{
                     user.setPhoneNumber(authDto.getPhoneNumber());
                     user.setEmail(authDto.getEmail());
                     user.setPassword(authDto.getPassword());
+                    user.setSalary(0.0);
                     User save = authRepository.save(user);
 
                     CompanyUserRole companyUserRole = new CompanyUserRole();

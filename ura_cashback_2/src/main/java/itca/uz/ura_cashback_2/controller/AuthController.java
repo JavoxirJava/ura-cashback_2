@@ -39,7 +39,7 @@ public class AuthController {
 
     @PostMapping("/companyKassa")
     public HttpEntity<?> addCompanyKassa(@RequestBody AuthDto authDto){
-        return ResponseEntity.ok(authService.addOrEditKassa(new User(), authDto));
+            return ResponseEntity.ok(authService.addOrEditKassa(new User(), authDto));
     }
 
     @PostMapping("/company/login")

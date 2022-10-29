@@ -1,11 +1,19 @@
 import * as types from "../actionTypes/AppActionTypes";
 import {createReducer} from "../../utils/StoreUtils";
 
+// const companyMalumot1 = localStorage.getItem('company malumot')
+// const companyMalumot = JSON.parse(companyMalumot1)
 
 
 const initState = {
     openCompany: false,
     companyKassa: [],
+    openLogin: false,
+    openCabinet: false,
+    // companyOrder:[],
+    //     // companyClient:[],
+    //     // companyKassa:[],
+    // comMalumot: companyMalumot,
     companyId: '',
     adminPanel: false,
     res:false,
@@ -28,7 +36,9 @@ const initState = {
     currentUser: '',
     currentAdmin: '',
 }
+
 const reducers = {
+
     [types.REQUEST_SUCCESS](state) {
         state.showModal = false
         state.deleteShowModal = false

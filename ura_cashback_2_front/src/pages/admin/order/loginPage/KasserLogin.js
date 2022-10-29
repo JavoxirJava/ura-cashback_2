@@ -11,10 +11,12 @@ function KasserLogin(props) {
     const company = localStorage.getItem("company");
     const companys = JSON.parse(company)
 
+    const {dispatch, showModal} = props;
 
     const orderLogin = () => {
         const phoneNumber = document.getElementById("phoneNumber").value;
         const password = document.getElementById("password").value;
+        dispatch(loginOrderAction({phoneNumber, password}));
         dispatch(loginOrderAction({phoneNumber, password,companyId: companys.id}));
     }
 
@@ -24,7 +26,7 @@ function KasserLogin(props) {
                 <Kassa/>
                 : <div className="login">
                     <div className="login-page">
-                        <h4 className="text-center">Кассир</h4>
+                        <h4 className="text-center">Kassir</h4>
                         <div className="big-logo-box">
                             <img src={logo} alt="URA cashback"/>
                         </div>

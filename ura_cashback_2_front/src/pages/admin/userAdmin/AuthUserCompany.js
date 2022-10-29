@@ -20,7 +20,7 @@ class AuthUserCompany extends Component {
 
         const {showModal} = this.props;
 
-        const flag = /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).{8,}$/;
+        const flag = /^(?=.*[0-9]).{8,}$/;
         const regex = new RegExp(flag);
 
         const registerUserCompany = ()=>{
@@ -74,7 +74,7 @@ class AuthUserCompany extends Component {
                                            required/>
                                     <Input className="mb-2" type={this.state.openPrePassword ? "text" : "password"} id="prePassword" placeholder="Pre password"
                                            required/>
-                                    {this.state.resRegex ? <p style={{color:"red"}}>Password error a-z and A-Z and 0-9 password length = 8</p> : ""}
+                                    {this.state.resRegex ? <p style={{color:"red"}}>Password error 0-9 password length = 8</p> : ""}
                                 </div>
                                 <div className="col-2">
                                     <ul>

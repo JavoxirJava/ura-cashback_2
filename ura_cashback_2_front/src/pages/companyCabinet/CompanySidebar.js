@@ -18,12 +18,11 @@ function Sidebar(props) {
     const {currentUser} = props;
 
     const images = [
-        {img: order, name: "order", url: "/cabinetOrder"},
-        {img: clients, name: "clients", url: "/cabinetClient"},
-        {img: programm, name: "kassa", url: "/company/kassa"},
-        {img: settings, name: "settings", url: "/company/settings"},
-        {img: calculator, name: "operation", url: "/company/kassa/login"},
-        {img: parol, name: "password", url: "/company/password"},
+        {img: order, name: "cashback", url: "/cabinetOrder"},
+        {img: clients, name: "Mijozlar", url: "/cabinetClient"},
+        {img: programm, name: "Xodimlar", url: "/company/kassa"},
+        {img: settings, name: "Sozlamalar", url: "/company/settings"},
+        {img: parol, name: "Parolni o'zgartirish", url: "/company/password"},
     ]
 
     return (

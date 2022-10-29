@@ -21,8 +21,6 @@ class AuthAdmin extends Component {
 
         const {user,page,size,search, dispatch, showModal,currentUser,deleteShowModal,activeUser} = this.props;
 
-
-
         const paginate = (number) => {
             dispatch({
                 type: "updateState",
@@ -143,7 +141,7 @@ class AuthAdmin extends Component {
                             <label htmlFor="search-form">
                                 <Input type="search" name="search-form" placeholder="Search phone"
                                        onChange={(item)=> set(item)}/>
-                                <Button><i className="pi pi-search"></i></Button>
+                                <Button><i className="pi pi-search"/></Button>
                             </label>
                         </div>
                     </div>

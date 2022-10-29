@@ -45,20 +45,20 @@ public class Dataloader implements CommandLineRunner {
             roleRepository.save(new Role(RoleName.ROLE_ADMIN));
             roleRepository.save(new Role(RoleName.ROLE_KASSA));
             roleRepository.save(new Role(RoleName.ROLE_USER));
-            User save = authRepository.save(new User(
-                    "SuperAdmin",
-                    "SuperAdmin",
-                    "+998914648580",
-                    "istardimovs@gmail.com",
-                    null,
-                    true,
-                    "SuperAdmin123"
-            ));
-            companyUserRoleRepository.save(new CompanyUserRole(
-                    save.getId(),
-                    null,
-                    1
-            ));
+//            User save = authRepository.save(new User(
+//                    "SuperAdmin",
+//                    "SuperAdmin",
+//                    "+998914648580",
+//                    "istardimovs@gmail.com",
+//                    null,
+//                    true,
+//                    "SuperAdmin123"
+//            ));
+//            companyUserRoleRepository.save(new CompanyUserRole(
+//                    save.getId(),
+//                    null,
+//                    1
+//            ));
         }
     }
 }

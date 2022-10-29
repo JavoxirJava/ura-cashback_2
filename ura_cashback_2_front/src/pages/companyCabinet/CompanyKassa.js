@@ -7,6 +7,9 @@ import edit from '../companyCabinet/img/edit2.png';
 import delit from '../companyCabinet/img/delete2.png';
 import './cabinet.css'
 import {removeUser, saveCompanyKassa} from "../../redux/actions/AppAction";
+import '../admin/userAdmin/auth.css';
+
+import {saveCompanyKassa} from "../../redux/actions/AppAction";
 
 
 class CompanyKassa extends Component {
@@ -26,8 +29,6 @@ class CompanyKassa extends Component {
 
     render() {
 
-
-
         const openModal = ()=>{
             this.setState({openModal: !this.state.openModal});
         }
@@ -35,8 +36,15 @@ class CompanyKassa extends Component {
         const deleteModal = ()=>{
             this.setState({deleteModal: !this.state.deleteModal});
         }
+        // const password = ()=>{
+        //     this.setState({openPassword: !this.state.openPassword})
+        // }
+        //
+        // const prePassword = ()=>{
+        //     this.setState({openPrePassword: !this.state.openPrePassword})
+        // }
 
-        const {dispatch, companyId, companyKassa} = this.props;
+        const { dispatch, comMalumot} = this.props;
 
 
         const kassa = JSON.parse(localStorage.getItem("kassa"))
@@ -47,6 +55,7 @@ class CompanyKassa extends Component {
 
 
         const flag = /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).{8,}$/;
+        const flag = /^(?=.*[0-9]).{8,}$/;
         const regex = new RegExp(flag);
 
         const registerCompanyKassr = ()=>{
@@ -58,6 +67,10 @@ class CompanyKassa extends Component {
                 const lastName = document.getElementById("lastName").value;
                 const phoneNumber = document.getElementById("phoneNumber").value;
                 const email = document.getElementById("email").value;
+                let obj = {firstName,lastName,phoneNumber,email,password,prePassword, companyId: comMalumot.payload.id};
+                this.props.dispatch(saveCompanyKassa(obj))
+                openModal()
+
                 let obj = {firstName,lastName,phoneNumber,email,password,prePassword, companyId: company.id};
                 this.props.dispatch(saveCompanyKassa(obj))
                 this.setState({openModal: false})
@@ -97,6 +110,7 @@ class CompanyKassa extends Component {
                     </tr>
                     </thead>
                     <tbody>
+                    {comMalumot.payload.kassa.map((item,i)=>
                     {kassa.map((item,i)=>
                     <tr key={i}>
                         <td>{i + 1}</td>
@@ -114,7 +128,7 @@ class CompanyKassa extends Component {
                 </div>
 
                 <Modal isOpen={this.state.openModal}>
-                    <ModalHeader>Add Kassr</ModalHeader>
+                    <ModalHeader>Kassir qo'shish</ModalHeader>
                     <ModalBody>
                         <Input className="mb-2" type="text" id="firstName" placeholder="First name"
                                required/>
@@ -126,7 +140,15 @@ class CompanyKassa extends Component {
                                required/>
                         <Input className="mb-2" type="password" id="prePassword" placeholder="Pre password"
                                required/>
-                        {this.state.resRegex ? <p style={{color:"red"}}>Password error a-z and A-Z and 0-9 password length = 8</p> : ""}
+                        {/*<div className="col-2">*/}
+                        {/*    <ul>*/}
+                        {/*        <li className="row iconca7" onClick={()=> password()}>*/}
+                        {/*            {this.state.openPassword ? <i className="pi pi-eye-slash"/> : <i className="pi pi-eye"/>}</li>*/}
+                        {/*        <li className="row iconca8" onClick={()=> prePassword()}>*/}
+                        {/*            {this.state.openPrePassword ? <i className="pi pi-eye-slash" /> : <i className="pi pi-eye"/> }</li>*/}
+                        {/*    </ul>*/}
+                        {/*</div>*/}
+                        {this.state.resRegex ? <p style={{color:"red"}}>Password error 0-9 password length = 8</p> : ""}
                     </ModalBody>
                     <ModalFooter>
                         <Button color="danger" onClick={openModal}>Close</Button>
@@ -136,14 +158,12 @@ class CompanyKassa extends Component {
 
 
                 <Modal isOpen={this.state.deleteModal}>
-                    <ModalHeader>Delete kassr</ModalHeader>
+                    <ModalHeader>Kassirni uchirish</ModalHeader>
                     <ModalFooter>
                         <Button color="secondary" onClick={deleteModal}>Close</Button>
                         <Button color="danger" onClick={deleteCompanyKassr}>Delete</Button>
                     </ModalFooter>
                 </Modal>
-
-
             </div>
         );
     }
@@ -152,6 +172,6 @@ class CompanyKassa extends Component {
 CompanyKassa.propTypes = {};
 
 export default connect(
-    ({app:{dispatch,companyId, companyKassa}})=>
-        ({dispatch,companyId, companyKassa}))
+    ({app:{dispatch,comMalumot}})=>
+        ({dispatch,comMalumot}))
 (CompanyKassa);

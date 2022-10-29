@@ -6,12 +6,19 @@ import {
     addCompanyKassa,
     addCompanyUser,
     addOrder,
+    addAttachment,
+    addCompanyAdmin,
+    addCompanyKassa,
+    addCompanyUser,
+    addOrder, deleteCompanyKassa,
     deleteOrder,
     editOrder,
     findByPhoneNumber,
     findByUser,
     getCabinetCompany,
     getCompanies,
+    findByUser,
+    getCabinetCompany,
     getOneUsers,
     getOrders,
     getUsers,
@@ -49,13 +56,19 @@ export const loginCompany = (payload) => (dispatch) =>{
             localStorage.setItem("orders", JSON.stringify(res.payload.orders))
             localStorage.setItem("client", JSON.stringify(res.payload.clint))
             localStorage.setItem("kassa", JSON.stringify(res.payload.kassa))
+        if(res !== null) {
+            localStorage.setItem("company malumot", JSON.stringify(res))
             dispatch({
                 type: 'updateState',
+                payload: {
+                    openLogin: true
+                },
                 payload:{
                     openCompany: true
                 }
 
             })
+            toast.success("Successfully save")
             toast.success("Successfully company login")
         }else {
             toast.error("Company not Active")
@@ -107,7 +120,6 @@ export const saveCompanyAdmin = (payload) => (dispatch) =>{
         ],
         data : payload
     }).then(res =>{
-        console.log(res, "user id")
             dispatch({
                 type: 'updateState',
                 payload:{
@@ -165,6 +177,8 @@ export const saveCompanyKassa = (payload) => (dispatch) =>{
                 type: 'updateState',
                 payload:{
                     showModal: true,
+                    openModal: true,
+                    currentUser: res.payload
                 }
             })
         }else {
@@ -172,26 +186,19 @@ export const saveCompanyKassa = (payload) => (dispatch) =>{
         }
     })
 }
-
-// export const getCompanyKassir = (payload) => (dispatch) =>{
-//     dispatch({
-//         api : getCompanyKassa,
-//         types:[
-//             types.REQUEST_START,
-//             types.REQUEST_SUCCESS,
-//             types.REQUEST_ERROR
-//         ],
-//         data: payload
-//     }).then(res =>{
-//         console.log(res , ' company res kassa')
-//         dispatch({
-//             type: 'updateState',
-//             payload:{
-//                 companyKassa: res.payload
-//             }
-//         })
-//     })
-// }
+export const removeCompanyKassa = (payload) => (dispatch)=>{
+    dispatch({
+        api: deleteCompanyKassa,
+        types:[
+            types.REQUEST_START,
+            types.REQUEST_SUCCESS,
+            types.REQUEST_ERROR
+        ],
+        data: payload.id
+    }).then(res=>{
+        toast.success("Successfully delete")
+    })
+}
 
 export const removeUser = (payload) => (dispatch) => {
     dispatch({
@@ -236,13 +243,13 @@ export const saveCompany = (payload) => (dispatch) => {
         data: payload
     }).then(res => {
         if (res !== undefined) {
-            toast.success("Company saved successfully!");
             dispatch({
-                type:"updateState",
+                type: 'updateState',
                 payload:{
-                    openCompany: true,
+                    openLogin: true
                 }
             })
+            toast.success("Company saved successfully!");
         } else {
             toast.error("You cannot save Company!")
         }
@@ -324,6 +331,7 @@ export const loginOrderAction = (payload) => (dispatch) => {
                 type: "updateState",
                 payload: {
                     showModal: true,
+
                 }
             });
         } else toast.error("Kasser not fount");
@@ -338,9 +346,9 @@ export const delOrder = (payload) => (dispatch) => {
             types.REQUEST_SUCCESS,
             types.REQUEST_ERROR
         ],
-        data: payload
-    }).then(() => {
-        toast.success("County deleted successfully!");
+        data: payload,
+    }).then(key => {
+        toast.success("Order deleted successfully!");
     }).catch(() => {
         toast.error("Error delete order!");
     })

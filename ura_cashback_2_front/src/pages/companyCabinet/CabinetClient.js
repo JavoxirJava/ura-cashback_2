@@ -11,6 +11,7 @@ class CabinetClient extends Component {
         document.body.style.marginLeft = "3.7%";
         document.body.style.backgroundColor = "white";
 
+        const {comMalumot} = this.props;
 
         const client = localStorage.getItem("client");
         const clients = JSON.parse(client)
@@ -34,6 +35,8 @@ class CabinetClient extends Component {
                         </thead>
                         {clients.length != null &&
                             clients.map((item, i) =>
+                        {comMalumot.payload.clint.length != null &&
+                            comMalumot.payload.clint.map((item, i) =>
                                 <tbody key={i}>
                                 <tr>
                                     <td>{i + 1}</td>
@@ -57,6 +60,8 @@ class CabinetClient extends Component {
 CabinetClient.propTypes = {};
 
 export default connect(
+    ({app: {comMalumot, activeUser}}) =>
+        ({comMalumot, activeUser}))
     ({app: { activeUser}}) =>
         ({ activeUser}))
 (CabinetClient);
