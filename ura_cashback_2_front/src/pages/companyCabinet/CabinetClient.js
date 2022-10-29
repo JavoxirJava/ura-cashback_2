@@ -11,14 +11,15 @@ class CabinetClient extends Component {
         document.body.style.marginLeft = "3.7%";
         document.body.style.backgroundColor = "white";
 
-        const {companyClient} = this.props;
 
+        const client = localStorage.getItem("client");
+        const clients = JSON.parse(client)
 
 
         return (
             <div>
                 <CompanySidebar/>
-                <div>
+                <div className="container">
                     <Table>
                         <thead>
                         <tr>
@@ -31,8 +32,8 @@ class CabinetClient extends Component {
                             <th>Password</th>
                         </tr>
                         </thead>
-                        {companyClient.length != null &&
-                            companyClient.map((item, i) =>
+                        {clients.length != null &&
+                            clients.map((item, i) =>
                                 <tbody key={i}>
                                 <tr>
                                     <td>{i + 1}</td>
@@ -56,6 +57,6 @@ class CabinetClient extends Component {
 CabinetClient.propTypes = {};
 
 export default connect(
-    ({app: {companyClient, activeUser}}) =>
-        ({companyClient, activeUser}))
+    ({app: { activeUser}}) =>
+        ({ activeUser}))
 (CabinetClient);

@@ -65,8 +65,7 @@ public class AuthController {
     @PutMapping("/companyKassa/{id}")
     public HttpEntity<?> editCompanyKassa(@PathVariable UUID id, @RequestBody AuthDto authDto){
         User user = authRepository.findById(id).orElseThrow(() -> new ResourceAccessException("getUser"));
-        ApiResponse apiResponse = authService.addOrEditKassa(user, authDto);
-        return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
+        return ResponseEntity.ok(authService.addOrEditKassa(user, authDto));
     }
 
     @DeleteMapping("/{id}")
@@ -88,11 +87,22 @@ public class AuthController {
     }
 
 
+//    @PostMapping("/company/login")
+//    public HttpEntity<?> companyLogin(@RequestBody ReqLogin reqLogin){
+//        return ResponseEntity.ok(authService.companyLogin(reqLogin));
+//    }
+
+//    @GetMapping("/company/kassa/{id}")
+//    public HttpEntity<?> companyKassa(@PathVariable UUID id){
+//        return ResponseEntity.ok(authService.companyKassa(id));
+//    }
+
 
     @PutMapping("/active/{id}")
     public HttpEntity<?> activeUser(@PathVariable UUID id){
         return ResponseEntity.ok(authService.activeUser(id));
     }
+
 
     @GetMapping("/order/{phoneNumber}")
     public HttpEntity<?> findByPhoneNumber(@PathVariable String phoneNumber) {

@@ -21,6 +21,9 @@ export const addCompanyAdmin = (data) =>{
 export const addCompanyKassa= (data) =>{
     return HttpClient.doPost(api.users + "/companyKassa", data);
 }
+// export const getCompanyKassa = (data) =>{
+//     return HttpClient.doGet(api.users + "/company/kassa/" + data)
+// }
 export const editUser = (data) => {
     return HttpClient.doPut(api.users + "/" + data.id, data);
 }

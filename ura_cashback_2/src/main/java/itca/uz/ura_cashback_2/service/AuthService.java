@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.ResourceAccessException;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
@@ -63,6 +64,8 @@ public class AuthService{
     }
 
     public ApiResponse deleteClient(UUID id) {
+        CompanyUserRole companyUserRole = companyUserRoleRepository.findByUserIdEqualsAndRoleIdEquals(id, roleRepository.findRoleByRoleName(RoleName.ROLE_KASSA).getId());
+        companyUserRoleRepository.deleteById(companyUserRole.getId());
         authRepository.deleteById(id);
         return new ApiResponse("Successfully delete client", true);
     }
@@ -85,7 +88,7 @@ public class AuthService{
         return null;
     }
 
-    public ApiResponse addOrEditKassa(User user,AuthDto authDto) {
+    public User addOrEditKassa(User user,AuthDto authDto) {
         if (authDto.getPhoneNumber().length() == 13) {
             if (!authRepository.existsByPhoneNumberEqualsIgnoreCaseAndEmailEqualsIgnoreCase(authDto.getPhoneNumber(), authDto.getEmail())) {
                 if (authDto.getPassword().equals(authDto.getPrePassword())) {
@@ -102,14 +105,14 @@ public class AuthService{
                     companyUserRole.setUserId(save.getId());
                     companyUserRoleRepository.save(companyUserRole);
 
-                    return new ApiResponse("Kassa saved", true);
+                    return save;
                 }
-                return new ApiResponse("Password and PrePassword are not the same", false);
             }
-            return new ApiResponse("User is all ready exist", false);
         }
-        return new ApiResponse("Phone number error",false);
+        return null;
     }
+
+
     public ApiResponse activeUser(UUID id){
         User user = authRepository.findById(id).orElseThrow(() -> new ResourceAccessException("getUser"));
         user.setActive(!user.isActive());
@@ -142,59 +145,66 @@ public class AuthService{
         return authRepository.findByPhoneNumberEquals(phoneNumber);
     }
 
+    public UUID companyLogin(ReqLogin reqLogin){
+        User user = authRepository.findByPhoneNumberEqualsAndPasswordEquals(reqLogin.getPhoneNumber(), reqLogin.getPassword());
+        CompanyUserRole companyUserRole = companyUserRoleRepository.findByUserIdEqualsAndRoleIdEquals(user.getId(), roleRepository.findRoleByRoleName(RoleName.ROLE_ADMIN).getId());
+        Company company = companyRepository.findByIdEquals(companyUserRole.getCompanyId());
+        if(company.isActive()){
+            return company.getId();
+        }
+            return null;
+    }
+
+    public List<User> companyKassa(UUID id){
+        List<User> userList = new ArrayList<>();
+        List<CompanyUserRole> companyUserRoles = companyUserRoleRepository.findByCompanyIdEqualsAndRoleIdEquals(id, roleRepository.findRoleByRoleName(RoleName.ROLE_KASSA).getId());
+        for(CompanyUserRole companyUserRole : companyUserRoles){
+            userList.add(authRepository.findByIdEquals(companyUserRole.getUserId()));
+        }
+        return userList;
+    }
+
 
     public CompanyDto loginCompany(ReqLogin reqLogin){
         CompanyDto companyDto = new CompanyDto();
         User user = authRepository.findByPhoneNumberEqualsAndPasswordEquals(reqLogin.getPhoneNumber(), reqLogin.getPassword());
         CompanyUserRole companyUserRole = companyUserRoleRepository.findByUserIdEquals(user.getId());
         Role role = roleRepository.findByIdEquals(companyUserRole.getRoleId());
-        if (role.getRoleName().equals(RoleName.ROLE_ADMIN)){
-            Company company = companyRepository.findByIdEquals(companyUserRole.getCompanyId());
-            companyDto.setId(company.getId());
-            companyDto.setName(company.getName());
-            companyDto.setBio(company.getBio());
-            companyDto.setDescription(company.getDescription());
-            companyDto.setAttachmentId(company.getAttachment().getId());
-            companyDto.setUser(user);
-            List<User> kassaList = new ArrayList<>();
-            List<User> clintList = new ArrayList<>();
-            List<OrderDto> orderList = new ArrayList<>();
-            for (CompanyUserRole companyUserRole1 : companyUserRoleRepository.findByCompanyIdEqualsAndRoleIdEquals(company.getId(), roleRepository.findRoleByRoleName(RoleName.ROLE_ADMIN).getId())) {
-                User admin = authRepository.findByIdEquals(companyUserRole1.getUserId());
-                for(Order orders :orderRepository.findByCreatedByEquals(admin.getId())){
-                    OrderDto orderDto = new OrderDto();
-                    orderDto.setId(orders.getId());
-                    orderDto.setCreatedBy(orders.getCreatedBy());
-                    orderDto.setAdmin(authRepository.findById(orders.getCreatedBy()).get());
-                    orderDto.setClient(orders.getClient());
-                    orderDto.setCashback(orders.getCashback());
-                    orderDto.setCash_price(orders.getCash_price());
-                    orderList.add(orderDto);
+        Company company = companyRepository.findByIdEquals(companyUserRole.getCompanyId());
+        if(company.isActive()) {
+            if (role.getRoleName().equals(RoleName.ROLE_ADMIN)) {
+                companyDto.setId(company.getId());
+                companyDto.setName(company.getName());
+                companyDto.setBio(company.getBio());
+                companyDto.setDescription(company.getDescription());
+                companyDto.setAttachmentId(company.getAttachment().getId());
+                companyDto.setUser(user);
+                List<User> kassaList = new ArrayList<>();
+                List<User> clintList = new ArrayList<>();
+                List<OrderDto> orderList = new ArrayList<>();
+                for (CompanyUserRole companyUserRole1 : companyUserRoleRepository.findByCompanyIdEqualsAndRoleIdEquals(company.getId(), roleRepository.findRoleByRoleName(RoleName.ROLE_KASSA).getId())) {
+                    User kassa = authRepository.findByIdEquals(companyUserRole1.getUserId());
+                    for (Order orders : orderRepository.findByCreatedByEquals(kassa.getId())) {
+                        OrderDto orderDto = new OrderDto();
+                        orderDto.setId(orders.getId());
+                        orderDto.setCreatedBy(orders.getCreatedBy());
+                        orderDto.setAdmin(authRepository.findById(orders.getCreatedBy()).get());
+                        orderDto.setClient(orders.getClient());
+                        orderDto.setCashback(orders.getCashback());
+                        orderDto.setCash_price(orders.getCash_price());
+                        orderList.add(orderDto);
+                    }
+                    kassaList.add(kassa);
                 }
-                kassaList.add(admin);
-            }
-            for (CompanyUserRole companyUserRole1 : companyUserRoleRepository.findByCompanyIdEqualsAndRoleIdEquals(company.getId(), roleRepository.findRoleByRoleName(RoleName.ROLE_KASSA).getId())) {
-                User kassa = authRepository.findByIdEquals(companyUserRole1.getUserId());
-                for(Order orders :orderRepository.findByCreatedByEquals(kassa.getId())){
-                    OrderDto orderDto = new OrderDto();
-                    orderDto.setId(orders.getId());
-                    orderDto.setCreatedBy(orders.getCreatedBy());
-                    orderDto.setAdmin(authRepository.findById(orders.getCreatedBy()).get());
-                    orderDto.setClient(orders.getClient());
-                    orderDto.setCashback(orders.getCashback());
-                    orderDto.setCash_price(orders.getCash_price());
-                    orderList.add(orderDto);
+                for (CompanyUserRole companyUserRole2 : companyUserRoleRepository.findByCompanyIdEqualsAndRoleIdEquals(company.getId(), roleRepository.findRoleByRoleName(RoleName.ROLE_USER).getId())) {
+                    User clint = authRepository.findByIdEquals(companyUserRole2.getUserId());
+                    clintList.add(clint);
                 }
-                kassaList.add(kassa);
+                companyDto.setKassa(kassaList);
+                companyDto.setClint(clintList);
+                companyDto.setOrders(orderList);
+                return companyDto;
             }
-            for (CompanyUserRole companyUserRole2 : companyUserRoleRepository.findByCompanyIdEqualsAndRoleIdEquals(company.getId(), roleRepository.findRoleByRoleName(RoleName.ROLE_USER).getId())) {
-                User clint = authRepository.findByIdEquals(companyUserRole2.getUserId());
-                clintList.add(clint);
-            }
-            companyDto.setKassa(kassaList);
-            companyDto.setClint(clintList);
-            companyDto.setOrders(orderList);
-            return companyDto;
         }
         return null;
     }

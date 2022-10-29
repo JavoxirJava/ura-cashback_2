@@ -6,10 +6,13 @@ import add from '../companyCabinet/img/add2.png';
 import edit from '../companyCabinet/img/edit2.png';
 import delit from '../companyCabinet/img/delete2.png';
 import './cabinet.css'
-import {saveUser} from "../../redux/actions/AppAction";
+import {removeUser, saveCompanyKassa} from "../../redux/actions/AppAction";
 
 
 class CompanyKassa extends Component {
+
+
+
 
 
     state={
@@ -17,20 +20,30 @@ class CompanyKassa extends Component {
         openPrePassword:false,
         resRegex:false,
         openModal:false,
-        deleteModal:false
+        deleteModal:false,
+        kassaId: ''
     }
 
     render() {
 
+
+
         const openModal = ()=>{
-            this.setState({openModal: !this.state.openModal})
+            this.setState({openModal: !this.state.openModal});
         }
 
         const deleteModal = ()=>{
-            this.setState({deleteModal: !this.state.deleteModal})
+            this.setState({deleteModal: !this.state.deleteModal});
         }
 
         const {dispatch, companyId, companyKassa} = this.props;
+
+
+        const kassa = JSON.parse(localStorage.getItem("kassa"))
+        const company = JSON.parse(localStorage.getItem("company"))
+
+
+
 
 
         const flag = /^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9]).{8,}$/;
@@ -45,16 +58,25 @@ class CompanyKassa extends Component {
                 const lastName = document.getElementById("lastName").value;
                 const phoneNumber = document.getElementById("phoneNumber").value;
                 const email = document.getElementById("email").value;
-                let obj = {firstName,lastName,phoneNumber,email,password,prePassword, companyId: companyId.value};
-                this.props.dispatch(saveUser(obj))
+                let obj = {firstName,lastName,phoneNumber,email,password,prePassword, companyId: company.id};
+                this.props.dispatch(saveCompanyKassa(obj))
+                this.setState({openModal: false})
+                window.location.reload();
             }else {
                 this.setState({resRegex: !this.state.resRegex})
             }
         }
 
-        const deleteCompanyKassr = (item)=>{
-            console.log(item)
+        const deleteCompanyKassr = ()=>{
+            console.log(this.state.kassaId, "kassa id")
+            this.setState({deleteModal: !this.state.deleteModal})
+            this.props.dispatch(removeUser(this.state.kassaId));
+            window.location.reload();
         }
+
+
+
+
 
 
         return (
@@ -70,19 +92,21 @@ class CompanyKassa extends Component {
                         <th>Last Name</th>
                         <th>Email</th>
                         <th>Phone</th>
+                        <th>Password</th>
                         <th colSpan="2">Action</th>
                     </tr>
                     </thead>
                     <tbody>
-                    {companyKassa.map((item,i)=>
+                    {kassa.map((item,i)=>
                     <tr key={i}>
                         <td>{i + 1}</td>
                         <td>{item.firstName}</td>
                         <td>{item.lastName}</td>
                         <td>{item.email}</td>
                         <td>{item.phoneNumber}</td>
-                        <td><img  onClick={()=> openModal(item)} src={edit}/></td>
-                        <td><img  onClick={()=> deleteModal(item)} src={delit}/></td>
+                        <td>{item.password}</td>
+                        <td><img  onClick={()=> {openModal(); this.setState({kassaId: item.id})}} src={edit}/></td>
+                        <td><img  onClick={()=> {deleteModal(); this.setState({kassaId: item.id})}} src={delit}/></td>
                     </tr>
                     )}
                     </tbody>

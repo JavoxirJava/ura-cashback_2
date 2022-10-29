@@ -11,7 +11,7 @@ import CompanyClint from "../pages/admin/company/CompanyClint";
 import ClientRegister from "../pages/admin/userAdmin/ClientRegister";
 import Home from "../pages/admin/home/Home";
 import LoginCompany from "../pages/admin/company/LoginCompany";
-import CabinetOrder from "../pages/companyCabinet/CabinetOrder";
+import CabinetOrder from "../pages/companyCabinet/CabinetOperation";
 import CompanyKassa from "../pages/companyCabinet/CompanyKassa";
 import CabinetClient from "../pages/companyCabinet/CabinetClient";
 

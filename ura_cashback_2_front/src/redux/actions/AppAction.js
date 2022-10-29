@@ -1,12 +1,17 @@
 import * as api from "../../api/AppApi";
 import {
     activeUser,
-    addAttachment, addCompanyAdmin, addCompanyKassa, addCompanyUser,
+    addAttachment,
+    addCompanyAdmin,
+    addCompanyKassa,
+    addCompanyUser,
     addOrder,
     deleteOrder,
     editOrder,
     findByPhoneNumber,
-    findByUser, getCabinetCompany,
+    findByUser,
+    getCabinetCompany,
+    getCompanies,
     getOneUsers,
     getOrders,
     getUsers,
@@ -38,19 +43,22 @@ export const loginCompany = (payload) => (dispatch) =>{
         ],
         data: payload
     }).then(res =>{
-        if(res !== null) {
-            console.log(res)
+        if(res !== undefined) {
+            console.log(res.payload, "AppAction")
+            localStorage.setItem("company", JSON.stringify(res.payload));
+            localStorage.setItem("orders", JSON.stringify(res.payload.orders))
+            localStorage.setItem("client", JSON.stringify(res.payload.clint))
+            localStorage.setItem("kassa", JSON.stringify(res.payload.kassa))
             dispatch({
                 type: 'updateState',
-                payload: {
-                    companyOrder: res.payload.orders,
-                    companyClient: res.payload.clint,
+                payload:{
                     openCompany: true
-                    companyClient: res.payload.clients,
-                    companyKassa: res.payload.kassa,
-                    openCompany: true,
                 }
+
             })
+            toast.success("Successfully company login")
+        }else {
+            toast.error("Company not Active")
         }
     })
 }
@@ -127,7 +135,7 @@ export const saveCompanyUser = (payload) => (dispatch) =>{
                 type: 'updateState',
                 payload:{
                     showModal: true,
-                    currentUser: res.payload
+                    currentUser: res.payload.payload
                 }
             })
         }else {
@@ -147,12 +155,16 @@ export const saveCompanyKassa = (payload) => (dispatch) =>{
         data : payload
     }).then(res =>{
         if(res !== undefined){
+            console.log(res.payload, " company kassa")
+            const kassa = JSON.parse(localStorage.getItem("kassa"))
+            const newKassa = JSON.stringify([...kassa,res.payload])
+            localStorage.setItem('kassa',newKassa)
+            console.log(JSON.parse(localStorage.getItem('kassa')))
             toast.success("Successfully save")
             dispatch({
                 type: 'updateState',
                 payload:{
                     showModal: true,
-                    currentUser: res.payload
                 }
             })
         }else {
@@ -160,6 +172,26 @@ export const saveCompanyKassa = (payload) => (dispatch) =>{
         }
     })
 }
+
+// export const getCompanyKassir = (payload) => (dispatch) =>{
+//     dispatch({
+//         api : getCompanyKassa,
+//         types:[
+//             types.REQUEST_START,
+//             types.REQUEST_SUCCESS,
+//             types.REQUEST_ERROR
+//         ],
+//         data: payload
+//     }).then(res =>{
+//         console.log(res , ' company res kassa')
+//         dispatch({
+//             type: 'updateState',
+//             payload:{
+//                 companyKassa: res.payload
+//             }
+//         })
+//     })
+// }
 
 export const removeUser = (payload) => (dispatch) => {
     dispatch({
@@ -169,8 +201,12 @@ export const removeUser = (payload) => (dispatch) => {
             types.REQUEST_SUCCESS,
             types.REQUEST_ERROR
         ],
-        data: payload.id
+        data: payload
     }).then(res => {
+        const kassa = JSON.parse(localStorage.getItem("kassa"))
+        const filter = kassa.filter(item => item.id !== res.data);
+        localStorage.setItem("kassa",JSON.stringify(filter))
+
         dispatch(getUser())
         toast.success(res);
     })
@@ -263,7 +299,7 @@ export const saveOrder = (payload) => (dispatch) => {
 //company
 export const getCompany = () => (dispatch) => {
     dispatch({
-        api: api.getCompanies,
+        api: getCompanies,
         types: [
             types.REQUEST_START,
             types.GET_COMPANY_LIST,

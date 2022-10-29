@@ -4,7 +4,8 @@ import registerFoto from "../userAdmin/registerFoto.png";
 import {Button, Input} from "reactstrap";
 import {loginCompany} from "../../../redux/actions/AppAction";
 import {connect} from "react-redux";
-import CabinetOrder from "../../companyCabinet/CabinetOrder";
+import CompanyKassa from "../../companyCabinet/CompanyKassa";
+import CabinetOperation from "../../companyCabinet/CabinetOperation";
 
 
 class LoginCompany extends Component {
@@ -40,7 +41,7 @@ class LoginCompany extends Component {
         return (
             <>
                 {openCompany ?
-                    <CabinetOrder/> :
+                    <CabinetOperation/> :
                     <div className="row home">
                         <div className='col-6'>
                             <div className="row-cols-6 ">
@@ -53,7 +54,7 @@ class LoginCompany extends Component {
                         </div>
                         <div className="col-6 loginCom">
                             <div className="row loginCompany">
-                                <h2>Krish</h2>
+                                <h2>Kirish</h2>
                                 <div className="col-10 pe-0">
                                     <Input className="mb-5" type="text" id="phoneNumber" placeholder="Phone number"
                                            required/>

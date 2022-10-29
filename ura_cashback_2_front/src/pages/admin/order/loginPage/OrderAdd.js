@@ -14,8 +14,7 @@ function OrderAdd(props) {
 
     const [back, setBack] = useState(true);
     const [open, setOpen] = useState(false);
-    const [price,setPrice] = useState(0);
-    const [resPrice,setResPrice] = useState(false);
+
 
     const setBackClick = () => {
         setBack(!back);
@@ -32,15 +31,12 @@ function OrderAdd(props) {
     }
 
     const openPrice = ()=>{
-        setResPrice(!resPrice);
         let cashPrice = document.getElementById("cash_price").value;
         if(!open){
             let cashback = document.getElementById("cashback").value;
-            let obj = setPrice(cashPrice - cashback);
-            dispatch(saveOrder(obj))
+            // dispatch(saveOrder(obj))
         }else {
-            let obj2 = setPrice(cashPrice - currentUser.salary);
-            dispatch(saveOrder(obj2))
+            // dispatch(saveOrder(obj2))
         }
 
     }
@@ -66,11 +62,7 @@ function OrderAdd(props) {
                         <p>Name: {currentUser.firstName} {currentUser.lastName}</p>
                         <p>userCashback: {currentUser.salary}</p>
                         <Button className="ms-1" style={{marginTop:"20px"}} outline color="info" onClick={()=> openModal()}>All cashback</Button>
-                        <Button style={{marginLeft:"50px",marginTop:"20px"}} outline color="success" onClick={()=> openPrice()}>Xisoblash</Button>
-                        {resPrice ?
-                        <Input type="text" value={price} id="cash_price" className="mt-3 mb-5 fw-semibold p-3 ms-1 me-1"/> :
-                            <Input type="text"  placeholder="cash_price"  id="cash_price" className="mt-3 mb-5 fw-semibold p-3 ms-1 me-1"/>
-                        }
+                        <Input type="text"  placeholder="cash_price"  id="cash_price" className="mt-3 mb-5 fw-semibold p-3 ms-1 me-1"/>
                         {open ?
                         <Input type="text" value={currentUser.salary} id="cashback" className="mt-5 mb-5 fw-semibold p-3 ms-1 me-1"/>  :
                             <Input type="text"   placeholder="cashback"  id="cashback" className="mt-5 mb-5 fw-semibold p-3 ms-1 me-1"/>

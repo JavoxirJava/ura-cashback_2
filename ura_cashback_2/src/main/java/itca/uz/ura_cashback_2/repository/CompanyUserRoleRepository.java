@@ -13,4 +13,7 @@ public interface CompanyUserRoleRepository extends JpaRepository<CompanyUserRole
     CompanyUserRole findByUserIdEquals(UUID userId);
 
     List<CompanyUserRole> findByCompanyIdEqualsAndRoleIdEquals(UUID companyId, Integer roleId);
+
+    List<CompanyUserRole> findByCompanyIdEquals(UUID companyId);
+
 }
