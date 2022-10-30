@@ -79,7 +79,7 @@ function OrderAdd(props) {
                                 </div>
                             </Label>
                         </Row>
-                        <input type="range" placeholder="nimadur" max={2}/>
+                        {/*<input type="range" placeholder="nimadur" max={2}/>*/}
 
                         <Button style={{
                             backgroundColor: "#5468FF",
