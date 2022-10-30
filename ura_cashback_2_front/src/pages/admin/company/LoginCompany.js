@@ -4,7 +4,6 @@ import registerFoto from "../userAdmin/registerFoto.png";
 import {Button, Input} from "reactstrap";
 import {loginCompany} from "../../../redux/actions/AppAction";
 import {connect} from "react-redux";
-import CompanyKassa from "../../companyCabinet/CompanyKassa";
 import CabinetOperation from "../../companyCabinet/CabinetOperation";
 
 
@@ -37,13 +36,10 @@ class LoginCompany extends Component {
         const password = ()=>{
             this.setState({openPassword: !this.state.openPassword})
         }
-        console.log(openLogin)
 
         return (
             <>
                 {openLogin ?
-                    <CabinetOrder/> :
-                {openCompany ?
                     <CabinetOperation/> :
                     <div className="row home">
                         <div className='col-6'>

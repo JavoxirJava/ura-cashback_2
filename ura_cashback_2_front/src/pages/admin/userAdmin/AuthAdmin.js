@@ -1,10 +1,9 @@
 import React, {Component} from 'react';
-import {Button, Input, Modal, ModalBody, ModalFooter, ModalHeader, Table} from "reactstrap";
+import {Button, Input, Modal, ModalFooter, ModalHeader, Table} from "reactstrap";
 import {connect} from "react-redux";
-import {getUser, isActiveUser, removeUser, saveCompanyUser} from "../../../redux/actions/AppAction";
+import {getUser, isActiveUser, removeUser} from "../../../redux/actions/AppAction";
 import Sidebar from "../../clint/navbar/Sidebar";
 import './auth.css';
-
 
 
 class AuthAdmin extends Component {
@@ -19,7 +18,8 @@ class AuthAdmin extends Component {
         document.body.style.marginLeft = "3.7%";
         document.body.style.backgroundColor = "white"
 
-        const {user,page,size,search, dispatch, showModal,currentUser,deleteShowModal,activeUser} = this.props;
+        const {user,page,size,search, dispatch, currentUser,deleteShowModal,activeUser} = this.props;
+
 
         const paginate = (number) => {
             dispatch({
@@ -30,15 +30,6 @@ class AuthAdmin extends Component {
             })
         }
 
-        const openModal = (item) => {
-            dispatch({
-                type: "updateState",
-                payload: {
-                    showModal: !showModal,
-                    currentUser: item
-                }
-            });
-        }
 
         const deleteModal = (item) => {
             dispatch({
@@ -76,32 +67,7 @@ class AuthAdmin extends Component {
             });
         }
 
-        const addUser = () => {
-            let firstName = document.getElementById("firstName").value;
-            let lastName = document.getElementById("lastName").value;
-            let phoneNumber = document.getElementById("phoneNumber").value;
-            let email = document.getElementById("email").value;
-            let password = document.getElementById("password").value;
-            let prePassword = document.getElementById("prePassword").value;
-            let obj = currentUser ? {
-                    id: currentUser.id,
-                    firstName,
-                    lastName,
-                    phoneNumber,
-                    email,
-                    password,
-                    prePassword
-                } :
-                {firstName, lastName, phoneNumber, email, password, prePassword};
-            console.log(obj)
-            this.props.dispatch(saveCompanyUser(obj));
-            dispatch({
-                type: "updateState",
-                payload: {
-                    showModal: !showModal
-                }
-            })
-        }
+
 
         const set = (item)=>{
             const lowerCase = item.target.value.toLowerCase();
@@ -134,8 +100,7 @@ class AuthAdmin extends Component {
         return (
             <div className="ms-5 me-5">
                 <Sidebar/>
-                <div className="mt-3">
-                    <Button color="info" outline onClick={openModal}>Add User</Button>
+                <div className="mt-5">
                     <div className="wrapper">
                         <div className="search-wrapper">
                             <label htmlFor="search-form">
@@ -174,7 +139,6 @@ class AuthAdmin extends Component {
                                     <Input type="checkbox" checked={item.active} onClick={() => changeActiveUser(item)}
                                            onChange={changeActive}/>}
                                 </td>
-                                <td><Button color="warning" outline onClick={() => openModal(item)}>Edit</Button></td>
                                 <td><Button color="danger" outline onClick={() => deleteModal(item)}>Delete</Button>
                                 </td>
                             </tr>
@@ -197,24 +161,6 @@ class AuthAdmin extends Component {
 
 
 
-
-                <Modal isOpen={showModal}>
-                    <ModalHeader>{currentUser ? "Edit User" : "add User"}</ModalHeader>
-                    <ModalBody>
-                        <Input className='mb-2' type="text" id="firstName" placeholder="Enter first name" required/>
-                        <Input className='mb-2' type="text" id="lastName" placeholder="Enter last name" required/>
-                        <Input className='mb-2' type="text" id="phoneNumber" placeholder="Enter phone number" required/>
-                        <Input className='mb-2' type="email" id="email" placeholder="Enter email" required/>
-                        <Input className='mb-2' type="password" id="password" placeholder="Enter password" required/>
-                        <Input className='mb-2' type="password" id="prePassword" placeholder="Enter pre  password"
-                               required/>
-                    </ModalBody>
-                    <ModalFooter>
-                        <Button color="danger" outline onClick={openModal}>Cansel</Button>
-                        <Button color="success" outline onClick={addUser}>Save</Button>
-                    </ModalFooter>
-                </Modal>
-
                 <Modal isOpen={deleteShowModal}>
                     <ModalHeader>Delete User</ModalHeader>
                     <ModalFooter>
@@ -231,7 +177,7 @@ class AuthAdmin extends Component {
 AuthAdmin.propTypes = {};
 
 export default connect(
-    ({app:{user,page,size,search, dispatch,showModal,currentUser,deleteShowModal,activeUser,pages}})=>
-    ({user,page, size, search,dispatch, showModal,currentUser, deleteShowModal,activeUser,pages}))
+    ({app:{user,page,size,search, dispatch,currentUser,deleteShowModal,activeUser,pages}})=>
+    ({user,page, size, search,dispatch,currentUser, deleteShowModal,activeUser,pages}))
 (AuthAdmin);
 

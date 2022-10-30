@@ -57,6 +57,7 @@ public class CompanyController {
         return ResponseEntity.ok(companyRepository.findAll());
     }
 
+
     @PutMapping("/active/{id}")
     public HttpEntity<?> changeActiveCom(@PathVariable UUID id){
         ApiResponse apiResponse = companyService.changeActiveCom(id);

@@ -6,6 +6,9 @@ import data from "bootstrap/js/src/dom/data";
 export const getUsers = () => {
     return HttpClient.doGet(api.users);
 }
+export const loginSuperAdmin = (data) =>{
+    return HttpClient.doPost(api.users + "/superAdmin/login", data)
+}
 export const getCabinetCompany=(data) =>{
     return HttpClient.doPost(api.users + "/company/login" , data)
 }
@@ -21,16 +24,10 @@ export const addCompanyAdmin = (data) =>{
 export const addCompanyKassa= (data) =>{
     return HttpClient.doPost(api.users + "/companyKassa", data);
 }
-// export const getCompanyKassa = (data) =>{
-//     return HttpClient.doGet(api.users + "/company/kassa/" + data)
-// }
-export const editUser = (data) => {
-    return HttpClient.doPut(api.users + "/" + data.id, data);
+export const editCompanyKassa = (data) => {
+    return HttpClient.doPut(api.users + "/companyKassa/" + data.id, data);
 }
 export const removeUsers = (data) =>{
-    return HttpClient.doDelete(api.users + "/" + data);
-}
-export const deleteCompanyKassa=(data) =>{
     return HttpClient.doDelete(api.users + "/" + data);
 }
 export const activeUser = (data) => {

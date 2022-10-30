@@ -17,7 +17,7 @@ function Sidebar(props) {
 
     const images = [
         {img: company, name: "company", url: "/company"},
-        {img: order, name: "order", url: "/order"},
+        {img: order, name: "cashback", url: "/order"},
         {img: user, name: "user", url: "/user"}
     ]
 

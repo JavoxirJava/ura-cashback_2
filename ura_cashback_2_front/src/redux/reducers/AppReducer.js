@@ -14,7 +14,6 @@ const initState = {
     //     // companyClient:[],
     //     // companyKassa:[],
     // comMalumot: companyMalumot,
-    companyId: '',
     adminPanel: false,
     res:false,
     user: [],
@@ -23,7 +22,6 @@ const initState = {
     size:"5",
     activeUser: false,
     orders: [],
-    roles: [],
     company: [],
     oneOrder: {},
     imgId: {},
@@ -48,12 +46,6 @@ const reducers = {
     },
     [types.GET_USER_LIST](state, payload) {
         state.user = payload.payload.object
-    },
-    [types.GET_USER_LIST](state, payload) {
-        state.currentUser = payload.payload
-    },
-    [types.GET_USER_COMPANY](state,payload){
-        state.companyId = payload.payload.id
     },
     [types.REQUEST_SUCCESS](state) {
         state.showModal = false

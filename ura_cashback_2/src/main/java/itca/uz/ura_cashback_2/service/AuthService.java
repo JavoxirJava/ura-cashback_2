@@ -98,15 +98,21 @@ public class AuthService{
                     user.setPhoneNumber(authDto.getPhoneNumber());
                     user.setEmail(authDto.getEmail());
                     user.setPassword(authDto.getPassword());
-                    user.setSalary(0.0);
                     User save = authRepository.save(user);
 
-                    CompanyUserRole companyUserRole = new CompanyUserRole();
-                    companyUserRole.setCompanyId(authDto.getCompanyId());
-                    companyUserRole.setRoleId(roleRepository.findRoleByRoleName(RoleName.ROLE_KASSA).getId());
-                    companyUserRole.setUserId(save.getId());
-                    companyUserRoleRepository.save(companyUserRole);
-
+                    if(authDto.getId() == null) {
+                        CompanyUserRole companyUserRole = new CompanyUserRole();
+                        companyUserRole.setCompanyId(authDto.getCompanyId());
+                        companyUserRole.setRoleId(roleRepository.findRoleByRoleName(RoleName.ROLE_KASSA).getId());
+                        companyUserRole.setUserId(save.getId());
+                        companyUserRoleRepository.save(companyUserRole);
+                    }else {
+                        CompanyUserRole companyUserRole = companyUserRoleRepository.findByUserIdEquals(authDto.getId());
+                        companyUserRole.setCompanyId(authDto.getCompanyId());
+                        companyUserRole.setRoleId(roleRepository.findRoleByRoleName(RoleName.ROLE_KASSA).getId());
+                        companyUserRole.setUserId(save.getId());
+                        companyUserRoleRepository.save(companyUserRole);
+                    }
                     return save;
                 }
             }

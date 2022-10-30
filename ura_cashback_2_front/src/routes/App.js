@@ -29,8 +29,8 @@ function App() {
                 //
 
                 //SuperAdminPanel
-                <Route path='/admin' element={AdminPanel}/>
-                <Route path='/company' element={CompanyAdmin}/>
+                <Route path='/admin' element={<AdminPanel/>}/>
+                <Route path='/company' element={<CompanyAdmin/>}/>
                 <Route path='/user' element={<AuthAdmin/>}/>
                 <Route path='/order' element={<Order/>}/>
                 <Route path='/*' element={<NotFount/>}/>
@@ -41,7 +41,7 @@ function App() {
                 <Route path='/company/register' element={<CompanyClint/>}/>
                 //
 
-                //cabinet
+                //Company cabinet
                 <Route path='/cabinetOrder' element={<CabinetOrder/>}/>
                 <Route path='/company/settings' element={<CompanySettings/>}/>
                 <Route path='/cabinetClient' element={<CabinetClient/>}/>
@@ -58,7 +58,7 @@ function App() {
                 //
 
                 //kassa
-                <Route path='/kassa/' element={<KasserLogin/>}/>
+                <Route path='/kassa' element={<KasserLogin/>}/>
                 //
 
 

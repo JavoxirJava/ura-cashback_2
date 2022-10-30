@@ -2,27 +2,23 @@ import * as api from "../../api/AppApi";
 import {
     activeUser,
     addAttachment,
+    addCompany,
     addCompanyAdmin,
     addCompanyKassa,
     addCompanyUser,
     addOrder,
-    addAttachment,
-    addCompanyAdmin,
-    addCompanyKassa,
-    addCompanyUser,
-    addOrder, deleteCompanyKassa,
     deleteOrder,
+    editCompany,
+    editCompanyKassa,
     editOrder,
     findByPhoneNumber,
     findByUser,
     getCabinetCompany,
     getCompanies,
-    findByUser,
-    getCabinetCompany,
     getOneUsers,
     getOrders,
     getUsers,
-    loginOrder,
+    loginOrder, loginSuperAdmin,
     removeUsers
 } from "../../api/AppApi";
 import * as types from "../actionTypes/AppActionTypes";
@@ -56,17 +52,11 @@ export const loginCompany = (payload) => (dispatch) =>{
             localStorage.setItem("orders", JSON.stringify(res.payload.orders))
             localStorage.setItem("client", JSON.stringify(res.payload.clint))
             localStorage.setItem("kassa", JSON.stringify(res.payload.kassa))
-        if(res !== null) {
-            localStorage.setItem("company malumot", JSON.stringify(res))
             dispatch({
                 type: 'updateState',
                 payload: {
                     openLogin: true
-                },
-                payload:{
-                    openCompany: true
                 }
-
             })
             toast.success("Successfully save")
             toast.success("Successfully company login")
@@ -108,6 +98,40 @@ export const getOneUser = (payload) => (dispatch) => {
         ],
         data: payload
     });
+}
+export const superAdminLogin = (payload) => (dispatch) =>{
+    dispatch({
+        api: loginSuperAdmin,
+        types:[
+            types.REQUEST_START,
+            types.REQUEST_SUCCESS,
+            types.REQUEST_ERROR
+        ],
+        data: payload
+    }).then(res=>{
+        if(res.success){
+            toast.success(res.message)
+            dispatch({
+                type: 'updateState',
+                payload:{
+                    openLogin : true
+                }
+            })
+        }
+        toast.error(res.message)
+    })
+}
+
+//company
+export const getCompany = () => (dispatch) => {
+    dispatch({
+        api: getCompanies,
+        types: [
+            types.REQUEST_START,
+            types.GET_COMPANY_LIST,
+            types.REQUEST_ERROR
+        ]
+    })
 }
 
 export const saveCompanyAdmin = (payload) => (dispatch) =>{
@@ -158,7 +182,7 @@ export const saveCompanyUser = (payload) => (dispatch) =>{
 
 export const saveCompanyKassa = (payload) => (dispatch) =>{
     dispatch({
-        api: addCompanyKassa,
+        api: payload.id ? editCompanyKassa : addCompanyKassa,
         types:[
             types.REQUEST_START,
             types.REQUEST_SUCCESS,
@@ -167,11 +191,18 @@ export const saveCompanyKassa = (payload) => (dispatch) =>{
         data : payload
     }).then(res =>{
         if(res !== undefined){
+            if(payload.id !== null){
+                const kassa = JSON.parse(localStorage.getItem("kassa"));
+                const filter = kassa.filter(item => item.id !== payload.id);
+                const newKassa = JSON.stringify(...[filter, res]);
+                localStorage.setItem("kassa",newKassa);
+                console.log(localStorage.getItem("kassa"), " edit kassa")
+            }
             console.log(res.payload, " company kassa")
             const kassa = JSON.parse(localStorage.getItem("kassa"))
             const newKassa = JSON.stringify([...kassa,res.payload])
             localStorage.setItem('kassa',newKassa)
-            console.log(JSON.parse(localStorage.getItem('kassa')))
+            console.log(JSON.parse(localStorage.getItem('kassa')), ' save kassa')
             toast.success("Successfully save")
             dispatch({
                 type: 'updateState',
@@ -186,19 +217,6 @@ export const saveCompanyKassa = (payload) => (dispatch) =>{
         }
     })
 }
-export const removeCompanyKassa = (payload) => (dispatch)=>{
-    dispatch({
-        api: deleteCompanyKassa,
-        types:[
-            types.REQUEST_START,
-            types.REQUEST_SUCCESS,
-            types.REQUEST_ERROR
-        ],
-        data: payload.id
-    }).then(res=>{
-        toast.success("Successfully delete")
-    })
-}
 
 export const removeUser = (payload) => (dispatch) => {
     dispatch({
@@ -210,11 +228,10 @@ export const removeUser = (payload) => (dispatch) => {
         ],
         data: payload
     }).then(res => {
+        console.log(res)
         const kassa = JSON.parse(localStorage.getItem("kassa"))
         const filter = kassa.filter(item => item.id !== res.data);
         localStorage.setItem("kassa",JSON.stringify(filter))
-
-        dispatch(getUser())
         toast.success(res);
     })
 }
@@ -234,7 +251,7 @@ export const isActiveUser = (payload) => (dispatch) => {
 }
 export const saveCompany = (payload) => (dispatch) => {
     dispatch({
-        api: payload.id ? api.editCompany : api.addCompany,
+        api: payload.id ? editCompany : addCompany,
         types: [
             types.REQUEST_START,
             types.REQUEST_SUCCESS,
@@ -303,17 +320,6 @@ export const saveOrder = (payload) => (dispatch) => {
         }
     })
 }
-//company
-export const getCompany = () => (dispatch) => {
-    dispatch({
-        api: getCompanies,
-        types: [
-            types.REQUEST_START,
-            types.GET_COMPANY_LIST,
-            types.REQUEST_ERROR
-        ]
-    })
-}
 
 export const loginOrderAction = (payload) => (dispatch) => {
     dispatch({
@@ -347,7 +353,7 @@ export const delOrder = (payload) => (dispatch) => {
             types.REQUEST_ERROR
         ],
         data: payload,
-    }).then(key => {
+    }).then(() => {
         toast.success("Order deleted successfully!");
     }).catch(() => {
         toast.error("Error delete order!");

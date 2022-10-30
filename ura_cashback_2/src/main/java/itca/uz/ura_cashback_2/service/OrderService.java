@@ -40,7 +40,7 @@ public class OrderService {
         double cashback = 0, cash_price = 0;
         User getClient = authService.getOneUser(orderDto.getClientId());
         User getAdmin = authService.getOneUser(orderDto.getAdminId());
-        Company getCompany = companyUserRoleService.getCompanyFindByUser(getAdmin.getId(), roleRepository.findRoleByRoleName(RoleName.ROLE_ADMIN).getId());
+        Company getCompany = companyUserRoleService.getCompanyFindByUser(getAdmin.getId(), roleRepository.findRoleByRoleName(RoleName.ROLE_KASSA).getId());
         if (orderDto.getCashback() != null) cashback = orderDto.getCashback();
         if (orderDto.getCash_price() != null) cash_price = orderDto.getCash_price();
         if (cashback <= getClient.getSalary()) {

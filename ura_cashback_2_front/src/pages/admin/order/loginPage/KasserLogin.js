@@ -7,9 +7,8 @@ import Kassa from "./Kassa";
 
 function KasserLogin(props) {
 
-    const {dispatch, showModal,} = props;
-    const company = localStorage.getItem("company");
-    const companys = JSON.parse(company)
+    const company = JSON.parse(localStorage.getItem("company"));
+
 
     const {dispatch, showModal} = props;
 
@@ -17,7 +16,7 @@ function KasserLogin(props) {
         const phoneNumber = document.getElementById("phoneNumber").value;
         const password = document.getElementById("password").value;
         dispatch(loginOrderAction({phoneNumber, password}));
-        dispatch(loginOrderAction({phoneNumber, password,companyId: companys.id}));
+        dispatch(loginOrderAction({phoneNumber, password,companyId: company.id}));
     }
 
     return (

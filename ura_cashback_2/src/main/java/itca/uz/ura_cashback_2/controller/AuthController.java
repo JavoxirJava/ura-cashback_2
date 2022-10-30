@@ -47,7 +47,7 @@ public class AuthController {
         return ResponseEntity.ok( authService.loginCompany(reqLogin));
     }
 
-    @PostMapping("/admin/login")
+    @PostMapping("/superAdmin/login")
     public HttpEntity<?> loginSuperAdmin(@RequestBody ReqLogin reqLogin){
         return ResponseEntity.ok(authService.loginSuperAdmin(reqLogin));
     }
@@ -55,6 +55,7 @@ public class AuthController {
     public HttpEntity<?> passwordEdit(@RequestBody ReqPassword reqPassword){
         return ResponseEntity.ok(authService.editPassword(reqPassword));
     }
+
 
     @PutMapping("/companyAdmin/{id}")
     public HttpEntity<?> editCompanyAdmin(@PathVariable UUID id, @RequestBody AuthDto authDto){
@@ -86,16 +87,6 @@ public class AuthController {
         return ResponseEntity.ok(authService.getOneUser(id));
     }
 
-
-//    @PostMapping("/company/login")
-//    public HttpEntity<?> companyLogin(@RequestBody ReqLogin reqLogin){
-//        return ResponseEntity.ok(authService.companyLogin(reqLogin));
-//    }
-
-//    @GetMapping("/company/kassa/{id}")
-//    public HttpEntity<?> companyKassa(@PathVariable UUID id){
-//        return ResponseEntity.ok(authService.companyKassa(id));
-//    }
 
 
     @PutMapping("/active/{id}")

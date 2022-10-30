@@ -13,8 +13,7 @@ class CabinetClient extends Component {
 
         const {comMalumot} = this.props;
 
-        const client = localStorage.getItem("client");
-        const clients = JSON.parse(client)
+        const client = JSON.parse(localStorage.getItem("client"));
 
 
         return (
@@ -33,10 +32,7 @@ class CabinetClient extends Component {
                             <th>Password</th>
                         </tr>
                         </thead>
-                        {clients.length != null &&
-                            clients.map((item, i) =>
-                        {comMalumot.payload.clint.length != null &&
-                            comMalumot.payload.clint.map((item, i) =>
+                        {client.map((item, i) =>
                                 <tbody key={i}>
                                 <tr>
                                     <td>{i + 1}</td>
@@ -61,7 +57,5 @@ CabinetClient.propTypes = {};
 
 export default connect(
     ({app: {comMalumot, activeUser}}) =>
-        ({comMalumot, activeUser}))
-    ({app: { activeUser}}) =>
-        ({ activeUser}))
+    ({ activeUser, comMalumot}))
 (CabinetClient);

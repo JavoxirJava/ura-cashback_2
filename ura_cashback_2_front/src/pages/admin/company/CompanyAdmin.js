@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {connect} from "react-redux";
 import {activeCompany, getCompany,} from "../../../redux/actions/AppAction";
-import {Input, Label, Row, Table} from "reactstrap";
+import {Button, Input, Label, Row, Table} from "reactstrap";
 import {api} from "../../../api/api";
 import '../style.scss';
 import Sidebar from "../../clint/navbar/Sidebar";
@@ -16,11 +16,30 @@ class CompanyAdmin extends Component {
         document.body.style.marginLeft = "3.7%";
         document.body.style.backgroundColor = "white";
 
-        const {company, page, size, dispatch, active} = this.props;
+        const {company,search, page, size, dispatch, active} = this.props;
+
+        const set = (item)=>{
+            const lowerCase = item.target.value.toLowerCase();
+            dispatch({
+                type:"updateState",
+                payload:{
+                    search:lowerCase
+                }
+            })
+        }
+
+        //Search
+        const filter = company.filter((el)=>{
+            if(search === ''){
+                return el;
+            }else {
+                return el.name.toLowerCase().includes(search)
+            }
+        })
 
         const indexOfLasPost = page * size;
         const indexOfFirstPosts = indexOfLasPost - size;
-        const currentPosts = company.slice(indexOfFirstPosts, indexOfLasPost);
+        const currentPosts = filter.slice(indexOfFirstPosts, indexOfLasPost);
 
 
         const pageNumbers = [];
@@ -54,6 +73,15 @@ class CompanyAdmin extends Component {
             <div>
                 <Sidebar/>
                 <div className="ms-5 me-5 comp">
+                    <div className="wrapper">
+                        <div className="search-wrapper">
+                            <label htmlFor="search-form">
+                                <Input type="search" name="search-form" placeholder="Search name"
+                                       onChange={(item)=> set(item)}/>
+                                <Button><i className="pi pi-search"/></Button>
+                            </label>
+                        </div>
+                    </div>
                     <Table>
                         <thead>
                         <tr>
@@ -91,15 +119,17 @@ class CompanyAdmin extends Component {
                             )}
                     </Table>
                 </div>
-                <nav>
-                    <ul className="pagination">
-                        {pageNumbers.map((number, i) =>
-                            <li key={i} className="page-item">
-                                <a onClick={() => paginate(number)} className="page-link">{number}</a>
-                            </li>
-                        )}
-                    </ul>
-                </nav>
+                <div className='comPagination'>
+                    <nav>
+                        <ul className="pagination">
+                            {pageNumbers.map((number, i) =>
+                                <li key={i} className="page-item">
+                                 <a onClick={() => paginate(number)} className="page-link">{number}</a>
+                                </li>
+                            )}
+                        </ul>
+                    </nav>
+                </div>
             </div>
         );
     }
@@ -107,7 +137,7 @@ class CompanyAdmin extends Component {
 CompanyAdmin.propTypes = {};
 
 export default connect(
-    ({app: {company, page, size, active}}) =>
-        ({company, page, size, active}))
+    ({app: {company,search, page, size, active}}) =>
+        ({company,search, page, size, active}))
 (CompanyAdmin);
 
