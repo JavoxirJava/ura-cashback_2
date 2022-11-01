@@ -60,7 +60,7 @@ export const findByUser = (data) => {
 }
 //*****************************************************************=> Company
 export const getCompanies = () => {
-    return HttpClient.doGet(api.company);
+    return HttpClient.doGet(api.company + "/list");
 }
 export const addCompany = (data) => {
     return HttpClient.doPost(api.company, data);

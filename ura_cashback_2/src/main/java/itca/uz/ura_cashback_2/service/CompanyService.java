@@ -1,23 +1,24 @@
 package itca.uz.ura_cashback_2.service;
 
 import itca.uz.ura_cashback_2.entity.Company;
-import itca.uz.ura_cashback_2.entity.CompanyUserRole;
+import itca.uz.ura_cashback_2.entity.Role;
 import itca.uz.ura_cashback_2.entity.User;
 import itca.uz.ura_cashback_2.entity.enums.RoleName;
 import itca.uz.ura_cashback_2.payload.ApiResponse;
 import itca.uz.ura_cashback_2.payload.CompanyDto;
 import itca.uz.ura_cashback_2.payload.ResPageable;
 import itca.uz.ura_cashback_2.repository.AttachmentRepository;
+import itca.uz.ura_cashback_2.repository.AuthRepository;
 import itca.uz.ura_cashback_2.repository.CompanyRepository;
-import itca.uz.ura_cashback_2.repository.CompanyUserRoleRepository;
 import itca.uz.ura_cashback_2.repository.RoleRepository;
 import itca.uz.ura_cashback_2.utils.CommonUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.ResourceAccessException;
 
-import java.util.Optional;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -26,14 +27,14 @@ public class CompanyService {
 
     final CompanyRepository companyRepository;
     final AttachmentRepository attachmentRepository;
-    final CompanyUserRoleRepository companyUserRoleRepository;
     final RoleRepository roleRepository;
+    final AuthRepository authRepository;
 
-    public CompanyService(CompanyRepository companyRepository, AttachmentRepository attachmentRepository, CompanyUserRoleRepository companyUserRoleRepository, RoleRepository roleRepository) {
+    public CompanyService(CompanyRepository companyRepository, AttachmentRepository attachmentRepository, RoleRepository roleRepository, AuthRepository authRepository) {
         this.companyRepository = companyRepository;
         this.attachmentRepository = attachmentRepository;
-        this.companyUserRoleRepository = companyUserRoleRepository;
         this.roleRepository = roleRepository;
+        this.authRepository = authRepository;
     }
 
     public ApiResponse addCompany(CompanyDto companyDto, Company company) {
@@ -45,13 +46,12 @@ public class CompanyService {
                 company.setClientPercentage(companyDto.getClintPercentage());
                 company.setAttachment(attachmentRepository.findById(companyDto.getAttachmentId())
                         .orElseThrow(() -> new ResourceAccessException("GetAttachment")));
-                Company saveCompany = companyRepository.save(company);
-                //companyUser
-                CompanyUserRole companyUserRole = new CompanyUserRole();
-                companyUserRole.setCompanyId(saveCompany.getId());
-                companyUserRole.setRoleId(roleRepository.findRoleByRoleName(RoleName.ROLE_ADMIN).getId());
-                companyUserRole.setUserId(companyDto.getUserId());
-                companyUserRoleRepository.save(companyUserRole);
+                Company save = companyRepository.save(company);
+                User user = authRepository.findById(companyDto.getUserId()).get();
+                user.setCompanies(Collections.singletonList(save));
+                user.setRoles(Collections.singletonList(roleRepository.findRoleByRoleName(RoleName.ROLE_ADMIN)));
+                authRepository.save(user);
+
                 return new ApiResponse("Successfully saved company", true);
             }
             return new ApiResponse("Attachment already exist", false);
@@ -59,45 +59,50 @@ public class CompanyService {
         return new ApiResponse("Name already exist", false);
     }
 
-    public CompanyDto getOneCompany(UUID id ,User user) {
-        Company company = getOneCompany(id);
-        return new CompanyDto(
-                company.getId(),
-                company.getName(),
-                company.getBio(),
-                company.getDescription(),
-                company.getClientPercentage(),
-                company.getAttachment(),
-                company.isActive());
+    public CompanyDto getOneCompany(UUID id) {
+        Company company = companyRepository.findById(id).get();
+        for(User user : authRepository.findAll()){
+            for(Company company1 : user.getCompanies()){
+                if(company1.getId().equals(id)){
+                    for(Role role : user.getRoles()){
+                        if(role.getId().equals(roleRepository.findRoleByRoleName(RoleName.ROLE_ADMIN).getId()) || role.getId().equals(roleRepository.findRoleByRoleName(RoleName.ROLE_SUPER_ADMIN).getId())){
+                            return new CompanyDto(
+                                    company.getId(),
+                                    company.getName(),
+                                    company.getBio(),
+                                    company.getDescription(),
+                                    company.getClientPercentage(),
+                                    company.getAttachment(),
+                                    company.isActive(),
+                                    authRepository.findById(user.getId()).get());
+                        }
+                    }
+                }
+            }
+        }
+        return null;
     }
 
-    public Company getOneCompany(UUID companyId) {
-        return companyRepository.findById(companyId).orElseThrow(() -> new ResourceAccessException("GetCompany"));
+    public List<CompanyDto> companyList() {
+        return companyRepository.findAll().stream().map(company -> getOneCompany(company.getId())).collect(Collectors.toList());
     }
 
-    public ResPageable getCompanyPage(int page, int size, User user) throws Exception {
-        Page<Company> allCompany = companyRepository.findAll(CommonUtils.getPageable(page, size));
-        return new ResPageable(
-                page,
-                size,
-                allCompany.getTotalElements(),
-                allCompany.getTotalPages(),
-                allCompany.getContent().stream().map(company -> getOneCompany(company.getId(), user))
-                        .collect(Collectors.toList())
-        );
-    }
+//    public ResPageable getCompanyPage(int page, int size, User user) throws Exception {
+//        Page<Company> allCompany = companyRepository.findAll(CommonUtils.getPageable(page, size));
+//        return new ResPageable(
+//                page,
+//                size,
+//                allCompany.getTotalElements(),
+//                allCompany.getTotalPages(),
+//                allCompany.getContent().stream().map(company -> getOneCompany(company.getId(), user))
+//                        .collect(Collectors.toList())
+//        );
+//    }
 
     public ApiResponse changeActiveCom(UUID id) {
-        Optional<Company> byId = companyRepository.findById(id);
-        if (byId.isPresent()) {
-//            if (user.getRoles().size() > 2) {
-            Company company = byId.get();
-            company.setActive(!company.isActive());
-            companyRepository.save(company);
-            return new ApiResponse(company.isActive() ? "Company active" : "Company inactive", true);
-//            }
-//            return new ApiResponse("User role not equals", false);
-        }
-        return new ApiResponse("Company not found", false);
+        Company company = companyRepository.findById(id).get();
+        company.setActive(!company.isActive());
+        companyRepository.save(company);
+        return new ApiResponse("Successfully active company",true);
     }
 }

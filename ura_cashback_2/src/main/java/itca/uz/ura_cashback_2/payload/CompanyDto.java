@@ -41,7 +41,7 @@ public class CompanyDto {
     private boolean active;
 
 
-    public CompanyDto(UUID id, String name, String bio, String description, Double clintPercentage, Attachment attachment, boolean active) {
+    public CompanyDto(UUID id, String name, String bio, String description, Double clintPercentage, Attachment attachment, boolean active, User user) {
         this.id = id;
         this.name = name;
         this.bio = bio;
@@ -49,5 +49,6 @@ public class CompanyDto {
         this.clintPercentage = clintPercentage;
         this.attachment = attachment;
         this.active = active;
+        this.user = user;
     }
 }

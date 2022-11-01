@@ -18,6 +18,7 @@ class CompanyAdmin extends Component {
 
         const {company,search, page, size, dispatch, active} = this.props;
 
+
         const set = (item)=>{
             const lowerCase = item.target.value.toLowerCase();
             dispatch({
@@ -90,7 +91,8 @@ class CompanyAdmin extends Component {
                             <th>Name</th>
                             <th>Bio</th>
                             <th>Description</th>
-                            <th>ClintPercentage</th>
+                            <th>Owner</th>
+                            <th>Client Percentage</th>
                             <th>Active</th>
                         </tr>
                         </thead>
@@ -103,11 +105,12 @@ class CompanyAdmin extends Component {
                                     <td>{item.name}</td>
                                     <td>{item.bio}</td>
                                     <td>{item.description}</td>
-                                    <td>{item.clientPercentage}</td>
+                                    <td>{item.user.firstName} {item.user.lastName}</td>
+                                    <td>{item.clintPercentage} %</td>
                                     <td>
                                         <Row>
                                             <Label check for="active">
-                                                <div className="form-check form-switch">
+                                                <div className="form-check">
                                                     <Input type="checkbox" defaultChecked={item.active}
                                                            onChange={() => {changeActive();changeActiveCompany(item.id)}}/>
                                                 </div>

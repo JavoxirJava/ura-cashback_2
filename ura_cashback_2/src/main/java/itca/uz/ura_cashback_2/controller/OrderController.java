@@ -28,10 +28,10 @@ public class OrderController {
         return ResponseEntity.ok(orderService.getOrderList());
     }
 
-    @GetMapping("/{id}")
-    public HttpEntity<?> getOrderFindByUser(@PathVariable UUID id) {
-        return ResponseEntity.ok(orderService.getFindByUser(id));
-    }
+//    @GetMapping("/{id}")
+//    public HttpEntity<?> getOrderFindByUser(@PathVariable UUID id) {
+//        return ResponseEntity.ok(orderService.getFindByUser(id));
+//    }
 
     @PostMapping
     public HttpEntity<?> addOrder(@RequestBody OrderDto orderDto) {
@@ -49,6 +49,7 @@ public class OrderController {
     public HttpEntity<?> deleteOrder(@PathVariable UUID id) {
         return ResponseEntity.ok(orderService.deleteOrder(id));
     }
+
 
     @PutMapping("/login")
     public HttpEntity<?> isLogin(@RequestBody ReqLogin loginDto) {

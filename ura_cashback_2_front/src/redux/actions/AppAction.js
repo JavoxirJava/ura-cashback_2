@@ -292,6 +292,8 @@ export const activeCompany = (payload) => (dispatch) => {
         toast.error("Error active company!");
     })
 }
+
+// Order
 export const getOrder = () => (dispatch) => {
     dispatch({
         api: getOrders,

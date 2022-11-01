@@ -34,7 +34,6 @@ function OrderAdd(props) {
     }
 
     const onChange = (item) =>{
-        console.log(item.target.value, "change")
         if(currentUser.salary < item.target.value){
             setRes(true)
         }else {
@@ -71,7 +70,7 @@ function OrderAdd(props) {
                             <Input   onChange={(item)=> onChange(item)}   type="text" placeholder="cashback" id="cashback"
                                    className="mt-3 mb-5 fw-semibold p-3 ms-1 me-1  float-start cash"/>}
                             <Button onClick={() => openModal()} className="orderButton">All</Button>
-                        {res ? <small style={{color:"red"}}>kiritilgan cashback katta</small> : ""}
+                        {res ? <small style={{color:"red",marginTop:"-30px"}}>  Sizda bu miqdardagi cashback yo'q</small> : ""}
                         <Button style={{
                             backgroundColor: "#5468FF",
                             height: "50px",
