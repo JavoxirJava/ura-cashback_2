@@ -34,7 +34,7 @@ public class AuthController {
         return ResponseEntity.status(apiResponse.isSuccess() ? 200 : 409).body(apiResponse);
     }
 
-    @PreAuthorize(value = "hasAnyRole('ROLE_SUPERADMIN', 'ROLE_ADMIN')")
+//    @PreAuthorize(value = "hasAnyRole('ROLE_SUPERADMIN', 'ROLE_ADMIN')")
     @PostMapping("/companyAdmin")
     public HttpEntity<?> addCompanyAdmin(@RequestBody AuthDto authDto){
         return ResponseEntity.ok(authService.addOrEditCompanyAdmin(authDto, new User()));

@@ -51,4 +51,6 @@ public class CompanyDto {
         this.active = active;
         this.user = user;
     }
+
+
 }

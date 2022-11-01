@@ -1,17 +1,18 @@
 package itca.uz.ura_cashback_2.service;
 
 
-import itca.uz.ura_cashback_2.entity.*;
+import itca.uz.ura_cashback_2.entity.Company;
+import itca.uz.ura_cashback_2.entity.Order;
+import itca.uz.ura_cashback_2.entity.Role;
+import itca.uz.ura_cashback_2.entity.User;
 import itca.uz.ura_cashback_2.entity.enums.RoleName;
 import itca.uz.ura_cashback_2.payload.*;
 import itca.uz.ura_cashback_2.repository.*;
 import itca.uz.ura_cashback_2.utils.CommonUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.ResourceAccessException;
 
-import javax.management.relation.RoleUnresolved;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -45,11 +46,9 @@ public class AuthService{
                     user.setEmail(authDto.getEmail());
                     user.setPassword(authDto.getPassword());
                     user.setSalary(0.0);
-                    user.setCompanies((List<Company>) companyRepository.findById(authDto.getCompanyId()).get());
-                    user.setRoles((List<Role>) roleRepository.findRoleByRoleName(RoleName.ROLE_USER));
-                    User save = authRepository.save(user);
-
-
+                    user.setCompanies(Collections.singletonList(companyRepository.findById(authDto.getCompanyId()).get()));
+                    user.setRoles(Collections.singletonList(roleRepository.findRoleByRoleName(RoleName.ROLE_USER)));
+                    authRepository.save(user);
                     return new ApiResponse("User saved", true);
                 }
                 return new ApiResponse("Password and PrePassword are not the same", false);
@@ -74,7 +73,6 @@ public class AuthService{
                     user.setPhoneNumber(authDto.getPhoneNumber());
                     user.setEmail(authDto.getEmail());
                     user.setPassword(authDto.getPassword());
-                    user.setSalary(0.0);
                     User saveUser = authRepository.save(user);
                     return saveUser.getId();
                 }
@@ -92,8 +90,8 @@ public class AuthService{
                     user.setPhoneNumber(authDto.getPhoneNumber());
                     user.setEmail(authDto.getEmail());
                     user.setPassword(authDto.getPassword());
-                    user.setCompanies((List<Company>) companyRepository.findById(authDto.getCompanyId()).get());
-                    user.setRoles((List<Role>) roleRepository.findRoleByRoleName(RoleName.ROLE_KASSA));
+                    user.setCompanies(Collections.singletonList(companyRepository.findById(authDto.getCompanyId()).get()));
+                    user.setRoles(Collections.singletonList(roleRepository.findRoleByRoleName(RoleName.ROLE_KASSA)));
                     return authRepository.save(user);
                 }
             }
@@ -221,8 +219,10 @@ public class AuthService{
 
     public ApiResponse loginSuperAdmin(ReqLogin reqLogin){
         User superAdmin = authRepository.findByPhoneNumberEqualsAndPasswordEquals(reqLogin.getPhoneNumber(), reqLogin.getPassword());
-        if (superAdmin.getRoles().equals(roleRepository.findRoleByRoleName(RoleName.ROLE_ADMIN))) {
-            return new ApiResponse("SuperAdmin already exist", true);
+        for(Role role : superAdmin.getRoles()) {
+            if (role.getId().equals(roleRepository.findRoleByRoleName(RoleName.ROLE_SUPER_ADMIN).getId())) {
+                return new ApiResponse("SuperAdmin already exist", true);
+            }
         }
         return new ApiResponse("SuperAdmin not found", false);
     }

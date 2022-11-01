@@ -6,6 +6,7 @@ import java.util.UUID;
 
 @Data
 public class ReqPassword {
+
     private UUID userId;
 
     private String joriyPassword;
