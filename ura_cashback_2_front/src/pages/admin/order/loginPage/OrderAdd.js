@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {Link} from "react-router-dom";
 import image from "./image/logo.png";
-import {Button, Input} from "reactstrap";
+import {Button, Input, Label, Row} from "reactstrap";
 import {saveOrder} from "../../../../redux/actions/AppAction";
 import {connect} from "react-redux";
 
@@ -17,7 +17,6 @@ function OrderAdd(props) {
     const [back, setBack] = useState(true);
     const [open, setOpen] = useState(false);
     const [res, setRes] = useState(false);
-
 
 
     const setBackClick = () => {
@@ -71,7 +70,19 @@ function OrderAdd(props) {
                             <Input   onChange={(item)=> onChange(item)}   type="text" placeholder="cashback" id="cashback"
                                    className="mt-3 mb-5 fw-semibold p-3 ms-1 me-1  float-start cash"/>}
                             <Button onClick={() => openModal()} className="orderButton">All</Button>
-                        {res ? <small style={{color:"red",marginTop:"-30px"}}>  Sizda bu miqdordagi cashback yo'q</small> : ""}
+                        {res ? <small style={{color:"red",marginTop:"-30px"}}>  Sizda bu miqdardagi cashback yo'q</small> : ""}
+                        {open
+                            ? <Input max={currentUser.salary} type="number" value={currentUser.salary} id="cashback" className="mt-5 mb-5 fw-semibold p-3 ms-1 me-1 w-75 float-start"/>
+                            : <Input max={currentUser.salary} type="number" placeholder="cashback"  id="cashback" className="mt-5 mb-5 fw-semibold p-3 ms-1 me-1 w-75 float-start"/>
+                        }
+                        <Row>
+                            <Label check for="active">
+                                <div className="form-check form-switch" style={{marginTop: "60%"}}>
+                                    <Input className="mt-5" type="checkbox" defaultChecked={open} onChange={openModal}/>
+                                </div>
+                            </Label>
+                        </Row>
+                        {/*<input type="range" placeholder="nimadur" max={2}/>*/}
 
                         <Button style={{
                             backgroundColor: "#5468FF",
