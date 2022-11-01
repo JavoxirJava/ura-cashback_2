@@ -47,7 +47,6 @@ export const loginCompany = (payload) => (dispatch) =>{
         data: payload
     }).then(res =>{
         if(res !== undefined) {
-            console.log(res.payload, "AppAction")
             localStorage.setItem("company", JSON.stringify(res.payload));
             localStorage.setItem("orders", JSON.stringify(res.payload.orders))
             localStorage.setItem("client", JSON.stringify(res.payload.clint))
@@ -58,7 +57,6 @@ export const loginCompany = (payload) => (dispatch) =>{
                     openLogin: true
                 }
             })
-            toast.success("Successfully save")
             toast.success("Successfully company login")
         }else {
             toast.error("Company not Active")

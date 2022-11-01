@@ -1,7 +1,7 @@
 import React, {useState} from 'react';
 import {Link} from "react-router-dom";
 import image from "./image/logo.png";
-import {Button, Input, Label, Row} from "reactstrap";
+import {Button, Input} from "reactstrap";
 import {saveOrder} from "../../../../redux/actions/AppAction";
 import {connect} from "react-redux";
 
