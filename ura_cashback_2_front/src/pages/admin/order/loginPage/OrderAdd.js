@@ -71,6 +71,23 @@ function OrderAdd(props) {
                                    className="mt-3 mb-5 fw-semibold p-3 ms-1 me-1  float-start cash"/>}
                             <Button onClick={() => openModal()} className="orderButton">All</Button>
                         {res ? <small style={{color:"red",marginTop:"-30px"}}>  Sizda bu miqdardagi cashback yo'q</small> : ""}
+                        {resPrice
+                            ? <Input type="number" value={price} id="cash_price" className="mt-3 mb-5 fw-semibold p-3 ms-1 me-1"/>
+                            : <Input type="number"  placeholder="cash_price"  id="cash_price" className="mt-3 mb-5 fw-semibold p-3 ms-1 me-1"/>
+                        }
+                        {open
+                            ? <Input max={currentUser.salary} type="number" value={currentUser.salary} id="cashback" className="mt-5 mb-5 fw-semibold p-3 ms-1 me-1 w-75 float-start"/>
+                            : <Input max={currentUser.salary} type="number" placeholder="cashback"  id="cashback" className="mt-5 mb-5 fw-semibold p-3 ms-1 me-1 w-75 float-start"/>
+                        }
+                        <Row>
+                            <Label check for="active">
+                                <div className="form-check form-switch" style={{marginTop: "60%"}}>
+                                    <Input className="mt-5" type="checkbox" defaultChecked={open} onChange={openModal}/>
+                                </div>
+                            </Label>
+                        </Row>
+                        {/*<input type="range" placeholder="nimadur" max={2}/>*/}
+
                         <Button style={{
                             backgroundColor: "#5468FF",
                             height: "50px",
