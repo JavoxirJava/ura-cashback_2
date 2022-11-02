@@ -8,14 +8,13 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import java.util.HashSet;
 
 @EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
 @Entity(name = "users")
-public class User extends AbsEntity { //Shahzod aka, Shahribonu, Sherzod aka
+public class User extends AbsEntity {
     @Column(nullable = false)
     private String firstName;
 

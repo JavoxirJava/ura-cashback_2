@@ -1,20 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="app_ura_cashback_2@localhost" uuid="035aa288-36e7-480b-97b9-a4a685c3aa9e">
+    <data-source source="LOCAL" name="ura_cashback_2@localhost" uuid="cae9339b-ee9b-42f5-b069-5fdd7d1daba7">
       <driver-ref>postgresql</driver-ref>
       <synchronize>true</synchronize>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
-      <jdbc-url>jdbc:postgresql://localhost:5432/app_ura_cashback_2</jdbc-url>
-      <working-dir>$ProjectFileDir$</working-dir>
-    </data-source>
-    <data-source source="LOCAL" name="ura_cashback_2/Hibernate" uuid="67cf761b-5dee-40f9-b219-767bb1023b2f">
-      <driver-ref>postgresql</driver-ref>
-      <synchronize>true</synchronize>
-      <imported>true</imported>
-      <remarks>Hibernate</remarks>
-      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
-      <jdbc-url>jdbc:postgresql://localhost:5432/app_ura_cashback_2</jdbc-url>
+      <jdbc-url>jdbc:postgresql://localhost:5432/ura_cashback_2</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
   </component>

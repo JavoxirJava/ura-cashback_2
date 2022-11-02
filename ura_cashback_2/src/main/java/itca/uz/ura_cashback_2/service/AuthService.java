@@ -100,19 +100,16 @@ public class AuthService{
                     user.setPassword(authDto.getPassword());
                     User save = authRepository.save(user);
 
+                    CompanyUserRole companyUserRole;
                     if(authDto.getId() == null) {
-                        CompanyUserRole companyUserRole = new CompanyUserRole();
-                        companyUserRole.setCompanyId(authDto.getCompanyId());
-                        companyUserRole.setRoleId(roleRepository.findRoleByRoleName(RoleName.ROLE_KASSA).getId());
-                        companyUserRole.setUserId(save.getId());
-                        companyUserRoleRepository.save(companyUserRole);
+                        companyUserRole = new CompanyUserRole();
                     }else {
-                        CompanyUserRole companyUserRole = companyUserRoleRepository.findByUserIdEquals(authDto.getId());
-                        companyUserRole.setCompanyId(authDto.getCompanyId());
-                        companyUserRole.setRoleId(roleRepository.findRoleByRoleName(RoleName.ROLE_KASSA).getId());
-                        companyUserRole.setUserId(save.getId());
-                        companyUserRoleRepository.save(companyUserRole);
+                        companyUserRole = companyUserRoleRepository.findByUserIdEquals(authDto.getId());
                     }
+                    companyUserRole.setCompanyId(authDto.getCompanyId());
+                    companyUserRole.setRoleId(roleRepository.findRoleByRoleName(RoleName.ROLE_KASSA).getId());
+                    companyUserRole.setUserId(save.getId());
+                    companyUserRoleRepository.save(companyUserRole);
                     return save;
                 }
             }
@@ -163,15 +160,6 @@ public class AuthService{
             return null;
     }
 
-    public List<User> companyKassa(UUID id){
-        List<User> userList = new ArrayList<>();
-        List<CompanyUserRole> companyUserRoles = companyUserRoleRepository.findByCompanyIdEqualsAndRoleIdEquals(id, roleRepository.findRoleByRoleName(RoleName.ROLE_KASSA).getId());
-        for(CompanyUserRole companyUserRole : companyUserRoles){
-            userList.add(authRepository.findByIdEquals(companyUserRole.getUserId()));
-        }
-        return userList;
-    }
-
 
     public CompanyDto loginCompany(ReqLogin reqLogin){
         CompanyDto companyDto = new CompanyDto();
@@ -180,7 +168,7 @@ public class AuthService{
         Role role = roleRepository.findByIdEquals(companyUserRole.getRoleId());
         Company company = companyRepository.findByIdEquals(companyUserRole.getCompanyId());
         if(company.isActive()) {
-            if (role.getRoleName().equals(RoleName.ROLE_ADMIN)) {
+            if (role.getRoleName().equals(RoleName.ROLE_ADMIN) || role.getRoleName().equals(RoleName.ROLE_KASSA)) {
                 companyDto.setId(company.getId());
                 companyDto.setName(company.getName());
                 companyDto.setBio(company.getBio());
