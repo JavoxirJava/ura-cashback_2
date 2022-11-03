@@ -19,5 +19,5 @@ public class OrderDto {
     private User client;
     private Double cash_price;
     private Double cashback;
-
+    private UUID companyId;
 }

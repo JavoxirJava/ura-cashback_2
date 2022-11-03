@@ -47,7 +47,6 @@ export const loginCompany = (payload) => (dispatch) =>{
         data: payload
     }).then(res =>{
         if(res !== undefined) {
-            console.log(res.payload, "AppAction")
             localStorage.setItem("company", JSON.stringify(res.payload));
             localStorage.setItem("orders", JSON.stringify(res.payload.orders))
             localStorage.setItem("client", JSON.stringify(res.payload.clint))
@@ -293,6 +292,8 @@ export const activeCompany = (payload) => (dispatch) => {
         toast.error("Error active company!");
     })
 }
+
+// Order
 export const getOrder = () => (dispatch) => {
     dispatch({
         api: getOrders,

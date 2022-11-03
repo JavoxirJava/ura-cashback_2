@@ -6,6 +6,11 @@
       <synchronize>true</synchronize>
       <jdbc-driver>org.postgresql.Driver</jdbc-driver>
       <jdbc-url>jdbc:postgresql://localhost:5432/ura_cashback_2</jdbc-url>
+    <data-source source="LOCAL" name="app_ura_cashback_2@localhost" uuid="36b72e41-9c46-4326-b8c9-86ff8cd9997b">
+      <driver-ref>postgresql</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.postgresql.Driver</jdbc-driver>
+      <jdbc-url>jdbc:postgresql://localhost:5432/app_ura_cashback_2</jdbc-url>
       <working-dir>$ProjectFileDir$</working-dir>
     </data-source>
   </component>

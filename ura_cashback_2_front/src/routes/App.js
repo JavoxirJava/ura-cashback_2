@@ -16,6 +16,7 @@ import CompanyKassa from "../pages/companyCabinet/CompanyKassa";
 import CabinetClient from "../pages/companyCabinet/CabinetClient";
 import CompanySettings from "../pages/companyCabinet/CompanySettings";
 import AdminPanel from "../pages/admin/company/AdminPanel";
+import CompanyPassword from "../pages/companyCabinet/CompanyPassword";
 
 
 //https://www.w3schools.com/react/showreact.asp?filename=demo2_react_usememo // add uchun menga kk
@@ -46,6 +47,7 @@ function App() {
                 <Route path='/company/settings' element={<CompanySettings/>}/>
                 <Route path='/cabinetClient' element={<CabinetClient/>}/>
                 <Route path='/company/kassa' element={<CompanyKassa/>}/>
+                <Route path='/company/password' element={<CompanyPassword/>}/>
                 //
 
 

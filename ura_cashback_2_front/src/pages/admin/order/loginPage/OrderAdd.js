@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {Link} from "react-router-dom";
 import image from "./image/logo.png";
 import {Button, Col, Input, Modal, ModalBody, ModalFooter, ModalHeader, Row} from "reactstrap";
+import {Button, Input, Label, Row} from "reactstrap";
 import {saveOrder} from "../../../../redux/actions/AppAction";
 import {connect} from "react-redux";
 import Kassa from "./Kassa";
@@ -44,6 +45,12 @@ function OrderAdd(props) {
 
     const onChange = (item) => {
         setRes(currentUser.salary < item.target.value);
+    const onChange = (item) =>{
+        if(currentUser.salary < item.target.value){
+            setRes(true)
+        }else {
+            setRes(false)
+        }
     }
 
 
@@ -90,6 +97,30 @@ function OrderAdd(props) {
                             ><b>ПРОДОЛЖИТЬ</b></Button>
                         </div>
                     </Row>
+                        {res ? <small style={{color:"red",marginTop:"-30px"}}>  Sizda bu miqdardagi cashback yo'q</small> : ""}
+                        {open
+                            ? <Input max={currentUser.salary} type="number" value={currentUser.salary} id="cashback" className="mt-5 mb-5 fw-semibold p-3 ms-1 me-1 w-75 float-start"/>
+                            : <Input max={currentUser.salary} type="number" placeholder="cashback"  id="cashback" className="mt-5 mb-5 fw-semibold p-3 ms-1 me-1 w-75 float-start"/>
+                        }
+                        <Row>
+                            <Label check for="active">
+                                <div className="form-check form-switch" style={{marginTop: "60%"}}>
+                                    <Input className="mt-5" type="checkbox" defaultChecked={open} onChange={openModal}/>
+                                </div>
+                            </Label>
+                        </Row>
+                        {/*<input type="range" placeholder="nimadur" max={2}/>*/}
+
+                        <Button style={{
+                            backgroundColor: "#5468FF",
+                            height: "50px",
+                            fontFamily: "'Museo Sans Cyrl', sans-serif"
+                        }}
+                                className="btn btn-primary form-btn-login w-100 mt-5"
+                                type="button"
+                                onClick={addOrderSend}
+                        ><b>ПРОДОЛЖИТЬ</b></Button>
+                    </div>
                 </div>
                 : <Kassa/>
             }
