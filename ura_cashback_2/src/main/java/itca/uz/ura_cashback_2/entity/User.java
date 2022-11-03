@@ -8,6 +8,8 @@ import lombok.NoArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.*;
 import java.util.Collection;
 import java.util.List;
@@ -17,6 +19,7 @@ import java.util.List;
 @NoArgsConstructor
 @Data
 @Entity(name = "users")
+public class User extends AbsEntity {
 public class User extends AbsEntity implements UserDetails {
     @Column(nullable = false)
     private String firstName;

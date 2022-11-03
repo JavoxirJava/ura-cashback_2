@@ -90,6 +90,19 @@ public class AuthService{
                     user.setPhoneNumber(authDto.getPhoneNumber());
                     user.setEmail(authDto.getEmail());
                     user.setPassword(authDto.getPassword());
+                    User save = authRepository.save(user);
+
+                    CompanyUserRole companyUserRole;
+                    if(authDto.getId() == null) {
+                        companyUserRole = new CompanyUserRole();
+                    }else {
+                        companyUserRole = companyUserRoleRepository.findByUserIdEquals(authDto.getId());
+                    }
+                    companyUserRole.setCompanyId(authDto.getCompanyId());
+                    companyUserRole.setRoleId(roleRepository.findRoleByRoleName(RoleName.ROLE_KASSA).getId());
+                    companyUserRole.setUserId(save.getId());
+                    companyUserRoleRepository.save(companyUserRole);
+                    return save;
                     user.setCompanies(Collections.singletonList(companyRepository.findById(authDto.getCompanyId()).get()));
                     user.setRoles(Collections.singletonList(roleRepository.findRoleByRoleName(RoleName.ROLE_KASSA)));
                     return authRepository.save(user);
@@ -132,6 +145,45 @@ public class AuthService{
         return authRepository.findByPhoneNumberEquals(phoneNumber);
     }
 
+    public UUID companyLogin(ReqLogin reqLogin){
+        User user = authRepository.findByPhoneNumberEqualsAndPasswordEquals(reqLogin.getPhoneNumber(), reqLogin.getPassword());
+        CompanyUserRole companyUserRole = companyUserRoleRepository.findByUserIdEqualsAndRoleIdEquals(user.getId(), roleRepository.findRoleByRoleName(RoleName.ROLE_ADMIN).getId());
+        Company company = companyRepository.findByIdEquals(companyUserRole.getCompanyId());
+        if(company.isActive()){
+            return company.getId();
+        }
+            return null;
+    }
+
+
+    public CompanyDto loginCompany(ReqLogin reqLogin){
+        CompanyDto companyDto = new CompanyDto();
+        User user = authRepository.findByPhoneNumberEqualsAndPasswordEquals(reqLogin.getPhoneNumber(), reqLogin.getPassword());
+        CompanyUserRole companyUserRole = companyUserRoleRepository.findByUserIdEquals(user.getId());
+        Role role = roleRepository.findByIdEquals(companyUserRole.getRoleId());
+        Company company = companyRepository.findByIdEquals(companyUserRole.getCompanyId());
+        if(company.isActive()) {
+            if (role.getRoleName().equals(RoleName.ROLE_ADMIN) || role.getRoleName().equals(RoleName.ROLE_KASSA)) {
+                companyDto.setId(company.getId());
+                companyDto.setName(company.getName());
+                companyDto.setBio(company.getBio());
+                companyDto.setDescription(company.getDescription());
+                companyDto.setAttachmentId(company.getAttachment().getId());
+                companyDto.setUser(user);
+                List<User> kassaList = new ArrayList<>();
+                List<User> clintList = new ArrayList<>();
+                List<OrderDto> orderList = new ArrayList<>();
+                for (CompanyUserRole companyUserRole1 : companyUserRoleRepository.findByCompanyIdEqualsAndRoleIdEquals(company.getId(), roleRepository.findRoleByRoleName(RoleName.ROLE_KASSA).getId())) {
+                    User kassa = authRepository.findByIdEquals(companyUserRole1.getUserId());
+                    for (Order orders : orderRepository.findByCreatedByEquals(kassa.getId())) {
+                        OrderDto orderDto = new OrderDto();
+                        orderDto.setId(orders.getId());
+                        orderDto.setCreatedBy(orders.getCreatedBy());
+                        orderDto.setAdmin(authRepository.findById(orders.getCreatedBy()).get());
+                        orderDto.setClient(orders.getClient());
+                        orderDto.setCashback(orders.getCashback());
+                        orderDto.setCash_price(orders.getCash_price());
+                        orderList.add(orderDto);
     public CompanyDto loginCompany(ReqLogin reqLogin) {
         CompanyDto companyDto = new CompanyDto();
         User user = authRepository.findByPhoneNumberEqualsAndPasswordEquals(reqLogin.getPhoneNumber(), reqLogin.getPassword());

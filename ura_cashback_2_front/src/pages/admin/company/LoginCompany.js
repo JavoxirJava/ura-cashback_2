@@ -22,12 +22,12 @@ class LoginCompany extends Component {
         const flag = /^(?=.*[0-9]).{8,}$/;
         const regex = new RegExp(flag);
 
-        const login = ()=>{
+        const login = ()=> {
             let password = document.getElementById("password").value;
             // if(password.match(regex) !== null){
-                let phoneNumber = document.getElementById("phoneNumber").value;
-                let obj = {phoneNumber,password};
-                this.props.dispatch(loginCompany(obj));
+            let phoneNumber = document.getElementById("phoneNumber").value;
+            let obj = {phoneNumber, password};
+            this.props.dispatch(loginCompany(obj));
             // }else {
             //     this.setState({resRegex: !this.state.resRegex})
             // }
@@ -55,10 +55,10 @@ class LoginCompany extends Component {
                             <div className="row loginCompany">
                                 <h2>Kirish</h2>
                                 <div className="col-10 pe-0">
-                                    <Input className="mb-5" type="text" id="phoneNumber" placeholder="Phone number"
+                                    <Input className="mb-5" type="text" id="phoneNumber" name="phoneNumber" placeholder="Phone number"
                                            required/>
                                     <Input className="mb-5" type={this.state.openPassword ? "text" : "password"}
-                                           id="password" placeholder="Password"
+                                           id="password" name="password" placeholder="Password"
                                            required/>
                                     {this.state.resRegex ?
                                         <p style={{color: "red"}}>Password error 0-9 password length =
