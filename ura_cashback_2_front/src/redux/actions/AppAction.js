@@ -58,7 +58,7 @@ export const loginCompany = (payload) => (dispatch) =>{
                     openLogin: true
                 }
             })
-            toast.success("Successfully save")
+            // toast.success("Successfully save")
             toast.success("Successfully company login")
         }else {
             toast.error("Company not Active")
@@ -266,10 +266,11 @@ export const saveCompany = (payload) => (dispatch) => {
                     openLogin: true
                 }
             })
-            toast.success("Company saved successfully!");
+            // toast.success("Company saved successfully!");
         } else {
             toast.error("You cannot save Company!")
         }
+        toast.success("Company saved successfully!")
     }).catch(() => {
         toast.error("Error saving company!");
     })

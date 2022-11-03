@@ -29,6 +29,7 @@ const initState = {
     showModal: false,
     deleteShowModal: false,
     editModal: false,
+    modal: false,
     attachmentId: '',
     currentCompany: '',
     currentUser: '',
